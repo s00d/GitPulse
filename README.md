@@ -29,11 +29,13 @@ Built with **Rust + Tauri 2 + Vue 3**.
 
 - **Tray-first workflow** — open the app from the menu bar; close the window and keep working from the tray
 - **Issues & pull requests** — grouped by repository with review queues (needs review, my PRs, waiting on author)
+- **Custom tray icons** — badge counts on menu icons for quick scanning
 - **Activity feed** — merged timeline from your work, people you follow, and followers
-- **Stars & watching** — sorted lists with load-more pagination
-- **Notifications** — unread GitHub inbox items with quick open links
+- **Stars** — starred repos and your repositories sorted by popularity (separate tray entries and dashboard tabs)
+- **Watching & notifications** — unread GitHub inbox items with quick open links
+- **Recent activity** — detects new and updated items across restarts
 - **Repo visibility controls** — hide repositories from the app, tray menu, and notifications
-- **Background refresh** — configurable polling with desktop notifications on changes
+- **Background refresh** — configurable polling with desktop notifications on changes; refresh shows last updated time
 - **Multiple sign-in options** — GitHub device code, `gh` CLI import, or personal access token
 - **Auto-updates** — signed releases with Tauri updater support
 
@@ -60,9 +62,11 @@ Built with **Rust + Tauri 2 + Vue 3**.
 
 Right-click the tray icon for quick access to:
 
+- Recent changes (detected on refresh)
 - Open issues and pull requests (with counts)
-- Stars, watching, and notifications
-- Refresh and settings
+- Starred repos and your repositories by popularity
+- Watching and notifications
+- Refresh (with last updated time) and settings
 - Open the full dashboard window
 
 ### Desktop dashboard
@@ -71,8 +75,9 @@ The main window provides:
 
 - **Overview** — stat cards and recent activity
 - **Feed** — news-style timeline of GitHub events
-- **Issues / Pull Requests** — repo picker + item lists
-- **Stars / Watching / Notifications** — dedicated tabs with search
+- **Issues / Pull Requests** — repo picker + item lists (PR category chips)
+- **Stars** — Starred / Your repositories tabs with search
+- **Watching / Notifications** — dedicated tabs with search
 - **Settings** — token, refresh interval, repo filters, theme, notifications
 
 On desktop, the header and sidebar stay fixed while the content area scrolls.
@@ -125,8 +130,13 @@ Full instructions: [docs/RELEASING.md](docs/RELEASING.md).
 
 ## Support
 
-- **Issues**: [github.com/s00d/GitPulse/issues](https://github.com/s00d/GitPulse/issues)
+- **Feedback**: [Discussions](https://github.com/s00d/GitPulse/discussions/1) — ideas and general feedback
+- **Issues**: [github.com/s00d/GitPulse/issues](https://github.com/s00d/GitPulse/issues) — bugs and feature requests
 - **Releases**: [github.com/s00d/GitPulse/releases](https://github.com/s00d/GitPulse/releases)
+
+## Promotion / launch
+
+Copy-ready posts for Show HN, Reddit, Dev.to, Discord, and Product Hunt: [docs/promotion/README.md](docs/promotion/README.md).
 
 ## License
 

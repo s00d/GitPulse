@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Feedback and feature ideas
+    url: https://github.com/s00d/GitPulse/discussions/1
+    about: Share ideas, workflows, and general feedback (preferred for feature requests)
+  - name: Releases
+    url: https://github.com/s00d/GitPulse/releases
+    about: Download installers for macOS, Windows, and Linux

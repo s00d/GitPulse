@@ -1,0 +1,29 @@
+title: "Feedback: "
+labels: ["feedback"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Share what works, what's missing, or what would make GitPulse your daily driver.
+
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Primary platform
+      options:
+        - macOS
+        - Windows
+        - Linux
+    validations:
+      required: true
+
+  - type: textarea
+    id: feedback
+    attributes:
+      label: Your feedback
+      placeholder: |
+        - What do you use GitPulse for?
+        - What's missing vs GitHub web/mobile/email?
+        - Any bugs or rough edges?
+    validations:
+      required: true
