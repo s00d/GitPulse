@@ -6,7 +6,7 @@ type LocaleLoader = () => Promise<LocaleMessages>;
 
 const STORAGE_KEY = "app-locale";
 const STORE_PATH = "app-settings.json";
-const DEFAULT_LOCALE = "ru";
+const DEFAULT_LOCALE = "en";
 
 const localeModules = import.meta.glob("./locales/*/**/*.ts", {
   import: "default",
@@ -56,7 +56,7 @@ async function persistLocale(locale: AppLocale) {
 export const i18n = createI18n({
   legacy: false,
   locale: DEFAULT_LOCALE,
-  fallbackLocale: discoveredLocales[0] ?? DEFAULT_LOCALE,
+  fallbackLocale: "en",
   messages: {},
 });
 

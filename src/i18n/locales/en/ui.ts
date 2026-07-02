@@ -2,6 +2,10 @@ export default {
   app: {
     loading: "Loading your GitHub data…",
   },
+  layout: {
+    menuToggle: "Menu",
+    navSections: "Sections",
+  },
   menu: {
     issues: "Issues ({count})",
     pullRequests: "Pull Requests ({count})",

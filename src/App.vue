@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { computed, ref } from "vue";
 import AppLoadingView from "@/components/layout/AppLoadingView.vue";
 import AppShell from "@/components/layout/AppShell.vue";
 import type { AppScreen, DashboardTab } from "@/dashboard/types";
@@ -19,10 +19,12 @@ function onSignedIn() {
   screen.value = "dashboard";
   void store.refresh({ source: "manual" });
 }
+
+const showApp = computed(() => store.isBootstrapped);
 </script>
 
 <template>
-  <AppLoadingView v-if="!store.isBootstrapped" />
+  <AppLoadingView v-if="!showApp" />
 
   <AppShell
     v-else

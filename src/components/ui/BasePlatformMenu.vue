@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onClickOutside, useMediaQuery } from "@vueuse/core";
 import { computed, ref } from "vue";
+import { useI18n } from "vue-i18n";
 import { tv } from "@/lib/tv";
 import { uiMotion } from "@/lib/ui-tv";
 import BaseIcon from "./BaseIcon.vue";
@@ -21,6 +22,7 @@ const props = defineProps<{
 
 const isDesktop = useMediaQuery("(min-width: 1024px)");
 const panelRef = ref<HTMLElement | null>(null);
+const { t } = useI18n();
 
 onClickOutside(panelRef, () => {
   if (!isDesktop.value) return;
@@ -74,7 +76,7 @@ function select(value: string) {
       @click="desktopOpenModel = !desktopOpenModel"
     >
       <BaseIcon :name="desktopOpenModel ? 'close' : 'menu'" size="sm" />
-      <span>Меню</span>
+      <span>{{ t("layout.menuToggle") }}</span>
     </button>
     <div
       v-if="props.showDesktopToggle !== false && desktopOpenModel"
@@ -85,7 +87,7 @@ function select(value: string) {
       ref="panelRef"
       :class="props.showDesktopToggle === false ? ui.desktopPanelInline() : ui.desktopPanel()"
     >
-      <p :class="ui.desktopTitle()">Разделы</p>
+      <p :class="ui.desktopTitle()">{{ t("layout.navSections") }}</p>
       <nav :class="ui.desktopList()">
         <button
           v-for="item in props.items"
