@@ -1,0 +1,18 @@
+src-tauri/Cargo.toml
+  h_ee6cac30a1b83a 3
+package.json
+  h_ee6cac30a1b83a 3
+src-tauri/tauri.conf.json
+  h_ee6cac30a1b83a 4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "a23854fa9483bfe62dd021e1ae82b061caada4b0",
+  "prompts": {},
+  "humans": {
+    "h_ee6cac30a1b83a": {
+      "author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
