@@ -1,0 +1,41 @@
+src-tauri/tauri.conf.json
+  s_6a7a7af2ceeb96::t_d935c8a2a02f82 30,41-53
+src-tauri/capabilities/default.json
+  s_6a7a7af2ceeb96::t_35934a402d8798 29
+docs/RELEASING.md
+  s_6a7a7af2ceeb96::t_b01b5ffb77efc9 33-35,39-106
+  s_6a7a7af2ceeb96::t_2264d9e93b5222 1-32,36-38,107-148
+LICENSE
+  s_6a7a7af2ceeb96::t_0d80b6172188d7 1-21
+README.md
+  s_6a7a7af2ceeb96::t_36d3674db88c1e 1-11,14,16,18,20,22,24,26,28,30-38,40,42,44-47,49-57,59,61,63-66,68,70,72-76,78,80-89,92-95,99,105,107,109-129,131,133
+index.html
+  s_6a7a7af2ceeb96::t_522ab6f2267a95 5
+src-tauri/capabilities/splashscreen.json
+  s_6a7a7af2ceeb96::t_d1a99576e98f6d 28
+src-tauri/Cargo.toml
+  s_6a7a7af2ceeb96::t_297e0200866381 38
+src-tauri/src/lib.rs
+  s_6a7a7af2ceeb96::t_72b444e48bea56 180
+  s_6a7a7af2ceeb96::t_0be736a95e0438 168,181-185
+.github/workflows/build.yml
+  s_6a7a7af2ceeb96::t_d0c81f59fa8465 1-119
+src-tauri/Cargo.lock
+  s_6a7a7af2ceeb96::t_36802364c3d315 63,100-108,1005-1015,1397-1406,1779,2411-2440,2670-2675,3040-3051,3133-3138,3181-3194,3849,3855-3857,3862,3954-3965,3976-4002,4035-4043,4373-4388,4620,4653-4663,4687,5013-5045,5056,5079,6054-6062,6751,6815-6824,7003-7014
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "dc34f33bbf9aca50ee66c5ed7724a1708567b4bb",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
