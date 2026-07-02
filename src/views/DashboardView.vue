@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, ref, watch, type Component } from "vue";
+import { useI18n } from "vue-i18n";
 import type { DashboardTab } from "@/dashboard/types";
 import { dashboardSearchKey } from "@/dashboard/searchContext";
 import {
@@ -14,6 +15,7 @@ import {
   WatchingTab,
 } from "@/components/dashboard";
 import { BaseButton, BaseIcon } from "@/components/ui";
+import { formatLastRefreshedTime } from "@/github/formatLastRefreshed";
 import { normalizeSearchQuery } from "@/github/search";
 import { useGitHubStore } from "@/stores/githubStore";
 
@@ -23,6 +25,7 @@ const tab = defineModel<DashboardTab>("tab", { default: "overview" });
 const searchQuery = ref("");
 const refreshing = ref(false);
 const githubStore = useGitHubStore();
+const { t, locale } = useI18n();
 provide(dashboardSearchKey, searchQuery);
 
 const tabComponents: Record<DashboardTab, Component> = {
@@ -37,6 +40,13 @@ const tabComponents: Record<DashboardTab, Component> = {
 
 const activeTab = computed(() => tabComponents[tab.value ?? "overview"]);
 const hasSearchQuery = computed(() => Boolean(normalizeSearchQuery(searchQuery.value)));
+
+const refreshLabel = computed(() => {
+  if (refreshing.value) return t("dashboard.loading");
+  if (!githubStore.lastRefreshed) return t("dashboard.refresh");
+  const time = formatLastRefreshedTime(githubStore.lastRefreshed, locale.value);
+  return time ? t("dashboard.refreshAt", { time }) : t("dashboard.refresh");
+});
 
 function onNavigate(next: DashboardTab) {
   tab.value = next;
@@ -63,7 +73,7 @@ watch(tab, () => {
       <DashboardSearchField v-model="searchQuery" class="min-w-0 flex-1" />
       <BaseButton variant="outline" size="sm" :disabled="refreshing" @click="refresh">
         <BaseIcon name="refresh" size="xs" :spin="refreshing" />
-        {{ refreshing ? `${$t("dashboard.loading")}` : $t("dashboard.refresh") }}
+        {{ refreshLabel }}
       </BaseButton>
     </div>
     <component :is="activeTab" :has-search-query="hasSearchQuery" @navigate="onNavigate" />

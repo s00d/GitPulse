@@ -10,6 +10,7 @@ import {
 import { openUrl } from "@tauri-apps/plugin-opener";
 import type { useI18n } from "vue-i18n";
 import { formatActivityTrayLabel } from "@/github/itemDiff";
+import { formatLastRefreshedTime } from "@/github/formatLastRefreshed";
 import {
   formatIssueTrayLabel,
   formatNotificationTrayLabel,
@@ -601,6 +602,13 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
   );
 }
 
+function refreshMenuLabel(ctx: TrayMenuBuildContext): string {
+  if (!ctx.lastRefreshed) return ctx.t("menu.refresh");
+  const time = formatLastRefreshedTime(ctx.lastRefreshed);
+  if (!time) return ctx.t("menu.refresh");
+  return ctx.t("menu.refreshAt", { time });
+}
+
 async function buildActionItems(ctx: TrayMenuBuildContext): Promise<TrayMenuEntry[]> {
   return [
     await IconMenuItem.new({
@@ -611,7 +619,7 @@ async function buildActionItems(ctx: TrayMenuBuildContext): Promise<TrayMenuEntr
     }),
     await IconMenuItem.new({
       id: "action:refresh",
-      text: ctx.t("menu.refresh"),
+      text: refreshMenuLabel(ctx),
       icon: await trayGlyphIcon("refresh"),
       action: async () => {
         await ctx.store.refresh({ source: "manual" });

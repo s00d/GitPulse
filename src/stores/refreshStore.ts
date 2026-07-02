@@ -86,7 +86,7 @@ export const useRefreshStore = defineStore("refresh", {
 
     async recordRefresh(
       source: RefreshRecordInput,
-      refreshSource: RefreshSource,
+      _refreshSource: RefreshSource,
     ): Promise<{ events: ActivityEvent[]; deltas: Record<string, number> }> {
       await this.init();
 
@@ -95,7 +95,7 @@ export const useRefreshStore = defineStore("refresh", {
       const nextCounts = buildCountSnapshot(source);
 
       let incoming: ActivityEvent[] = [];
-      if (refreshSource === "bootstrap" || this.itemSnapshot === null) {
+      if (this.itemSnapshot === null) {
         this.itemSnapshot = nextItemSnapshot;
         this.seenCounts = { ...nextCounts };
         this.countDeltas = {};
