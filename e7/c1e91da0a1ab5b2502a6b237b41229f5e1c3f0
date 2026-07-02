@@ -1,0 +1,32 @@
+src/components/ui/BasePlatformMenu.vue
+  s_6a7a7af2ceeb96::t_45b0840863127a 90
+  s_6a7a7af2ceeb96::t_91966e6d8a4107 4
+  s_6a7a7af2ceeb96::t_7ca49bebb5187d 79
+  s_6a7a7af2ceeb96::t_c8e4cb85a895a0 25
+src/App.vue
+  s_6a7a7af2ceeb96::t_4fb882dafde78f 2,22
+  s_6a7a7af2ceeb96::t_76af09535e6e38 23,27
+src/i18n/index.ts
+  s_6a7a7af2ceeb96::t_8417b428a4869c 59
+  s_6a7a7af2ceeb96::t_9010c3b5beaf6a 9
+src/i18n/locales/en/ui.ts
+  s_6a7a7af2ceeb96::t_4d7dd39d748b0f 5-8
+src/i18n/locales/ru/ui.ts
+  s_6a7a7af2ceeb96::t_eae662ca17854d 5-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "e7c1e91da0a1ab5b2502a6b237b41229f5e1c3f0",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
