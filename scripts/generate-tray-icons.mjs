@@ -14,7 +14,9 @@ const outDir = path.join(root, "src", "tray", "icons");
 
 const ICON_SIZE = 44;
 const BADGE_FONT = (px) => `bold ${px}px Arial, Helvetica, sans-serif`;
-const MIN_BADGE_PX_HEIGHT = Math.round(ICON_SIZE * 0.38);
+const MIN_BADGE_PX_HEIGHT = Math.round(ICON_SIZE * 0.34);
+/** circle | chip | outline */
+const BADGE_STYLE = "outline";
 
 const GLYPHS = [
   "issue",
@@ -103,32 +105,116 @@ function drawGlyph(ctx, size, kind) {
 }
 
 function badgeFontSize(label, size) {
-  return Math.round(size * (label.length > 1 ? 0.56 : 0.72));
+  return Math.round(size * (label.length > 1 ? 0.4 : 0.5));
 }
 
-function drawBadge(ctx, size, kind, count) {
+function badgeBox(ctx, label, fontSize, size) {
+  const padX = Math.max(2, Math.round(fontSize * 0.16));
+  const padY = Math.max(2, Math.round(fontSize * 0.1));
+  ctx.font = BADGE_FONT(fontSize);
+  const textW = ctx.measureText(label).width;
+  const w = Math.ceil(textW + padX * 2);
+  const h = Math.ceil(fontSize + padY * 2);
+  return { w, h, x: size - w, y: 0, radius: h / 2 };
+}
+
+function drawBadgeCircle(ctx, size, label, fontSize) {
+  const pad = Math.max(2, Math.round(fontSize * 0.2));
+  ctx.font = BADGE_FONT(fontSize);
+  const textW = ctx.measureText(label).width;
+  const diam = Math.ceil(Math.max(textW, fontSize * 0.85) + pad * 2);
+  const r = diam / 2;
+  const cx = size - r + 1;
+  const cy = r - 1;
+
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, 0, Math.PI * 2);
+  ctx.fillStyle = "#e11d48";
+  ctx.fill();
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 1.25;
+  ctx.stroke();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, cx, cy + 0.5);
+
+  return { badgeW: diam, badgeH: diam };
+}
+
+function drawBadgeChip(ctx, size, label, fontSize) {
+  const { w, h, x, y, radius } = badgeBox(ctx, label, fontSize, size);
+
+  roundRect(ctx, x, y, w, h, radius);
+  ctx.fillStyle = "#0f172a";
+  ctx.fill();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, x + w / 2, y + h / 2 + 0.5);
+
+  return { badgeW: w, badgeH: h };
+}
+
+function drawBadgeOutline(ctx, size, label, fontSize) {
+  const { w, h, x, y, radius } = badgeBox(ctx, label, fontSize, size);
+
+  roundRect(ctx, x, y, w, h, radius);
+  ctx.fillStyle = "#ffffff";
+  ctx.fill();
+  ctx.strokeStyle = "#e11d48";
+  ctx.lineWidth = 1.25;
+  ctx.stroke();
+
+  ctx.fillStyle = "#be123c";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, x + w / 2, y + h / 2 + 0.5);
+
+  return { badgeW: w, badgeH: h };
+}
+
+function drawBadgeLegacyPill(ctx, size, label, fontSize) {
+  const { w, h, x, y, radius } = badgeBox(ctx, label, fontSize, size);
+
+  roundRect(ctx, x, y, w, h, radius);
+  ctx.fillStyle = "#dc2626";
+  ctx.fill();
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 1.5;
+  ctx.stroke();
+
+  ctx.fillStyle = "#ffffff";
+  ctx.textAlign = "center";
+  ctx.textBaseline = "middle";
+  ctx.fillText(label, x + w / 2, y + h / 2 + 0.5);
+
+  return { badgeW: w, badgeH: h };
+}
+
+const BADGE_STYLES = {
+  circle: drawBadgeCircle,
+  chip: drawBadgeChip,
+  outline: drawBadgeOutline,
+  pill: drawBadgeLegacyPill,
+};
+
+function drawBadgeWithStyle(ctx, size, kind, count, style) {
   drawGlyph(ctx, size, kind);
   if (count <= 0) return null;
 
   const label = count > 9 ? "9+" : String(count);
   const fontSize = badgeFontSize(label, size);
+  const drawStyle = BADGE_STYLES[style] ?? BADGE_STYLES.outline;
+  const { badgeW, badgeH } = drawStyle(ctx, size, label, fontSize);
 
-  ctx.font = BADGE_FONT(fontSize);
-  ctx.textAlign = "right";
-  ctx.textBaseline = "top";
+  return { label, fontSize, style, badgeW, badgeH };
+}
 
-  const x = size - 1;
-  const y = 0;
-
-  ctx.lineWidth = Math.max(1.5, Math.round(fontSize * 0.08));
-  ctx.strokeStyle = "#ffffff";
-  ctx.lineJoin = "round";
-  ctx.strokeText(label, x, y);
-
-  ctx.fillStyle = "#dc2626";
-  ctx.fillText(label, x, y);
-
-  return { label, fontSize, appliedFont: ctx.font };
+function drawBadge(ctx, size, kind, count) {
+  return drawBadgeWithStyle(ctx, size, kind, count, BADGE_STYLE);
 }
 
 function render(draw) {
@@ -137,45 +223,6 @@ function render(draw) {
   ctx.clearRect(0, 0, ICON_SIZE, ICON_SIZE);
   const meta = draw(ctx, ICON_SIZE);
   return { png: canvas.toBuffer("image/png"), meta };
-}
-
-/** Measure red badge ink on the PNG — not font metadata fantasy. */
-async function measureBadgeInk(png) {
-  const img = await loadImage(png);
-  const canvas = createCanvas(ICON_SIZE, ICON_SIZE);
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0);
-  const { data } = ctx.getImageData(0, 0, ICON_SIZE, ICON_SIZE);
-
-  let minX = ICON_SIZE;
-  let minY = ICON_SIZE;
-  let maxX = 0;
-  let maxY = 0;
-  let pixels = 0;
-
-  for (let y = 0; y < ICON_SIZE; y++) {
-    for (let x = 0; x < ICON_SIZE; x++) {
-      const i = (y * ICON_SIZE + x) * 4;
-      const r = data[i];
-      const g = data[i + 1];
-      const b = data[i + 2];
-      if (r > 160 && g < 90 && b < 90) {
-        pixels++;
-        minX = Math.min(minX, x);
-        maxX = Math.max(maxX, x);
-        minY = Math.min(minY, y);
-        maxY = Math.max(maxY, y);
-      }
-    }
-  }
-
-  if (!pixels) return { pixels: 0, width: 0, height: 0 };
-
-  return {
-    pixels,
-    width: maxX - minX + 1,
-    height: maxY - minY + 1,
-  };
 }
 
 await mkdir(path.join(outDir, "glyph"), { recursive: true });
@@ -199,26 +246,51 @@ for (const kind of GLYPHS) {
     await writeFile(path.join(outDir, "badge", `${kind}-${suffix}.png`), png);
 
     if (kind === "issue" && [1, 5, 10].includes(count) && meta) {
-      const ink = await measureBadgeInk(png);
-      qaSamples.push({ count, ...meta, ink });
+      qaSamples.push({ count, ...meta });
     }
   }
 }
 
 for (const sample of qaSamples) {
-  const { ink, label, fontSize, appliedFont } = sample;
-  if (ink.height < MIN_BADGE_PX_HEIGHT) {
+  const { label, fontSize, style, badgeW, badgeH } = sample;
+  if (badgeH < MIN_BADGE_PX_HEIGHT) {
     console.error(
-      `Badge ink too small on PNG: issue-${label} ${ink.width}x${ink.height}px (need height >= ${MIN_BADGE_PX_HEIGHT}), font=${appliedFont}`,
+      `Badge too small: issue-${label} ${badgeW}x${badgeH}px (${style}, need >= ${MIN_BADGE_PX_HEIGHT})`,
     );
     process.exit(1);
   }
-  console.log(
-    `QA issue-${label}: font ${fontSize}px (${appliedFont}), ink ${ink.width}x${ink.height}px`,
-  );
+  console.log(`QA issue-${label}: ${style} ${badgeW}x${badgeH}px, font ${fontSize}px`);
 }
 
 const zoom = 6;
+const variantStyles = ["circle", "chip", "outline", "pill"];
+const variantCounts = [1, 5, 10];
+const variantPreview = createCanvas(
+  ICON_SIZE * zoom * variantStyles.length,
+  ICON_SIZE * zoom * variantCounts.length,
+);
+const vpctx = variantPreview.getContext("2d");
+vpctx.fillStyle = "#111";
+vpctx.fillRect(0, 0, variantPreview.width, variantPreview.height);
+
+for (let row = 0; row < variantCounts.length; row++) {
+  for (let col = 0; col < variantStyles.length; col++) {
+    const count = variantCounts[row];
+    const style = variantStyles[col];
+    const { png } = render((ctx, size) => drawBadgeWithStyle(ctx, size, "issue", count, style));
+    const img = await loadImage(png);
+    vpctx.drawImage(
+      img,
+      col * ICON_SIZE * zoom,
+      row * ICON_SIZE * zoom,
+      ICON_SIZE * zoom,
+      ICON_SIZE * zoom,
+    );
+  }
+}
+
+await writeFile(path.join(outDir, "_preview-variants.png"), variantPreview.toBuffer("image/png"));
+
 const preview = createCanvas(ICON_SIZE * zoom * qaSamples.length, ICON_SIZE * zoom);
 const pctx = preview.getContext("2d");
 pctx.fillStyle = "#111";
@@ -234,4 +306,6 @@ for (let i = 0; i < qaSamples.length; i++) {
 await writeFile(path.join(outDir, "_preview-badge.png"), preview.toBuffer("image/png"));
 
 console.log(`Wrote ${GLYPHS.length} glyphs and ${GLYPHS.length * badgeCounts.length} badges to ${outDir}`);
+console.log(`Style: ${BADGE_STYLE}`);
 console.log(`Preview: ${path.join(outDir, "_preview-badge.png")}`);
+console.log(`Variants: ${path.join(outDir, "_preview-variants.png")}`);
