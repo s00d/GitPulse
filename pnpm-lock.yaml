@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@choochmeque/tauri-plugin-iap-api':
-        specifier: ^0.9.1
-        version: 0.9.1
       '@tauri-apps/api':
         specifier: ^2
         version: 2.11.0
@@ -133,9 +130,6 @@ packages:
   '@babel/types@7.29.7':
     resolution: {integrity: sha512-4zBIxpPzowiZpusoFkyGVwakdRJUyuH5PxQ/PrqghfdFWWasvnCdPfQXHrenDai+gyLARulZjZowCOj6fjT4pA==}
     engines: {node: '>=6.9.0'}
-
-  '@choochmeque/tauri-plugin-iap-api@0.9.1':
-    resolution: {integrity: sha512-ifn8OutdYxWYJ5uPF0cBgyPVLXJgci/6Ycr3VTfPoR63UXPp6KlHb1LW008h6rAYq+64dkKj9i3wLtkZ3xWumQ==}
 
   '@egoist/tailwindcss-icons@1.9.2':
     resolution: {integrity: sha512-I6XsSykmhu2cASg5Hp/ICLsJ/K/1aXPaSKjgbWaNp2xYnb4We/arWMmkhhV+9CglOFCUbqx0A3mM2kWV32ZIhw==}
@@ -1547,10 +1541,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
-
-  '@choochmeque/tauri-plugin-iap-api@0.9.1':
-    dependencies:
-      '@tauri-apps/api': 2.11.0
 
   '@egoist/tailwindcss-icons@1.9.2(tailwindcss@4.3.0)':
     dependencies:

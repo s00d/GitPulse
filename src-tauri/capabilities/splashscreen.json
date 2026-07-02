@@ -25,7 +25,6 @@
     "fs:default",
     "dialog:default",
     "store:default",
-    "keyring-store:default",
-    "iap:default"
+    "keyring-store:default"
   ]
 }

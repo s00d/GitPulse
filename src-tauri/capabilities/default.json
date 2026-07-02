@@ -26,6 +26,6 @@
     "dialog:default",
     "store:default",
     "keyring-store:default",
-    "iap:default"
+    "updater:default"
   ]
 }

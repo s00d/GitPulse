@@ -18,7 +18,6 @@
     "setup:oauth": "cp src-tauri/config/oauth.example.json src-tauri/config/oauth.json && echo 'Edit src-tauri/config/oauth.json — paste your GitHub OAuth Client ID'"
   },
   "dependencies": {
-    "@choochmeque/tauri-plugin-iap-api": "^0.9.1",
     "@tauri-apps/api": "^2",
     "@tauri-apps/plugin-autostart": "~2",
     "@tauri-apps/plugin-clipboard-manager": "~2",

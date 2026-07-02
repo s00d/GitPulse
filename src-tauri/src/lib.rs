@@ -165,7 +165,7 @@ fn setup_tray(app: &tauri::App) -> tauri::Result<()> {
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    let builder = tauri::Builder::default()
         .manage(GitHubAuthState::default())
         .plugin(tauri_plugin_keyring_store::init())
         .plugin(tauri_plugin_autostart::Builder::new().build())
@@ -177,8 +177,12 @@ pub fn run() {
         .plugin(tauri_plugin_notification::init())
         .plugin(tauri_plugin_http::init())
         .plugin(tauri_plugin_clipboard_manager::init())
-        .plugin(tauri_plugin_opener::init())
-        .plugin(tauri_plugin_iap::init())
+        .plugin(tauri_plugin_opener::init());
+
+    #[cfg(desktop)]
+    let builder = builder.plugin(tauri_plugin_updater::Builder::new().build());
+
+    builder
         .setup(|app| {
             let oauth_client_id = config::load_oauth_config(app.handle());
             app.manage(OAuthConfigState(oauth_client_id));

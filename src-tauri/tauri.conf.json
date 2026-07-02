@@ -27,6 +27,7 @@
   "bundle": {
     "active": true,
     "targets": "all",
+    "createUpdaterArtifacts": true,
     "resources": {
       "config/oauth.json": "config/oauth.json"
     },
@@ -37,5 +38,18 @@
       "icons/icon.icns",
       "icons/icon.ico"
     ]
+  },
+  "plugins": {
+    "updater": {
+      "active": true,
+      "endpoints": [
+        "https://github.com/s00d/GitPulse/releases/latest/download/latest.json",
+        "https://raw.githubusercontent.com/s00d/GitPulse/update/latest.json"
+      ],
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEE1QTNBNzFFQjRCNDk0OApSV1JJU1V2cmNUcGFDalI0cU5RTDVGS1UyYmszZUQyaU5CRzYxd25PbC80bE91QmE3T09JTFRPago=",
+      "windows": {
+        "installMode": "passive"
+      }
+    }
   }
 }
