@@ -1,0 +1,72 @@
+src/github/search.ts
+  s_6a7a7af2ceeb96::t_d084957283adc7 140-148
+src/github/client.ts
+  s_6a7a7af2ceeb96::t_dee4186fa0fefe 127-135
+  s_6a7a7af2ceeb96::t_8131e121650ee9 125-126
+src/stores/githubStore.ts
+  s_6a7a7af2ceeb96::t_8a58ba7473a7c5 104
+  s_6a7a7af2ceeb96::t_24cee1012e9992 26
+  s_6a7a7af2ceeb96::t_cd7bc25b388f86 187
+  s_6a7a7af2ceeb96::t_e054924b5c6411 467-484
+  s_6a7a7af2ceeb96::t_2079662d69c902 112
+  s_6a7a7af2ceeb96::t_eea3c81f6c021f 167
+  s_6a7a7af2ceeb96::t_f001583bdf52be 129
+  s_6a7a7af2ceeb96::t_226c57c6ecb605 29
+  s_6a7a7af2ceeb96::t_db675f2a5ede37 437
+  s_6a7a7af2ceeb96::t_a98bdcd4c42eba 293
+  s_6a7a7af2ceeb96::t_4c031e7a235e46 259
+  s_6a7a7af2ceeb96::t_d790f9d2d468b4 150
+  s_6a7a7af2ceeb96::t_9c06d489553f0f 142
+  s_6a7a7af2ceeb96::t_d4a1266cdaab0f 216
+  s_6a7a7af2ceeb96::t_848a617d23c1c4 267
+  s_6a7a7af2ceeb96::t_e86819efca0aa1 345,355,366,374-376
+  s_6a7a7af2ceeb96::t_8b9177b65372fa 195-197
+  s_6a7a7af2ceeb96::t_0c0c54e735737c 377-378
+src/i18n/locales/ru/ui.ts
+  s_6a7a7af2ceeb96::t_b7428dc439c2e2 211-212
+  s_6a7a7af2ceeb96::t_4f8b2697ccf9b7 25,210
+  s_6a7a7af2ceeb96::t_d8fcc107146868 32
+  s_6a7a7af2ceeb96::t_740594be51f6c1 26-27
+src/github/queries.ts
+  s_6a7a7af2ceeb96::t_a40a9140a841ce 36-39
+src/tray/menuBuilders.ts
+  s_6a7a7af2ceeb96::t_b944c11b05fc6b 682-683
+  s_6a7a7af2ceeb96::t_2389e0c6b0e354 378-379,381,383-384,388,398,417-418,420-423,425-455,458-462,467-470
+  s_6a7a7af2ceeb96::t_1b1ff190e64ae0 27-28
+  s_6a7a7af2ceeb96::t_04fe4d3743a3b7 67
+  s_6a7a7af2ceeb96::t_e4c8d303eb3244 380,424,456-457,463-464
+  s_6a7a7af2ceeb96::t_b1adeb65e1862e 465-466
+src/composables/useTrayMenu.ts
+  s_6a7a7af2ceeb96::t_370583718c457a 44
+  s_6a7a7af2ceeb96::t_16b536b5063973 68
+src/github/repoVisibility.ts
+  s_6a7a7af2ceeb96::t_d69cce5ab2a7a8 58-59
+  s_6a7a7af2ceeb96::t_d548f001cfe128 84-86,116-118
+  s_6a7a7af2ceeb96::t_86afa68a68edf8 66,101
+src/components/dashboard/tabs/StarsTab.vue
+  s_6a7a7af2ceeb96::t_2c772b408161f9 2,7,17-20,24-50,52-65,68,70-82,86-95,97-98,100-105,107,110,114
+  s_6a7a7af2ceeb96::t_0a3beb0f5c0b6a 11
+  s_6a7a7af2ceeb96::t_9196ef256872ab 21-22,51,96
+  s_6a7a7af2ceeb96::t_f5b1689f14f7cf 23
+src/i18n/locales/en/ui.ts
+  s_6a7a7af2ceeb96::t_e09883b10da305 25,208
+  s_6a7a7af2ceeb96::t_079598bb6efff6 32
+  s_6a7a7af2ceeb96::t_c9a38f5698a013 26-27
+  s_6a7a7af2ceeb96::t_5dcbc3d7ba1b0a 209-210
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "a80c33501b6ac4c4780b8d9b615fca83ef2e5bb9",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
