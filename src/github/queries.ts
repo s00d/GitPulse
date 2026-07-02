@@ -33,3 +33,7 @@ export function notificationsUrl(): string {
 export function starredUrl(): string {
   return "https://github.com/stars";
 }
+
+export function ownedReposUrl(login: string): string {
+  return `https://github.com/${login}?tab=repositories&type=source&sort=stargazers`;
+}

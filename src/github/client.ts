@@ -124,6 +124,17 @@ export function createGitHubClient(
       return (data ?? []).map((item) => starredRepoSchema.parse(item));
     },
 
+    async ownedRepos(options: RepoListOptions = {}): Promise<StarredRepo[]> {
+      const { perPage = 30, page = 1 } = options;
+      const data = await http.get<unknown[]>("/user/repos", {
+        affiliation: "owner",
+        per_page: perPage,
+        page,
+        sort: "updated",
+      });
+      return (data ?? []).map((item) => starredRepoSchema.parse(item));
+    },
+
     async watchedRepos(options: RepoListOptions = {}): Promise<WatchedRepo[]> {
       const { perPage = 30, page = 1, sort = "updated" } = options;
       const data = await http.get<unknown[]>("/user/subscriptions", {

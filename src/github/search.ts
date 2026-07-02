@@ -137,6 +137,15 @@ export function sortReposByUpdatedDesc<T extends Pick<StarredRepo, "updated_at">
   );
 }
 
+export function sortReposByStarsDesc<T extends Pick<StarredRepo, "stargazers_count" | "full_name">>(
+  repos: T[],
+): T[] {
+  return [...repos].sort(
+    (a, b) =>
+      b.stargazers_count - a.stargazers_count || a.full_name.localeCompare(b.full_name),
+  );
+}
+
 export function sortNotificationsByUpdatedDesc(
   notifications: GitHubNotification[],
 ): GitHubNotification[] {

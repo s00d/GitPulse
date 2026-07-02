@@ -23,9 +23,10 @@ import {
   filterIssuesByRepoVisibility,
   filterNotificationsByRepoVisibility,
   filterStarredRepos,
+  filterOwnedRepos,
   filterWatchedRepos,
 } from "@/github/repoVisibility";
-import { sortNotificationsByUpdatedDesc, sortReposByUpdatedDesc } from "@/github/search";
+import { sortNotificationsByUpdatedDesc, sortReposByStarsDesc, sortReposByUpdatedDesc } from "@/github/search";
 import {
   filterNotifiableEvents,
   formatSingleEventBody,
@@ -100,6 +101,7 @@ interface GitHubState {
   sourceMyPrs: GitHubIssue[];
   sourceWaitingOnAuthor: GitHubIssue[];
   sourceStarredRepos: StarredRepo[];
+  sourceOwnedRepos: StarredRepo[];
   sourceWatchedRepos: WatchedRepo[];
   sourceNotifications: GitHubNotification[];
   issues: GitHubIssue[];
@@ -107,6 +109,7 @@ interface GitHubState {
   myPrs: GitHubIssue[];
   waitingOnAuthor: GitHubIssue[];
   starredRepos: StarredRepo[];
+  ownedRepos: StarredRepo[];
   watchedRepos: WatchedRepo[];
   notifications: GitHubNotification[];
   issueGroups: RepoGroup<GitHubIssue>[];
@@ -123,6 +126,7 @@ interface GitHubState {
   didAutoImportFromCli: boolean;
   rateLimit: RateLimitInfo | null;
   starsPage: SectionPaginationState;
+  ownedReposPage: SectionPaginationState;
   watchingPage: SectionPaginationState;
   notificationsPage: SectionPaginationState;
 }
@@ -135,6 +139,7 @@ export const useGitHubStore = defineStore("github", {
     sourceMyPrs: [],
     sourceWaitingOnAuthor: [],
     sourceStarredRepos: [],
+    sourceOwnedRepos: [],
     sourceWatchedRepos: [],
     sourceNotifications: [],
     issues: [],
@@ -142,6 +147,7 @@ export const useGitHubStore = defineStore("github", {
     myPrs: [],
     waitingOnAuthor: [],
     starredRepos: [],
+    ownedRepos: [],
     watchedRepos: [],
     notifications: [],
     issueGroups: [],
@@ -158,6 +164,7 @@ export const useGitHubStore = defineStore("github", {
     didAutoImportFromCli: false,
     rateLimit: null,
     starsPage: { currentPage: 1, hasMore: false, isLoadingMore: false },
+    ownedReposPage: { currentPage: 1, hasMore: false, isLoadingMore: false },
     watchingPage: { currentPage: 1, hasMore: false, isLoadingMore: false },
     notificationsPage: { currentPage: 1, hasMore: false, isLoadingMore: false },
   }),
@@ -177,12 +184,16 @@ export const useGitHubStore = defineStore("github", {
         myPrs: state.sourceMyPrs,
         waitingOnAuthor: state.sourceWaitingOnAuthor,
         starredRepos: state.sourceStarredRepos,
+        ownedRepos: state.sourceOwnedRepos,
         watchedRepos: state.sourceWatchedRepos,
         notifications: state.sourceNotifications,
       });
     },
     canLoadMoreStars(state): boolean {
       return state.starsPage.hasMore && !state.starsPage.isLoadingMore;
+    },
+    canLoadMoreOwnedRepos(state): boolean {
+      return state.ownedReposPage.hasMore && !state.ownedReposPage.isLoadingMore;
     },
     canLoadMoreWatching(state): boolean {
       return state.watchingPage.hasMore && !state.watchingPage.isLoadingMore;
@@ -202,6 +213,7 @@ export const useGitHubStore = defineStore("github", {
 
     resetPagination() {
       this.starsPage = { currentPage: 1, hasMore: false, isLoadingMore: false };
+      this.ownedReposPage = { currentPage: 1, hasMore: false, isLoadingMore: false };
       this.watchingPage = { currentPage: 1, hasMore: false, isLoadingMore: false };
       this.notificationsPage = { currentPage: 1, hasMore: false, isLoadingMore: false };
     },
@@ -244,6 +256,7 @@ export const useGitHubStore = defineStore("github", {
       this.sourceMyPrs = [];
       this.sourceWaitingOnAuthor = [];
       this.sourceStarredRepos = [];
+      this.sourceOwnedRepos = [];
       this.sourceWatchedRepos = [];
       this.sourceNotifications = [];
       this.issues = [];
@@ -251,6 +264,7 @@ export const useGitHubStore = defineStore("github", {
       this.myPrs = [];
       this.waitingOnAuthor = [];
       this.starredRepos = [];
+      this.ownedRepos = [];
       this.watchedRepos = [];
       this.notifications = [];
       this.issueGroups = [];
@@ -276,6 +290,7 @@ export const useGitHubStore = defineStore("github", {
       this.myPrs = filterIssuesByRepoVisibility(this.sourceMyPrs, visibility);
       this.waitingOnAuthor = filterIssuesByRepoVisibility(this.sourceWaitingOnAuthor, visibility);
       this.starredRepos = filterStarredRepos(this.sourceStarredRepos, visibility);
+      this.ownedRepos = filterOwnedRepos(this.sourceOwnedRepos, visibility);
       this.watchedRepos = filterWatchedRepos(this.sourceWatchedRepos, visibility);
       this.notifications = filterNotificationsByRepoVisibility(
         this.sourceNotifications,
@@ -327,6 +342,7 @@ export const useGitHubStore = defineStore("github", {
           myPrs,
           reviewedByMe,
           starredRepos,
+          ownedRepos,
           watchedRepos,
           notifications,
         ] = await Promise.all([
@@ -336,6 +352,7 @@ export const useGitHubStore = defineStore("github", {
           client.myPrs(),
           client.reviewedByMe(),
           client.starredRepos({ perPage: LIST_PAGE_SIZE, page: 1, sort: "updated" }),
+          client.ownedRepos({ perPage: LIST_PAGE_SIZE, page: 1 }),
           client.watchedRepos({ perPage: LIST_PAGE_SIZE, page: 1, sort: "updated" }),
           client.notifications({ perPage: LIST_PAGE_SIZE, page: 1 }),
         ]);
@@ -346,11 +363,17 @@ export const useGitHubStore = defineStore("github", {
         this.sourceMyPrs = myPrs;
         this.sourceWaitingOnAuthor = buildWaitingOnAuthor(reviewedByMe, reviewRequests);
         this.sourceStarredRepos = sortReposByUpdatedDesc(starredRepos);
+        this.sourceOwnedRepos = sortReposByStarsDesc(ownedRepos);
         this.sourceWatchedRepos = sortReposByUpdatedDesc(watchedRepos);
         this.sourceNotifications = sortNotificationsByUpdatedDesc(notifications);
         this.starsPage = {
           currentPage: 1,
           hasMore: starredRepos.length === LIST_PAGE_SIZE,
+          isLoadingMore: false,
+        };
+        this.ownedReposPage = {
+          currentPage: 1,
+          hasMore: ownedRepos.length === LIST_PAGE_SIZE,
           isLoadingMore: false,
         };
         this.watchingPage = {
@@ -411,7 +434,7 @@ export const useGitHubStore = defineStore("github", {
       }
     },
 
-    async loadMore(section: "stars" | "watching" | "notifications") {
+    async loadMore(section: "stars" | "ownedRepos" | "watching" | "notifications") {
       const auth = useGitHubAuth();
       const token = await auth.loadToken();
       if (!token) return;
@@ -437,6 +460,24 @@ export const useGitHubStore = defineStore("github", {
           this.applyRepoVisibilityFilter();
         } finally {
           this.starsPage.isLoadingMore = false;
+        }
+        return;
+      }
+
+      if (section === "ownedRepos") {
+        if (!this.ownedReposPage.hasMore || this.ownedReposPage.isLoadingMore) return;
+        this.ownedReposPage.isLoadingMore = true;
+        try {
+          const page = this.ownedReposPage.currentPage + 1;
+          const next = await client.ownedRepos({ perPage: LIST_PAGE_SIZE, page });
+          this.sourceOwnedRepos = sortReposByStarsDesc(
+            this.mergeById(this.sourceOwnedRepos, next),
+          );
+          this.ownedReposPage.currentPage = page;
+          this.ownedReposPage.hasMore = next.length === LIST_PAGE_SIZE;
+          this.applyRepoVisibilityFilter();
+        } finally {
+          this.ownedReposPage.isLoadingMore = false;
         }
         return;
       }

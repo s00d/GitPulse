@@ -55,12 +55,15 @@ export function filterStarredRepos(
   return filterReposByVisibility(repos, visibility);
 }
 
+export const filterOwnedRepos = filterStarredRepos;
+
 export function collectReposFromSource(input: {
   issues?: GitHubIssue[];
   reviewRequests?: GitHubIssue[];
   myPrs?: GitHubIssue[];
   waitingOnAuthor?: GitHubIssue[];
   starredRepos?: StarredRepo[];
+  ownedRepos?: StarredRepo[];
   watchedRepos?: WatchedRepo[];
   notifications?: GitHubNotification[];
 }): string[] {
@@ -78,6 +81,9 @@ export function collectReposFromSource(input: {
   for (const repo of input.starredRepos ?? []) {
     repos.add(repo.full_name);
   }
+  for (const repo of input.ownedRepos ?? []) {
+    repos.add(repo.full_name);
+  }
   for (const repo of input.watchedRepos ?? []) {
     repos.add(repo.full_name);
   }
@@ -92,6 +98,7 @@ export function collectKnownRepos(input: {
   issueGroups?: Array<{ repo: string }>;
   prGroups?: Array<{ repo: string }>;
   starredRepos?: StarredRepo[];
+  ownedRepos?: StarredRepo[];
   watchedRepos?: WatchedRepo[];
   notifications?: GitHubNotification[];
 }): string[] {
@@ -104,6 +111,9 @@ export function collectKnownRepos(input: {
     if (group.repo && group.repo !== "…") repos.add(group.repo);
   }
   for (const repo of input.starredRepos ?? []) {
+    repos.add(repo.full_name);
+  }
+  for (const repo of input.ownedRepos ?? []) {
     repos.add(repo.full_name);
   }
   for (const repo of input.watchedRepos ?? []) {

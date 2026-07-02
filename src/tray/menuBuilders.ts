@@ -24,8 +24,8 @@ import {
   PRS_TOTAL_KEY,
   WATCHING_TOTAL_KEY,
 } from "@/github/countDiff";
-import { notificationsUrl, starredUrl, watchingUrl } from "@/github/queries";
-import { sortNotificationsByUpdatedDesc, sortReposByUpdatedDesc } from "@/github/search";
+import { notificationsUrl, ownedReposUrl, starredUrl, watchingUrl } from "@/github/queries";
+import { sortNotificationsByUpdatedDesc, sortReposByStarsDesc, sortReposByUpdatedDesc } from "@/github/search";
 import type { MenuVisibilitySettings } from "@/settings/appSettings";
 import type { useGitHubStore } from "@/stores/githubStore";
 import type { useRefreshStore } from "@/stores/refreshStore";
@@ -64,6 +64,7 @@ export interface TrayMenuBuildContext {
   prGroups: PrRepoGroup[];
   issues: GitHubIssue[];
   starredRepos: StarredRepo[];
+  ownedRepos: StarredRepo[];
   watchedRepos: WatchedRepo[];
   notifications: GitHubNotification[];
   unreadNotificationCount: number;
@@ -374,16 +375,17 @@ async function buildPrSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
   });
 }
 
-async function buildStarsSubmenu(ctx: TrayMenuBuildContext) {
-  const sortedRepos = sortReposByUpdatedDesc(ctx.starredRepos).slice(0, TRAY_REPO_LIMIT);
-  if (!sortedRepos.length) {
+async function buildStarredSubmenu(ctx: TrayMenuBuildContext) {
+  const starred = sortReposByUpdatedDesc(ctx.starredRepos).slice(0, TRAY_REPO_LIMIT);
+
+  if (!starred.length) {
     return glyphSubmenu({
-      id: "submenu:stars",
-      text: ctx.t("menu.stars"),
+      id: "submenu:starred",
+      text: ctx.t("menu.starsStarred"),
       glyph: "star",
       items: [
         await IconMenuItem.new({
-          id: "stars-empty",
+          id: "starred-empty",
           text: ctx.t("menu.noStars"),
           icon: await trayGlyphIcon("star"),
           enabled: false,
@@ -393,7 +395,7 @@ async function buildStarsSubmenu(ctx: TrayMenuBuildContext) {
   }
 
   const items = await Promise.all(
-    sortedRepos.map(async (repo) =>
+    starred.map(async (repo) =>
       IconMenuItem.new({
         id: `open:${repo.html_url}`,
         text: starredRepoTrayLabel(repo),
@@ -412,10 +414,60 @@ async function buildStarsSubmenu(ctx: TrayMenuBuildContext) {
   );
 
   return glyphSubmenu({
-    id: "submenu:stars",
-    text: ctx.t("menu.stars"),
+    id: "submenu:starred",
+    text: ctx.t("menu.starsStarred"),
     glyph: "star",
-    count: sortedRepos.length,
+    count: starred.length,
+    items,
+  });
+}
+
+async function buildOwnedReposSubmenu(ctx: TrayMenuBuildContext) {
+  const owned = sortReposByStarsDesc(ctx.ownedRepos).slice(0, TRAY_REPO_LIMIT);
+  const login = ctx.store.viewer?.login;
+
+  if (!owned.length) {
+    return glyphSubmenu({
+      id: "submenu:owned-repos",
+      text: ctx.t("menu.starsOwned"),
+      glyph: "repo",
+      items: [
+        await IconMenuItem.new({
+          id: "owned-repos-empty",
+          text: ctx.t("menu.noOwnedRepos"),
+          icon: await trayGlyphIcon("repo"),
+          enabled: false,
+        }),
+      ],
+    });
+  }
+
+  const items = await Promise.all(
+    owned.map(async (repo) =>
+      IconMenuItem.new({
+        id: `open-owned:${repo.html_url}`,
+        text: starredRepoTrayLabel(repo),
+        icon: await trayGlyphIcon("repo"),
+        action: () => void openExternal(repo.html_url),
+      }),
+    ),
+  );
+  if (login) {
+    items.push(
+      await IconMenuItem.new({
+        id: `open:${ownedReposUrl(login)}`,
+        text: ctx.t("menu.viewAllOwnedRepos"),
+        icon: await trayGlyphIcon("external"),
+        action: () => void openExternal(ownedReposUrl(login)),
+      }),
+    );
+  }
+
+  return glyphSubmenu({
+    id: "submenu:owned-repos",
+    text: ctx.t("menu.starsOwned"),
+    glyph: "repo",
+    count: owned.length,
     items,
   });
 }
@@ -627,7 +679,8 @@ export async function buildSignedInMenu(ctx: TrayMenuBuildContext) {
   }
 
   if (visibility.showStars) {
-    await appendSection(items, await buildStarsSubmenu(ctx));
+    await appendSection(items, await buildStarredSubmenu(ctx));
+    await appendSection(items, await buildOwnedReposSubmenu(ctx));
   }
 
   if (visibility.showWatching) {
