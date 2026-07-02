@@ -1,13 +1,13 @@
 # Uncomment the next line to define a global platform for your project
 
-target 'tsp_iOS' do
+target 'GitPulse_iOS' do
 platform :ios, '14.0'
-  # Pods for tsp_iOS
+  # Pods for GitPulse_iOS
 end
 
-target 'tsp_macOS' do
+target 'GitPulse_macOS' do
 platform :osx, '11.0'
-  # Pods for tsp_macOS
+  # Pods for GitPulse_macOS
 end
 
 # Delete the deployment target for iOS and macOS, causing it to be inherited from the Podfile

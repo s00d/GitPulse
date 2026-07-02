@@ -9,6 +9,7 @@ type MenuItem = {
   label: string;
   value: string;
   icon: string;
+  badge?: number;
 };
 
 const model = defineModel<string>({ default: "" });
@@ -34,19 +35,24 @@ const menuTv = tv({
     desktopPanel:
       "fixed inset-y-2 left-2 z-[990] w-[min(20rem,calc(100vw-1rem))] rounded-2xl border border-slate-200 bg-white p-3 shadow-2xl dark:border-slate-700 dark:bg-slate-900",
     desktopPanelInline:
-      "w-full rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900",
+      "flex h-full min-h-0 w-full flex-col rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-700 dark:bg-slate-900",
     desktopTitle:
-      "mb-2 px-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400",
-    desktopList: "space-y-1",
+      "mb-2 shrink-0 px-2 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400",
+    desktopList: "flex min-h-0 flex-1 flex-col gap-1 overflow-y-auto",
     desktopItem:
-      "inline-flex w-full items-center gap-2 rounded-xl px-3 py-2 text-left text-sm text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800",
+      "inline-flex min-h-10 w-full items-center justify-between gap-2 rounded-xl px-3 py-2 text-left text-sm text-slate-700 transition-all duration-200 hover:-translate-y-0.5 hover:bg-slate-100 dark:text-slate-200 dark:hover:bg-slate-800",
     desktopItemActive:
       "bg-indigo-600 text-white shadow-sm hover:bg-indigo-600 dark:bg-indigo-500 dark:hover:bg-indigo-500",
+    itemMain: "inline-flex min-w-0 items-center gap-2",
+    badge:
+      "rounded-full bg-indigo-100 px-1.5 py-0.5 text-[10px] font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-200",
+    badgeActive: "bg-white/20 text-white dark:bg-white/20",
     mobileBar:
-      "fixed inset-x-2 bottom-2 z-[995] rounded-2xl border border-slate-200 bg-white/95 p-1 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/95",
-    mobileList: "grid grid-cols-3 gap-1",
+      "fixed inset-x-2 bottom-2 z-[995] rounded-2xl border border-slate-200 bg-white/95 p-1.5 shadow-xl backdrop-blur dark:border-slate-700 dark:bg-slate-900/95",
+    mobileList:
+      "flex flex-nowrap gap-1 overflow-x-auto overscroll-x-contain [-webkit-overflow-scrolling:touch]",
     mobileItem:
-      "inline-flex min-h-14 flex-col items-center justify-center gap-1 rounded-xl px-2 py-1 text-[11px] font-medium text-slate-600 transition-all duration-200 active:scale-95 dark:text-slate-300",
+      "relative inline-flex min-h-14 w-[4.5rem] shrink-0 flex-col items-center justify-center gap-1 rounded-xl px-1 py-1 text-[10px] font-medium text-slate-600 transition-all duration-200 active:scale-95 dark:text-slate-300",
     mobileItemActive: "bg-indigo-600 text-white shadow-sm dark:bg-indigo-500",
   },
 });
@@ -70,7 +76,10 @@ function select(value: string) {
       <BaseIcon :name="desktopOpenModel ? 'close' : 'menu'" size="sm" />
       <span>Меню</span>
     </button>
-    <div v-if="props.showDesktopToggle !== false && desktopOpenModel" :class="ui.desktopBackdrop()" />
+    <div
+      v-if="props.showDesktopToggle !== false && desktopOpenModel"
+      :class="ui.desktopBackdrop()"
+    />
     <aside
       v-if="props.showDesktopToggle === false || desktopOpenModel"
       ref="panelRef"
@@ -85,8 +94,16 @@ function select(value: string) {
           :class="[ui.desktopItem(), model === item.value ? ui.desktopItemActive() : '']"
           @click="select(item.value)"
         >
-          <BaseIcon :name="item.icon" size="sm" />
-          <span>{{ item.label }}</span>
+          <span :class="ui.itemMain()">
+            <BaseIcon :name="item.icon" size="sm" />
+            <span>{{ item.label }}</span>
+          </span>
+          <span
+            v-if="item.badge"
+            :class="[ui.badge(), model === item.value ? ui.badgeActive() : '']"
+          >
+            {{ item.badge }}
+          </span>
         </button>
       </nav>
     </aside>
@@ -102,8 +119,14 @@ function select(value: string) {
           :class="[ui.mobileItem(), model === item.value ? ui.mobileItemActive() : '']"
           @click="select(item.value)"
         >
+          <span
+            v-if="item.badge"
+            class="absolute right-2 top-1 rounded-full bg-indigo-600 px-1 text-[9px] font-semibold text-white"
+          >
+            {{ item.badge }}
+          </span>
           <BaseIcon :name="item.icon" size="sm" />
-          <span>{{ item.label }}</span>
+          <span class="w-full truncate text-center">{{ item.label }}</span>
         </button>
       </div>
     </nav>

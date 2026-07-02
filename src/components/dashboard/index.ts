@@ -1,0 +1,10 @@
+export { default as DashboardSearchField } from "./DashboardSearchField.vue";
+export { default as DashboardToolbar } from "./DashboardToolbar.vue";
+export { default as OverviewStatCard } from "./OverviewStatCard.vue";
+export { default as OverviewTab } from "./tabs/OverviewTab.vue";
+export { default as FeedTab } from "./tabs/FeedTab.vue";
+export { default as IssuesTab } from "./tabs/IssuesTab.vue";
+export { default as PullRequestsTab } from "./tabs/PullRequestsTab.vue";
+export { default as StarsTab } from "./tabs/StarsTab.vue";
+export { default as WatchingTab } from "./tabs/WatchingTab.vue";
+export { default as NotificationsTab } from "./tabs/NotificationsTab.vue";

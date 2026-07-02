@@ -7,6 +7,7 @@ const ICON_CLASS_MAP = {
   "weather-night": "i-mdi-weather-night",
   "white-balance-sunny": "i-mdi-white-balance-sunny",
   "chevron-down": "i-mdi-chevron-down",
+  "chevron-right": "i-mdi-chevron-right",
   "chevron-up": "i-mdi-chevron-up",
   "pencil-outline": "i-mdi-pencil-outline",
   "content-copy": "i-mdi-content-copy",

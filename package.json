@@ -1,5 +1,5 @@
 {
-  "name": "tsp",
+  "name": "gitpulse",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -11,9 +11,11 @@
     "format": "oxfmt . --check",
     "format:fix": "oxfmt . --write",
     "check": "pnpm run format && pnpm run lint && pnpm run typecheck",
+    "test": "vitest run",
     "build": "pnpm run typecheck && vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "setup:oauth": "cp src-tauri/config/oauth.example.json src-tauri/config/oauth.json && echo 'Edit src-tauri/config/oauth.json — paste your GitHub OAuth Client ID'"
   },
   "dependencies": {
     "@choochmeque/tauri-plugin-iap-api": "^0.9.1",
@@ -50,6 +52,7 @@
     "tailwindcss": "^4.3.0",
     "typescript": "~5.6.2",
     "vite": "^6.0.3",
+    "vitest": "^3.2.4",
     "vue-tsc": "^2.1.10"
   }
 }

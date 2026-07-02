@@ -43,6 +43,7 @@ export interface UseHttpClientOptions {
   baseUrl?: string;
   defaultHeaders?: Record<string, string>;
   getAuthToken?: (() => string | null | undefined) | null;
+  onRateLimitHeaders?: (headers: Headers) => void;
   requestInterceptor?: RequestInterceptor;
   responseInterceptor?: ResponseInterceptor;
   errorInterceptor?: ErrorInterceptor;
@@ -147,6 +148,8 @@ export function useHttpClient(options: UseHttpClientOptions = {}) {
         signal: finalConfig.signal,
         connectTimeout: finalConfig.timeoutMs,
       });
+
+      options.onRateLimitHeaders?.(response.headers);
 
       if (!response.ok) {
         let err: HttpErrorShape = {

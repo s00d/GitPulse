@@ -1,6 +1,6 @@
-name: tsp
+name: GitPulse
 options:
-  bundleIdPrefix: com.s00d.tsp
+  bundleIdPrefix: com.s00d.gitpulse
   deploymentTarget:
     iOS: 14.0
 fileGroups: [../../src]
@@ -10,8 +10,8 @@ configs:
 settingGroups:
   app:
     base:
-      PRODUCT_NAME: tsp
-      PRODUCT_BUNDLE_IDENTIFIER: com.s00d.tsp
+      PRODUCT_NAME: GitPulse
+      PRODUCT_BUNDLE_IDENTIFIER: com.s00d.gitpulse
       DEVELOPMENT_TEAM: R6VC7JTLE8
 targetTemplates:
   app:
@@ -25,20 +25,20 @@ targetTemplates:
     settings:
       groups: [app]
 targets:
-  tsp_iOS:
+  GitPulse_iOS:
     type: application
     platform: iOS
     sources:
       - path: Sources
       - path: Assets.xcassets
       - path: Externals
-      - path: tsp_iOS
+      - path: GitPulse_iOS
       - path: assets
         buildPhase: resources
         type: folder
       - path: LaunchScreen.storyboard
     info:
-      path: tsp_iOS/Info.plist
+      path: GitPulse_iOS/Info.plist
       properties:
         LSRequiresIPhoneOS: true
         UILaunchStoryboardName: LaunchScreen
@@ -55,7 +55,7 @@ targets:
         CFBundleShortVersionString: 0.1.0
         CFBundleVersion: "0.1.0"
     entitlements:
-      path: tsp_iOS/tsp_iOS.entitlements
+      path: GitPulse_iOS/GitPulse_iOS.entitlements
     scheme:
       environmentVariables:
         RUST_BACKTRACE: full

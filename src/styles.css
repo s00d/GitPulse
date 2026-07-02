@@ -3,6 +3,23 @@
 
 @plugin "@egoist/tailwindcss-icons";
 
+html,
+body,
+#app {
+  height: 100%;
+}
+
+html,
+body {
+  margin: 0;
+  overscroll-behavior: none;
+  background-color: rgb(248 250 252);
+}
+
+.dark body {
+  background-color: rgb(2 6 23);
+}
+
 #overlay-root {
   position: relative;
   z-index: 999;

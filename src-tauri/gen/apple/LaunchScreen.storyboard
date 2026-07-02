@@ -15,12 +15,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="T" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="tsp-logo-label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="G" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="gitpulse-logo-label">
                                 <rect key="frame" x="170" y="376" width="74" height="74"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="44"/>
                                 <color key="textColor" red="0.9725490196" green="0.9803921569" blue="0.9882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="tsp" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="tsp-title-label">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="GitPulse" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" translatesAutoresizingMaskIntoConstraints="NO" id="gitpulse-title-label">
                                 <rect key="frame" x="176" y="468" width="62" height="31"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="26"/>
                                 <color key="textColor" red="0.9725490196" green="0.9803921569" blue="0.9882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -29,10 +29,10 @@
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" red="0.05882352941" green="0.09019607843" blue="0.1647058824" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="tsp-logo-label" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="logo-center-x"/>
-                            <constraint firstItem="tsp-logo-label" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-30" id="logo-center-y"/>
-                            <constraint firstItem="tsp-title-label" firstAttribute="top" secondItem="tsp-logo-label" secondAttribute="bottom" constant="18" id="title-top"/>
-                            <constraint firstItem="tsp-title-label" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="title-center-x"/>
+                            <constraint firstItem="gitpulse-logo-label" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="logo-center-x"/>
+                            <constraint firstItem="gitpulse-logo-label" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" constant="-30" id="logo-center-y"/>
+                            <constraint firstItem="gitpulse-title-label" firstAttribute="top" secondItem="gitpulse-logo-label" secondAttribute="bottom" constant="18" id="title-top"/>
+                            <constraint firstItem="gitpulse-title-label" firstAttribute="centerX" secondItem="5EZ-qb-Rvc" secondAttribute="centerX" id="title-center-x"/>
                         </constraints>
                     </view>
                 </viewController>

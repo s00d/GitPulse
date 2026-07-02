@@ -73,7 +73,12 @@ const ui = computed(() => modalTv());
           </div>
           <header :class="ui.header()">
             <h3 :class="ui.title()">{{ props.title }}</h3>
-            <button type="button" :class="ui.close()" aria-label="Close modal" @click="model = false">
+            <button
+              type="button"
+              :class="ui.close()"
+              aria-label="Close modal"
+              @click="model = false"
+            >
               <BaseIcon name="close" size="sm" />
             </button>
           </header>

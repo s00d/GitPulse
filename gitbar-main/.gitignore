@@ -1,0 +1,12 @@
+.build/
+.swiftpm/
+Package.resolved
+*.xcodeproj/
+.claude/
+.ideas/
+
+# flo — per-dev config
+.flo/
+
+# marketing site
+site/node_modules/

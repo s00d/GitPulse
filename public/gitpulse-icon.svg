@@ -1,0 +1,33 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="64" y1="48" x2="448" y2="464" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1E1B4B"/>
+      <stop offset="1" stop-color="#0F172A"/>
+    </linearGradient>
+    <linearGradient id="gitLine" x1="120" y1="140" x2="392" y2="364" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#818CF8"/>
+      <stop offset="1" stop-color="#22D3EE"/>
+    </linearGradient>
+  </defs>
+
+  <rect x="40" y="40" width="432" height="432" rx="112" fill="url(#bg)"/>
+  <rect x="56" y="56" width="400" height="400" rx="96" stroke="#334155" stroke-width="2"/>
+
+  <!-- Git graph backbone -->
+  <path d="M136 360V184H252V300H376" stroke="url(#gitLine)" stroke-width="20" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M252 184V132" stroke="url(#gitLine)" stroke-width="20" stroke-linecap="round"/>
+
+  <!-- Pulse segment integrated into branch -->
+  <path d="M252 300H292L312 260L334 332L356 300H392" stroke="#22D3EE" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Commit nodes -->
+  <circle cx="136" cy="360" r="22" fill="#0F172A" stroke="#22D3EE" stroke-width="10"/>
+  <circle cx="136" cy="184" r="22" fill="#0F172A" stroke="#818CF8" stroke-width="10"/>
+  <circle cx="252" cy="132" r="22" fill="#0F172A" stroke="#A5B4FC" stroke-width="10"/>
+  <circle cx="252" cy="300" r="22" fill="#0F172A" stroke="#22D3EE" stroke-width="10"/>
+  <circle cx="376" cy="300" r="22" fill="#0F172A" stroke="#22D3EE" stroke-width="10"/>
+
+  <!-- small branch hint -->
+  <path d="M136 248H92" stroke="#818CF8" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="92" cy="248" r="14" fill="#0F172A" stroke="#818CF8" stroke-width="8"/>
+</svg>

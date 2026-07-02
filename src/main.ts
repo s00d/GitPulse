@@ -24,6 +24,7 @@ app.use(i18n);
 async function bootstrap() {
   await initI18nLocale();
   app.mount("#app");
+
   try {
     await invoke("app_ready");
   } catch {

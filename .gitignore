@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Local GitHub OAuth config (copy from src-tauri/config/oauth.example.json)
+src-tauri/config/oauth.json

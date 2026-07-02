@@ -21,7 +21,11 @@ export function useNotification() {
   const error = ref<NotificationErrorShape | null>(null);
 
   async function syncPermission() {
-    permissionGranted.value = await isPermissionGranted();
+    try {
+      permissionGranted.value = await isPermissionGranted();
+    } catch {
+      permissionGranted.value = false;
+    }
     return permissionGranted.value;
   }
 
@@ -50,6 +54,20 @@ export function useNotification() {
     }
 
     return requestNotificationPermission();
+  }
+
+  async function notifyQuiet(payload: NotifyPayload | NotificationOptions) {
+    try {
+      const granted = await ensurePermission();
+      if (!granted) {
+        return false;
+      }
+
+      sendNotification(payload);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   async function notify(payload: NotifyPayload | NotificationOptions) {
@@ -85,5 +103,6 @@ export function useNotification() {
     requestNotificationPermission,
     ensurePermission,
     notify,
+    notifyQuiet,
   };
 }
