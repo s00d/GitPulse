@@ -25,3 +25,7 @@ dist-ssr
 
 # Local GitHub OAuth config (copy from src-tauri/config/oauth.example.json)
 src-tauri/config/oauth.json
+
+# Local marketing / launch drafts (keep on disk, not in repo)
+docs/promotion/
+docs/assets/screenshots/
