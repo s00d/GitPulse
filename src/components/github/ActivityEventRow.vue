@@ -3,6 +3,7 @@ import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { tv } from "@/lib/tv";
+import { BaseIcon, type BaseIconName } from "@/components/ui";
 import type { ActivityEvent } from "@/github/itemDiff";
 
 const props = defineProps<{ event: ActivityEvent }>();
@@ -14,16 +15,16 @@ const ui = computed(() =>
     slots: {
       row: "group flex w-full items-start gap-3 rounded-xl border border-transparent px-3 py-2.5 text-left transition-colors hover:border-slate-200 hover:bg-slate-50 dark:hover:border-slate-700 dark:hover:bg-slate-800/60",
       badge:
-        "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-bold",
+        "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
       badgeAdded: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200",
       badgeUpdated: "bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-200",
       main: "min-w-0 flex-1",
       title: "truncate text-sm font-medium text-slate-900 dark:text-slate-100",
       meta: "mt-0.5 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400",
       chip:
-        "rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+        "inline-flex items-center gap-1 rounded-md bg-slate-100 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-slate-600 dark:bg-slate-800 dark:text-slate-300",
       kind:
-        "rounded-md bg-indigo-50 px-1.5 py-0.5 text-[10px] font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-200",
+        "inline-flex items-center gap-1 rounded-md bg-indigo-50 px-1.5 py-0.5 text-[10px] font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-200",
     },
   })(),
 );
@@ -34,6 +35,10 @@ const changeLabel = computed(() =>
     : t("activity.changeUpdated"),
 );
 
+const changeIcon = computed<BaseIconName>(() =>
+  props.event.change === "added" ? "plus" : "pencil-outline",
+);
+
 const kindLabel = computed(() => {
   switch (props.event.kind) {
     case "issue":
@@ -42,6 +47,17 @@ const kindLabel = computed(() => {
       return t("activity.kindPullRequest");
     case "notification":
       return t("activity.kindNotification");
+  }
+});
+
+const kindIcon = computed<BaseIconName>(() => {
+  switch (props.event.kind) {
+    case "issue":
+      return "circle-outline";
+    case "pull_request":
+      return "source-pull";
+    case "notification":
+      return "bell-outline";
   }
 });
 
@@ -72,15 +88,21 @@ async function open() {
       ]"
       :title="changeLabel"
     >
-      {{ event.change === "added" ? "+" : "~" }}
+      <BaseIcon :name="changeIcon" size="xs" />
     </span>
     <div :class="ui.main()">
       <p :class="ui.title()">
         <span v-if="event.number">#{{ event.number }} </span>{{ event.title }}
       </p>
       <div :class="ui.meta()">
-        <span :class="ui.chip()">{{ event.repo }}</span>
-        <span :class="ui.kind()">{{ kindLabel }}</span>
+        <span :class="ui.chip()">
+          <BaseIcon name="source-repository" size="xs" />
+          {{ event.repo }}
+        </span>
+        <span :class="ui.kind()">
+          <BaseIcon :name="kindIcon" size="xs" />
+          {{ kindLabel }}
+        </span>
         <span>{{ changeLabel }}</span>
         <span>{{ detectedLabel }}</span>
       </div>

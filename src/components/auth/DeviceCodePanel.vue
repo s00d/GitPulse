@@ -3,7 +3,7 @@ import { computed } from "vue";
 import { useI18n } from "vue-i18n";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { tv } from "@/lib/tv";
-import { BaseButton } from "@/components/ui";
+import { BaseButton, BaseIcon } from "@/components/ui";
 
 const props = defineProps<{
   deviceCode: string | null;
@@ -39,7 +39,10 @@ async function openBrowser() {
   <div class="flex w-full flex-col items-center gap-4">
     <p :class="ui.subtitle()">{{ t("auth.enterCode") }}</p>
     <div :class="ui.codeBox()">{{ props.deviceCode ?? "····-····" }}</div>
-    <BaseButton @click="openBrowser">{{ t("auth.openBrowser") }}</BaseButton>
+    <BaseButton @click="openBrowser">
+      <BaseIcon name="open-in-new" size="sm" />
+      {{ t("auth.openBrowser") }}
+    </BaseButton>
     <p v-if="props.waiting" :class="ui.hint()">{{ t("auth.waiting") }}</p>
     <BaseButton variant="outline" @click="emit('cancel')">{{ t("auth.cancel") }}</BaseButton>
   </div>

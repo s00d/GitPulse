@@ -3,6 +3,8 @@ import { computed, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import { tv } from "@/lib/tv";
+import { BaseIcon } from "@/components/ui";
+import type { BaseIconName } from "@/components/ui";
 import { prCategoryLabel } from "@/dashboard/labels";
 import { issueRepoKey, prRepoKey } from "@/github/countDiff";
 import type { GitHubIssue, PrCategoryKind, PrRepoGroup, RepoGroup } from "@/github/types";
@@ -85,6 +87,10 @@ const activeCategory = computed(
   () => visibleCategories.value.find((category) => category.kind === selectedCategory.value) ?? null,
 );
 
+const emptyIcon = computed<BaseIconName>(() =>
+  props.mode === "issues" ? "circle-outline" : "source-pull",
+);
+
 watch(
   visibleCategories,
   (categories) => {
@@ -123,7 +129,7 @@ const ui = computed(() =>
         "border-slate-200 bg-white text-slate-700 hover:border-indigo-200 hover:bg-indigo-50 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-indigo-800 dark:hover:bg-indigo-950/40",
       chipActive:
         "border-indigo-500 bg-indigo-50 text-indigo-900 dark:border-indigo-500 dark:bg-indigo-950/50 dark:text-indigo-100",
-      link: "inline-flex text-sm font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400",
+      link: "inline-flex items-center gap-1.5 text-sm font-medium text-indigo-600 underline-offset-2 hover:underline dark:text-indigo-400",
     },
   })(),
 );
@@ -153,7 +159,12 @@ async function openOverflow(url: string) {
           ]"
           @click="selectedRepo = entry.repo"
         >
-          <span :class="ui.pickerName()" :title="entry.repo">{{ repoShort(entry.repo) }}</span>
+          <span :class="ui.pickerName()" :title="entry.repo">
+            <span class="inline-flex items-center gap-1.5">
+              <BaseIcon name="source-repository" size="xs" />
+              {{ repoShort(entry.repo) }}
+            </span>
+          </span>
           <span :class="ui.badges()">
             <span v-if="entry.delta > 0" :class="ui.delta()">↑{{ entry.delta }}</span>
             <span :class="ui.count()">{{ entry.count }}</span>
@@ -174,6 +185,7 @@ async function openOverflow(url: string) {
             href="#"
             @click.prevent="openOverflow(selectedIssueGroup.overflowUrl!)"
           >
+            <BaseIcon name="open-in-new" size="xs" />
             {{ t("dashboard.viewMoreOnGitHub") }}
           </a>
         </template>
@@ -204,15 +216,16 @@ async function openOverflow(url: string) {
               href="#"
               @click.prevent="openOverflow(activeCategory.overflowUrl!)"
             >
+              <BaseIcon name="open-in-new" size="xs" />
               {{ t("dashboard.viewMoreOnGitHub") }}
             </a>
           </template>
-          <EmptyState v-else :title="t('dashboard.noPullRequests')" />
+          <EmptyState v-else :title="t('dashboard.noPullRequests')" icon="source-pull" />
         </template>
 
-        <EmptyState v-else :title="t('dashboard.selectRepo')" />
+        <EmptyState v-else :title="t('dashboard.selectRepo')" icon="source-repository" />
       </section>
     </div>
   </div>
-  <EmptyState v-else :title="emptyTitle" />
+  <EmptyState v-else :title="emptyTitle" :icon="emptyIcon" />
 </template>

@@ -39,19 +39,15 @@ jobs:
           node-version: 20
           cache: pnpm
 
-      - uses: actions/cache@v4
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
         with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-            target/
-            src-tauri/target/
-            C:\Users\runneradmin\.cargo\registry\index\
-            C:\Users\runneradmin\.cargo\registry\cache\
-            C:\Users\runneradmin\.cargo\git\db\
-          key: ${{ runner.os }}-${{ matrix.args }}-${{ hashFiles('src-tauri/Cargo.lock') }}
+          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || matrix.platform == 'windows-latest' && 'i686-pc-windows-msvc,x86_64-pc-windows-msvc' || '' }}
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: src-tauri
+          key: ${{ matrix.os }}-${{ matrix.args }}
 
       - name: Export signing key (unix)
         if: matrix.platform != 'windows-latest'
@@ -61,11 +57,6 @@ jobs:
         if: matrix.platform == 'windows-latest'
         run: echo "TAURI_SIGNING_PRIVATE_KEY=${{ secrets.TAURI_PRIVATE_KEY }}" >> $GITHUB_ENV
         shell: bash
-
-      - name: Install Rust stable
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: ${{ matrix.platform == 'macos-latest' && 'aarch64-apple-darwin,x86_64-apple-darwin' || matrix.platform == 'windows-latest' && 'i686-pc-windows-msvc,x86_64-pc-windows-msvc' || '' }}
 
       - name: Install dependencies (Ubuntu only)
         if: matrix.platform == 'ubuntu-22.04'

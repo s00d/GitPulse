@@ -9,6 +9,7 @@ const ICON_CLASS_MAP = {
   "chevron-down": "i-mdi-chevron-down",
   "chevron-right": "i-mdi-chevron-right",
   "chevron-up": "i-mdi-chevron-up",
+  "chevron-double-down": "i-mdi-chevron-double-down",
   "pencil-outline": "i-mdi-pencil-outline",
   "content-copy": "i-mdi-content-copy",
   "delete-outline": "i-mdi-delete-outline",
@@ -18,24 +19,57 @@ const ICON_CLASS_MAP = {
   "format-list-bulleted": "i-mdi-format-list-bulleted",
   "layers-outline": "i-mdi-layers-outline",
   "rocket-launch-outline": "i-mdi-rocket-launch-outline",
+  "view-dashboard-outline": "i-mdi-view-dashboard-outline",
+  rss: "i-mdi-rss",
+  "circle-outline": "i-mdi-circle-outline",
+  "source-pull": "i-mdi-source-pull",
+  "star-outline": "i-mdi-star-outline",
+  star: "i-mdi-star",
+  "eye-outline": "i-mdi-eye-outline",
+  "bell-outline": "i-mdi-bell-outline",
+  "cog-outline": "i-mdi-cog-outline",
+  refresh: "i-mdi-refresh",
+  sync: "i-mdi-sync",
+  magnify: "i-mdi-magnify",
+  github: "i-mdi-github",
+  "open-in-new": "i-mdi-open-in-new",
+  "window-minimize": "i-mdi-window-minimize",
+  plus: "i-mdi-plus",
+  "account-outline": "i-mdi-account-outline",
+  "source-repository": "i-mdi-source-repository",
+  "inbox-outline": "i-mdi-inbox-outline",
+  "package-variant-closed": "i-mdi-package-variant-closed",
+  "key-outline": "i-mdi-key-outline",
+  "timer-outline": "i-mdi-timer-outline",
+  "bell-ring-outline": "i-mdi-bell-ring-outline",
+  "palette-outline": "i-mdi-palette-outline",
+  "link-variant": "i-mdi-link-variant",
+  "close-circle-outline": "i-mdi-close-circle-outline",
+  "source-commit": "i-mdi-source-commit",
+  "tag-outline": "i-mdi-tag-outline",
+  "history": "i-mdi-history",
+  "download-outline": "i-mdi-download-outline",
 } as const;
+
+export type BaseIconName = keyof typeof ICON_CLASS_MAP;
 
 const props = withDefaults(
   defineProps<{
-    name: string;
+    name: BaseIconName | (string & {});
     size?: UiControlSize;
     ariaLabel?: string;
+    spin?: boolean;
   }>(),
   {
     size: "sm",
     ariaLabel: "",
+    spin: false,
   },
 );
 
 const iconClass = computed(
   () =>
-    ICON_CLASS_MAP[props.name as keyof typeof ICON_CLASS_MAP] ??
-    ICON_CLASS_MAP["help-circle-outline"],
+    ICON_CLASS_MAP[props.name as BaseIconName] ?? ICON_CLASS_MAP["help-circle-outline"],
 );
 const sizeStyle = computed(() => {
   const value = uiSizeClasses.icon[props.size];
@@ -45,7 +79,7 @@ const sizeStyle = computed(() => {
 
 <template>
   <span
-    :class="iconClass"
+    :class="[iconClass, spin ? 'animate-spin' : '']"
     :style="sizeStyle"
     :aria-label="ariaLabel || undefined"
     :role="ariaLabel ? 'img' : undefined"

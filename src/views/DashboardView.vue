@@ -13,7 +13,7 @@ import {
   StarsTab,
   WatchingTab,
 } from "@/components/dashboard";
-import { BaseButton } from "@/components/ui";
+import { BaseButton, BaseIcon } from "@/components/ui";
 import { normalizeSearchQuery } from "@/github/search";
 import { useGitHubStore } from "@/stores/githubStore";
 
@@ -62,6 +62,7 @@ watch(tab, () => {
     <div class="flex items-center gap-2">
       <DashboardSearchField v-model="searchQuery" class="min-w-0 flex-1" />
       <BaseButton variant="outline" size="sm" :disabled="refreshing" @click="refresh">
+        <BaseIcon name="refresh" size="xs" :spin="refreshing" />
         {{ refreshing ? `${$t("dashboard.loading")}` : $t("dashboard.refresh") }}
       </BaseButton>
     </div>

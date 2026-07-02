@@ -7,7 +7,7 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import AppHeader from "@/components/layout/AppHeader.vue";
 import AppHeaderProfile from "@/components/layout/AppHeaderProfile.vue";
 import TwoPaneLayout from "@/components/layout/TwoPaneLayout.vue";
-import { BaseButton, BasePlatformMenu } from "@/components/ui";
+import { BaseButton, BaseIcon, BasePlatformMenu } from "@/components/ui";
 import type { AppScreen, DashboardTab } from "@/dashboard/types";
 import { useGitHubStore } from "@/stores/githubStore";
 
@@ -29,13 +29,13 @@ const store = useGitHubStore();
 const navOpen = ref(false);
 
 const dashboardItems = computed(() => [
-  { value: "overview" as const, label: t("dashboard.overview"), icon: "format-list-bulleted" },
+  { value: "overview" as const, label: t("dashboard.overview"), icon: "view-dashboard-outline" },
   { value: "feed" as const, label: t("dashboard.feed"), icon: "rss" },
-  { value: "issues" as const, label: t("dashboard.issues"), icon: "layers-outline" },
-  { value: "pullRequests" as const, label: t("dashboard.pullRequests"), icon: "rocket-launch-outline" },
-  { value: "stars" as const, label: t("dashboard.stars"), icon: "white-balance-sunny" },
-  { value: "watching" as const, label: t("dashboard.watching"), icon: "help-circle-outline" },
-  { value: "notifications" as const, label: t("dashboard.notifications"), icon: "translate" },
+  { value: "issues" as const, label: t("dashboard.issues"), icon: "circle-outline" },
+  { value: "pullRequests" as const, label: t("dashboard.pullRequests"), icon: "source-pull" },
+  { value: "stars" as const, label: t("dashboard.stars"), icon: "star-outline" },
+  { value: "watching" as const, label: t("dashboard.watching"), icon: "eye-outline" },
+  { value: "notifications" as const, label: t("dashboard.notifications"), icon: "bell-outline" },
 ]);
 
 function tabBadge(tab: DashboardTab): number | undefined {
@@ -65,7 +65,7 @@ const navItems = computed<NavMenuItem[]>(() => [
   {
     label: t("dashboard.settings"),
     value: "settings",
-    icon: "menu",
+    icon: "cog-outline",
   },
 ]);
 
@@ -120,9 +120,11 @@ onMounted(() => {
           variant="outline"
           @click="screen = 'settings'"
         >
+          <BaseIcon name="cog-outline" size="xs" />
           {{ t("dashboard.settings") }}
         </BaseButton>
         <BaseButton v-if="isDesktop" size="sm" variant="outline" @click="hideOnDesktop">
+          <BaseIcon name="window-minimize" size="xs" />
           {{ t("settings.close") }}
         </BaseButton>
       </template>

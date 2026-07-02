@@ -26,7 +26,7 @@ const props = withDefaults(
 );
 
 const buttonTv = tv({
-  base: `inline-flex items-center justify-center rounded-xl font-medium transition-all ${uiMotion.base} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 dark:focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50`,
+  base: `inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all ${uiMotion.base} focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 dark:focus-visible:ring-indigo-500 disabled:pointer-events-none disabled:opacity-50`,
   variants: {
     size: {
       "2xs": uiSizeClasses.button["2xs"],

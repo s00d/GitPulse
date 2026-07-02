@@ -2,7 +2,7 @@
 import { computed, inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { EmptyState, NotificationRow } from "@/components/github";
-import { BaseButton } from "@/components/ui";
+import { BaseButton, BaseIcon } from "@/components/ui";
 import { dashboardSearchKey } from "@/dashboard/searchContext";
 import { filterNotifications } from "@/github/search";
 import { useGitHubStore } from "@/stores/githubStore";
@@ -41,6 +41,7 @@ async function loadMore() {
       :disabled="store.notificationsPage.isLoadingMore"
       @click="loadMore"
     >
+      <BaseIcon name="chevron-double-down" size="xs" />
       {{
         store.notificationsPage.isLoadingMore
           ? t("dashboard.loadingMore")
@@ -51,5 +52,6 @@ async function loadMore() {
   <EmptyState
     v-else
     :title="hasSearchQuery ? t('search.noResults') : t('dashboard.noNotifications')"
+    icon="bell-outline"
   />
 </template>

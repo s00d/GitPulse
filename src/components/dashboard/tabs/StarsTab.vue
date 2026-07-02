@@ -2,7 +2,7 @@
 import { computed, inject, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { EmptyState, RepoCard } from "@/components/github";
-import { BaseButton } from "@/components/ui";
+import { BaseButton, BaseIcon } from "@/components/ui";
 import { dashboardSearchKey } from "@/dashboard/searchContext";
 import { filterRepos } from "@/github/search";
 import { useGitHubStore } from "@/stores/githubStore";
@@ -32,8 +32,9 @@ async function loadMore() {
       :disabled="store.starsPage.isLoadingMore"
       @click="loadMore"
     >
+      <BaseIcon name="chevron-double-down" size="xs" />
       {{ store.starsPage.isLoadingMore ? t("dashboard.loadingMore") : t("dashboard.loadMore") }}
     </BaseButton>
   </div>
-  <EmptyState v-else :title="hasSearchQuery ? t('search.noResults') : t('dashboard.noStars')" />
+  <EmptyState v-else :title="hasSearchQuery ? t('search.noResults') : t('dashboard.noStars')" icon="star-outline" />
 </template>

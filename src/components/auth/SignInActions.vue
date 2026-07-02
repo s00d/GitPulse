@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BaseButton } from "@/components/ui";
+import { BaseButton, BaseIcon } from "@/components/ui";
 
 defineProps<{
   showGhImport?: boolean;
@@ -15,6 +15,7 @@ const emit = defineEmits<{
 <template>
   <div class="flex w-full flex-col gap-2">
     <BaseButton class="w-full" @click="emit('signIn')">
+      <BaseIcon name="github" size="sm" />
       <slot name="primary-label" />
     </BaseButton>
     <BaseButton
@@ -24,6 +25,7 @@ const emit = defineEmits<{
       :disabled="ghLoading"
       @click="emit('importGh')"
     >
+      <BaseIcon name="download-outline" size="sm" />
       <slot name="gh-label" />
     </BaseButton>
   </div>

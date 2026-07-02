@@ -14,6 +14,7 @@ export { default as BaseToast } from "./BaseToast.vue";
 export { default as BaseCombobox } from "./BaseCombobox.vue";
 export { default as BaseDatePicker } from "./BaseDatePicker.vue";
 export { default as BaseIcon } from "./BaseIcon.vue";
+export type { BaseIconName } from "./BaseIcon.vue";
 export { default as BaseTable } from "./BaseTable.vue";
 export { default as BaseContextMenu } from "./BaseContextMenu.vue";
 export { default as BaseContextMenuTrigger } from "./BaseContextMenuTrigger.vue";

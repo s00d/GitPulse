@@ -2,7 +2,7 @@
 import { computed, inject, onMounted, ref } from "vue";
 import { useI18n } from "vue-i18n";
 import { openUrl } from "@tauri-apps/plugin-opener";
-import { BaseButton } from "@/components/ui";
+import { BaseButton, BaseIcon } from "@/components/ui";
 import { EmptyState } from "@/components/github";
 import { dashboardSearchKey } from "@/dashboard/searchContext";
 import { filterFeedItems } from "@/github/search";
@@ -121,7 +121,10 @@ onMounted(async () => {
     <div class="rounded-xl border border-slate-200 bg-white p-3 dark:border-slate-800 dark:bg-slate-900">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <div class="space-y-1">
-          <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">{{ t("feed.title") }}</p>
+          <p class="flex items-center gap-2 text-sm font-semibold text-slate-900 dark:text-slate-100">
+            <BaseIcon name="rss" size="xs" />
+            {{ t("feed.title") }}
+          </p>
           <p class="text-xs text-slate-500 dark:text-slate-400">{{ statusLabel }}</p>
           <p v-if="feedStore.lastSyncedAt" class="text-xs text-slate-500 dark:text-slate-400">
             {{ t("feed.lastSyncedAt", { time: new Date(feedStore.lastSyncedAt).toLocaleString() }) }}
@@ -139,6 +142,7 @@ onMounted(async () => {
             :disabled="feedStore.isSyncing"
             @click="syncNow"
           >
+            <BaseIcon name="sync" size="xs" :spin="feedStore.isSyncing" />
             {{ t("feed.syncNow") }}
           </BaseButton>
           <BaseButton
@@ -147,6 +151,7 @@ onMounted(async () => {
             size="sm"
             @click="cancelSync"
           >
+            <BaseIcon name="close-circle-outline" size="xs" />
             {{ t("feed.cancelSync") }}
           </BaseButton>
         </div>
@@ -215,6 +220,10 @@ onMounted(async () => {
       </button>
     </div>
 
-    <EmptyState v-else :title="hasSearchQuery ? t('search.noResults') : t('feed.empty')" />
+    <EmptyState
+      v-else
+      :title="hasSearchQuery ? t('search.noResults') : t('feed.empty')"
+      icon="rss"
+    />
   </section>
 </template>
