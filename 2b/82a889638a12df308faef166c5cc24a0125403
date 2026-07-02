@@ -1,0 +1,608 @@
+src/github/changeNotifications.ts
+  s_6a7a7af2ceeb96::t_f97406dbf47df6 1
+  s_6a7a7af2ceeb96::t_bc3c584da09d94 2,4,6-10,12-20,22-26,28-42,45-46
+src-tauri/gen/android/app/src/main/AndroidManifest.xml
+  s_6a7a7af2ceeb96::t_59cf5c935ba46b 13
+package.json
+  s_6a7a7af2ceeb96::t_1a59f41a82a0c2 2
+  s_6a7a7af2ceeb96::t_9d8eba8a0a8703 14
+  s_6a7a7af2ceeb96::t_14b8a222e31a1f 55
+  s_6a7a7af2ceeb96::t_7fbd9a8f95d17d 17-18
+src/i18n/locales/en/ui.ts
+  s_6a7a7af2ceeb96::t_c3915da09323e4 9-10,12-14,21,25,33,85-87,90-105,107-116,126,141,143,150-159
+  s_6a7a7af2ceeb96::t_a0cb030d684fde 51-73,188
+  s_6a7a7af2ceeb96::t_f0cf3493bc86aa 173
+  s_6a7a7af2ceeb96::t_17800f42c1d543 49
+  s_6a7a7af2ceeb96::t_7588beca339dbb 197
+  s_6a7a7af2ceeb96::t_d3d7b8ef6518aa 214-215
+  s_6a7a7af2ceeb96::t_12370feb1b7b5b 162-172,174-187,189-196,198-211,216-218
+  s_6a7a7af2ceeb96::t_200afb45236b8f 2-4
+  s_6a7a7af2ceeb96::t_1a25d5e592bdc5 106
+  s_6a7a7af2ceeb96::t_7069ff4ef0e9ce 48,50
+  s_6a7a7af2ceeb96::t_acdd40d8d34c96 74-78
+  s_6a7a7af2ceeb96::t_67e44d8d29c1e4 28,30
+  s_6a7a7af2ceeb96::t_c2c6757ab7e1dc 82
+  s_6a7a7af2ceeb96::t_ceb0b569f23e72 34-35
+  s_6a7a7af2ceeb96::t_21f32ac5ddc2a5 36-46
+  s_6a7a7af2ceeb96::t_ec3f478c2a5594 5-8,11,15-20,22-24,26-27,29,31-32,47,79-81,83-84,88-89,117-125,138-140,142,160-161
+  s_6a7a7af2ceeb96::t_1a00cc271768f9 148
+  s_6a7a7af2ceeb96::t_6c1b3f69af1fc2 144-147,149
+  s_6a7a7af2ceeb96::t_ecd0be17f057ee 212-213
+  s_6a7a7af2ceeb96::t_071ffbc4412d99 127-137
+src/views/DashboardView.vue
+  s_6a7a7af2ceeb96::t_bad3e6685ce4ef 4,6,17,23,26,39,68
+  s_6a7a7af2ceeb96::t_48ad20d0fd0bda 8,30
+  s_6a7a7af2ceeb96::t_fbc4b847e13d17 42
+  s_6a7a7af2ceeb96::t_ec875b014eebd5 3,7,9-15,19-20,28-29,31-37,40-41,60-61
+  s_6a7a7af2ceeb96::t_76709310c811b7 38
+  s_6a7a7af2ceeb96::t_d4adf8df27c26f 2
+  s_6a7a7af2ceeb96::t_86b0f76168fd08 22
+  s_6a7a7af2ceeb96::t_160350b7d224cf 1,5,21,27,43,57-59,69-70
+  s_6a7a7af2ceeb96::t_15d9e3cfc427b5 44,54-56
+  s_6a7a7af2ceeb96::t_70620a78de13ce 16,18,24-25,45-53,62-67
+src/components/dashboard/DashboardSearchField.vue
+  s_6a7a7af2ceeb96::t_b49c9a113a680c 1-5,9-15,17-20
+  s_6a7a7af2ceeb96::t_bfe9ac2efd2bec 6-8,16
+src/github/changeNotifications.test.ts
+  s_6a7a7af2ceeb96::t_e0bab92539b7a7 1,3-112
+  s_6a7a7af2ceeb96::t_fe308029426a73 2
+vitest.config.ts
+  s_6a7a7af2ceeb96::t_73824ab19e77f7 1-2,4-7,10-12
+README.md
+  s_6a7a7af2ceeb96::t_9d55b299880071 3,5-47,49-78,80,86
+  s_6a7a7af2ceeb96::t_01e094297580e5 1
+src/components/dashboard/index.ts
+  s_6a7a7af2ceeb96::t_39c068e8a69eb6 5
+  s_6a7a7af2ceeb96::t_bdb2743bcb7c63 2-4,6-10
+  s_6a7a7af2ceeb96::t_d07cdc07619154 1
+src/components/settings/index.ts
+  s_6a7a7af2ceeb96::t_6141860eb7c8d0 1
+src/stores/feedStore.ts
+  s_6a7a7af2ceeb96::t_c80c94d3780a20 1-243
+src-tauri/build.rs
+  s_6a7a7af2ceeb96::t_5eaae6b00ae199 2-15
+src/stores/refreshStore.ts
+  s_6a7a7af2ceeb96::t_6098cb42dd0422 1-157
+src/components/layout/TwoPaneLayout.vue
+  s_6a7a7af2ceeb96::t_92aa9855326bbd 6-8
+src/github/search.ts
+  s_6a7a7af2ceeb96::t_e56062f511acfd 2-9,115-120,129-131
+  s_6a7a7af2ceeb96::t_13f1184912eb12 10-24,29-50,52-114,132
+  s_6a7a7af2ceeb96::t_e1a5836543de74 51
+  s_6a7a7af2ceeb96::t_20084f0826b7c7 121-128
+  s_6a7a7af2ceeb96::t_11c4225b7365f8 133-146
+  s_6a7a7af2ceeb96::t_265d0879446433 1
+  s_6a7a7af2ceeb96::t_3a9cbeecc3d0bb 25-28
+src/components/github/ActivityEventRow.vue
+  s_6a7a7af2ceeb96::t_c7bace660fd97b 1-5,7-89
+  s_6a7a7af2ceeb96::t_1516a869e9f04c 6
+src/components/dashboard/tabs/FeedTab.vue
+  s_6a7a7af2ceeb96::t_93537775b58534 1-17,33-39,97-166,168,170-171,173-174,215-220
+  s_6a7a7af2ceeb96::t_f9597acc9afd69 182-196,198-200,202,204-205,209-211
+  s_6a7a7af2ceeb96::t_2e939611f658f9 22,28-29,56-94
+  s_6a7a7af2ceeb96::t_fac47e1f637514 18-21,23-27,30-32,40-50,55,95-96,167,169,172,175-181,197,201,203,206-208,212-214
+  s_6a7a7af2ceeb96::t_1f623ac885b6ae 51-54
+src/components/layout/AppLoadingView.vue
+  s_6a7a7af2ceeb96::t_4fda3ce953483e 1-30
+.gitignore
+  s_6a7a7af2ceeb96::t_e547d9a14d969c 25-27
+src-tauri/gen/android/app/src/main/res/values/themes.xml
+  s_6a7a7af2ceeb96::t_eb9b35dcdccb7b 3,8,11
+src-tauri/gen/android/app/src/main/java/com/s00d/gitpulse/MainActivity.kt
+  s_6a7a7af2ceeb96::t_2d1475becd9b09 1
+src/App.vue
+  s_6a7a7af2ceeb96::t_7b9122d274ad84 20
+  s_6a7a7af2ceeb96::t_fd7c219cd1ef8f 9,11-12
+  s_6a7a7af2ceeb96::t_8ffdf8611c8fb2 8,10,13-19,36-37,41,49
+  s_6a7a7af2ceeb96::t_f8e0de75289a40 2,4-6,33-35,38-40,42-48,50
+  s_6a7a7af2ceeb96::t_c3d435bcaa107a 7
+  s_6a7a7af2ceeb96::t_39c6209dae19cb 3,25-32
+src/composables/useGitHubAuthFlow.ts
+  s_6a7a7af2ceeb96::t_17c5043d29144f 1,5,7,10-20,22-24,26,30,32-33,40-44,46,48-53,55-83,87-91,93-97,102-108
+src/tray/menuBuilders.ts
+  s_6a7a7af2ceeb96::t_c51a66a2e1afa6 387
+  s_6a7a7af2ceeb96::t_d51af6094f1d00 162,206,260,339,353
+  s_6a7a7af2ceeb96::t_8b04bccf2103b5 1-4,6-18,20,22-23,25-27,29-37,39-78,80-161,163-205,207-259,261-269,272-284,286-307,310-324,326-338,340-346,350-352,354-386,388-542
+  s_6a7a7af2ceeb96::t_c3f369c716966b 5
+  s_6a7a7af2ceeb96::t_bc274651bc2ce5 24,38
+  s_6a7a7af2ceeb96::t_4a66eb4815f3fa 21,28,270-271,285,308-309,325,347-349
+  s_6a7a7af2ceeb96::t_687138f78537fe 19
+  s_6a7a7af2ceeb96::t_b1e8c580a6d639 79
+src/settings/appSettings.ts
+  s_6a7a7af2ceeb96::t_2eef3a7aebcab8 20-21,26
+  s_6a7a7af2ceeb96::t_4ae22735c69fbd 1
+  s_6a7a7af2ceeb96::t_c4dc1f7854f741 50
+  s_6a7a7af2ceeb96::t_470abe5f2bdbe2 11-19,25,35-43,49
+  s_6a7a7af2ceeb96::t_2f6211378ecd88 2-10,22-24,27-34,44-48,51
+src-tauri/capabilities/splashscreen.json
+  s_6a7a7af2ceeb96::t_bec0d36247fc1e 1-31
+src/components/dashboard/tabs/PullRequestsTab.vue
+  s_6a7a7af2ceeb96::t_62ac0aab8f57f4 1,3,7-8,11-12,16-18,24
+  s_6a7a7af2ceeb96::t_0c133a8242dac8 2,5,13
+  s_6a7a7af2ceeb96::t_64b35db1df0b5e 4,19-22
+  s_6a7a7af2ceeb96::t_69d8c296d1b5c9 6,9-10,14-15,23
+src/tray/trayState.ts
+  s_6a7a7af2ceeb96::t_7afc1699cff93f 1-17
+src/dashboard/types.ts
+  s_6a7a7af2ceeb96::t_4d47e14be1cfcf 1-2,4-10
+  s_6a7a7af2ceeb96::t_6656f0ab18534c 3
+src-tauri/gen/android/app/src/main/res/values/strings.xml
+  s_6a7a7af2ceeb96::t_5a370ad8185ee6 2-3
+src/components/github/index.ts
+  s_6a7a7af2ceeb96::t_1d0df070d003cb 1
+  s_6a7a7af2ceeb96::t_1713adaee323f5 2,4-6
+  s_6a7a7af2ceeb96::t_cb1fceeb03e2bd 3
+src/components/ui/BasePlatformMenu.vue
+  s_6a7a7af2ceeb96::t_3f87b3732c90bb 41,43
+  s_6a7a7af2ceeb96::t_007b45bd76d0d6 51
+  s_6a7a7af2ceeb96::t_ae4dc8464889ce 52-53,55
+  s_6a7a7af2ceeb96::t_66ad501181cc73 97-106
+  s_6a7a7af2ceeb96::t_5014d805639b5e 38,40
+  s_6a7a7af2ceeb96::t_ea4a91f5b26b9d 122-127
+  s_6a7a7af2ceeb96::t_d5cbbfe63bc3b0 129
+  s_6a7a7af2ceeb96::t_5f043cad36578a 46-49
+  s_6a7a7af2ceeb96::t_86df191b867ba6 12
+  s_6a7a7af2ceeb96::t_bcbf08c30edf68 79-82
+src/dashboard/searchContext.ts
+  s_6a7a7af2ceeb96::t_c1d7b15e16b504 1-3
+src/styles.css
+  s_6a7a7af2ceeb96::t_b3c29bc370c82e 6-22
+src/stores/githubStore.ts
+  s_6a7a7af2ceeb96::t_b5765cd037765a 154
+  s_6a7a7af2ceeb96::t_e07266d2610ba9 301-302
+  s_6a7a7af2ceeb96::t_1d811765775ba8 368
+  s_6a7a7af2ceeb96::t_5b2a6b59054f7e 390-404
+  s_6a7a7af2ceeb96::t_8e350010a63802 526
+  s_6a7a7af2ceeb96::t_f3273da8a1833c 119
+  s_6a7a7af2ceeb96::t_26867c22cb1749 513-515,525
+  s_6a7a7af2ceeb96::t_01fe0ff80c8816 1,3-10,12-15,17-18,20,40-46,96-97,105-109,111-118,120,128-132,140-144,146-153,155,163-167,172,193-195,225-232,234-238,240-241,249-253,255-260,263-264,269-271,287-300,303-314,321-322,342-343,367,406,408-410,503,510-512,516-524,527-532
+  s_6a7a7af2ceeb96::t_d490b4a3b09af6 34
+  s_6a7a7af2ceeb96::t_dffaf0b09c523c 21,23-26
+  s_6a7a7af2ceeb96::t_fefc8bef1a0222 272,274-286
+  s_6a7a7af2ceeb96::t_5c8b89defaf9bf 344-347,366
+  s_6a7a7af2ceeb96::t_92b70b2942e05a 11,16,19,110,121-124,145,156-159,209-220,254,261,315-320,323-337,341
+  s_6a7a7af2ceeb96::t_abe0d8722331cb 133-139
+  s_6a7a7af2ceeb96::t_813cfd3c019cfb 50-89,407
+  s_6a7a7af2ceeb96::t_b9746ef287ace4 233,489
+  s_6a7a7af2ceeb96::t_e7178e17fa44ad 388-389,405
+  s_6a7a7af2ceeb96::t_70fc5a78f3fbd1 378,380-381,383-387
+  s_6a7a7af2ceeb96::t_593b9f06a8b7bc 28,48-49,90-94,125-127,160-162,183-191,196-208,262,338-340,348-365,411-478
+  s_6a7a7af2ceeb96::t_154f30cc6b76fd 2,22,37-38,168-171,173-182,192,239,265-268,273,377,382,479-488,490-502,504-509
+  s_6a7a7af2ceeb96::t_136ae92e718e69 47,95
+  s_6a7a7af2ceeb96::t_fa75e3136bea13 39
+  s_6a7a7af2ceeb96::t_a8854703b2844d 27,29-30,33
+  s_6a7a7af2ceeb96::t_31e90e42ba80ea 221-224
+  s_6a7a7af2ceeb96::t_b79c2ee2c778b6 98-104
+  s_6a7a7af2ceeb96::t_436641acf92511 242-248
+  s_6a7a7af2ceeb96::t_b54f9003289d08 369-376,379
+  s_6a7a7af2ceeb96::t_46b6ec081d77e3 31-32,35-36
+src/github/menuFormat.ts
+  s_6a7a7af2ceeb96::t_a9e1e6349c7d49 1,3,5-7,10-11,28-30,32-36,38-40,42-48
+  s_6a7a7af2ceeb96::t_f80d07f8b73078 14-16,19-21,23-26
+src/components/dashboard/tabs/StarsTab.vue
+  s_6a7a7af2ceeb96::t_0c6ab505433c67 1,3,8-9,12-13,21-23,39
+  s_6a7a7af2ceeb96::t_199f02dc7e5203 4,37
+  s_6a7a7af2ceeb96::t_bcb3a149d185c2 7,10-11,15-16,38
+  s_6a7a7af2ceeb96::t_2783692ec2f27c 2,6,14
+  s_6a7a7af2ceeb96::t_1f955c20239435 5,17-20,24-36
+src/components/dashboard/tabs/OverviewTab.vue
+  s_6a7a7af2ceeb96::t_f5b8e23f53b9d1 4
+  s_6a7a7af2ceeb96::t_59580bf27032dc 5,64-71
+  s_6a7a7af2ceeb96::t_d0a0b6466c6988 8,12-13,20-21,23-25,30,75-78
+  s_6a7a7af2ceeb96::t_60620f949ad633 72-73
+  s_6a7a7af2ceeb96::t_a71c52b0f9aaf1 10,18,22
+  s_6a7a7af2ceeb96::t_4ac2b43cbf1ca9 2,6,19
+  s_6a7a7af2ceeb96::t_1c068885a6a635 1,3,7,9,11,14-17,26-28,42,61,81
+  s_6a7a7af2ceeb96::t_3e5a4725615a76 29,31-38,40-41,43-60,62-63,74,79-80
+  s_6a7a7af2ceeb96::t_e3fc5d0fbe0507 39
+src/components/dashboard/tabs/WatchingTab.vue
+  s_6a7a7af2ceeb96::t_7761d62d9fc17c 5,17-20,24-38
+  s_6a7a7af2ceeb96::t_1e5defb8c7d370 7,10-11,15-16,40-43
+  s_6a7a7af2ceeb96::t_5262ebd2ec7243 1,3,8-9,12-13,21-23,44
+  s_6a7a7af2ceeb96::t_ef43c898cf4adc 2,6,14
+  s_6a7a7af2ceeb96::t_f191b98c37725f 4,39
+src/components/dashboard/tabs/NotificationsTab.vue
+  s_6a7a7af2ceeb96::t_ab6ed5754ee7d9 2,6,14
+  s_6a7a7af2ceeb96::t_2e4c5611a4a559 1,3,8-9,12-13,15,26-28,55
+  s_6a7a7af2ceeb96::t_f3fe90eebad02f 5,22-25,29-49
+  s_6a7a7af2ceeb96::t_88a48ccee4c9c9 4,50
+  s_6a7a7af2ceeb96::t_e10e387319d185 7,10-11,16-21,51-54
+src/github/itemDiff.ts
+  s_6a7a7af2ceeb96::t_16965c07151c3c 1-163
+src/views/SignInView.vue
+  s_6a7a7af2ceeb96::t_55cda069685ca4 6,74-78,103,106-111,113-118,124-130
+  s_6a7a7af2ceeb96::t_f69759eb25f303 19,41,62-65,69-70,83,104-105
+  s_6a7a7af2ceeb96::t_40150455f82e62 25
+  s_6a7a7af2ceeb96::t_be7e9f519dea9e 84-91
+  s_6a7a7af2ceeb96::t_49259c10f8ba20 102
+  s_6a7a7af2ceeb96::t_cfca9628d1a20f 1,3,5,7-18,20-24,26-40,42-61,66-68,71-73,79-82,92-101,112,119-123,131-134
+  s_6a7a7af2ceeb96::t_1e16817a121367 2,4
+src/components/dashboard/OverviewStatCard.vue
+  s_6a7a7af2ceeb96::t_1f9ef2473daf6f 1-30
+src/schemas/github.ts
+  s_6a7a7af2ceeb96::t_5ecb0540dbc290 59-60
+  s_6a7a7af2ceeb96::t_c5656947b5cc50 1-5,7-58,61-74,105
+  s_6a7a7af2ceeb96::t_032388f57e6594 6,75-104
+src/components/settings/SettingsCard.vue
+  s_6a7a7af2ceeb96::t_d961e46995a1e0 1-22
+src-tauri/config/oauth.example.json
+  s_6a7a7af2ceeb96::t_c72624fe1eec4c 1-3
+src/github/repoVisibility.ts
+  s_6a7a7af2ceeb96::t_93cc640b16bc00 1-7,9,11-13,16-24,26-33,35-40,42,44-49,51-56,91-113,116
+  s_6a7a7af2ceeb96::t_8b0089a7cf1ad7 58-67,69-76,78-85,88-90
+src-tauri/src/main.rs
+  s_6a7a7af2ceeb96::t_c5aa8e81c58701 5
+src-tauri/gen/apple/GitPulse.xcodeproj/xcshareddata/xcschemes/GitPulse_iOS.xcscheme
+  s_6a7a7af2ceeb96::t_dbb7f1fa0987c4 1-131
+src/components/dashboard/tabs/IssuesTab.vue
+  s_6a7a7af2ceeb96::t_605b6470fc1bfc 1,3,7-8,11-12,16-18,24
+  s_6a7a7af2ceeb96::t_bcd20ceb87b206 2,5,13
+  s_6a7a7af2ceeb96::t_9a55d585c4026b 6,9-10,14-15,23
+  s_6a7a7af2ceeb96::t_cea7dc73372786 4,19-22
+src/components/github/IssueRow.vue
+  s_6a7a7af2ceeb96::t_0ed8380a55aa97 28
+  s_6a7a7af2ceeb96::t_0de81bab63382a 29
+  s_6a7a7af2ceeb96::t_4a184fddb9ff1a 45
+  s_6a7a7af2ceeb96::t_1a3e198061b32e 7
+  s_6a7a7af2ceeb96::t_00912475656e00 1-6,8-27,30-44,46-52
+src-tauri/src/github_auth.rs
+  s_6a7a7af2ceeb96::t_7b7f8f9736c1f7 244
+  s_6a7a7af2ceeb96::t_d946b258b1245d 236
+  s_6a7a7af2ceeb96::t_2108ea8423cdce 239
+  s_6a7a7af2ceeb96::t_615fc08047f2de 293-297
+  s_6a7a7af2ceeb96::t_e2f2b60fa1aac1 68
+  s_6a7a7af2ceeb96::t_eef86d262dd031 1
+  s_6a7a7af2ceeb96::t_7357ee829a0d13 2-67,69-235,237-238,240-243,245-292,298-303
+src/dashboard/labels.ts
+  s_6a7a7af2ceeb96::t_35d60522643794 1-14
+src-tauri/gen/apple/LaunchScreen.storyboard
+  s_6a7a7af2ceeb96::t_a50b3c54265362 18
+  s_6a7a7af2ceeb96::t_aa74dbc0c4eb3d 32-35
+  s_6a7a7af2ceeb96::t_b9fd614a375a22 23
+src/components/github/NotificationRow.vue
+  s_6a7a7af2ceeb96::t_47ba9986a7ff9f 1-42
+src/github/repoVisibility.test.ts
+  s_6a7a7af2ceeb96::t_5b0634af95f5e4 1,3-7,10,13-18,20,25-29,31-32,35-39,41-42,45-49
+  s_6a7a7af2ceeb96::t_a0486441f807bf 9,11-12,21-22
+  s_6a7a7af2ceeb96::t_6bdddabc11a511 19
+  s_6a7a7af2ceeb96::t_cb832300d8db11 43-44
+  s_6a7a7af2ceeb96::t_dc010c869dc807 33-34
+src/github/types.ts
+  s_6a7a7af2ceeb96::t_54541635a1656e 4,102-136,138-142
+  s_6a7a7af2ceeb96::t_5d1540c90df99b 54-55
+  s_6a7a7af2ceeb96::t_590f16442c98ad 96-97
+  s_6a7a7af2ceeb96::t_d64c5e1f128237 137
+  s_6a7a7af2ceeb96::t_4855438d65f028 1-3,5-53,56-76,78-83,85-90,143-158
+  s_6a7a7af2ceeb96::t_08ae3931704be8 77,84,91-95,98-101
+src/components/auth/index.ts
+  s_6a7a7af2ceeb96::t_a3168d16f226e7 1-3
+src/github/grouping.ts
+  s_6a7a7af2ceeb96::t_b89f537a466906 45-48
+  s_6a7a7af2ceeb96::t_14758cee3e4cf8 1-9,11-40,42,49-57,59-128,130,134-138,141-146,148-151,153-157,159-178
+  s_6a7a7af2ceeb96::t_75d8d36cf9f157 10,41,43-44,58,129,131-133,139-140,147,152,158
+src-tauri/gen/apple/GitPulse.xcodeproj/project.pbxproj
+  s_6a7a7af2ceeb96::t_dbb7f1fa0987c4 1-88,90-147,149-465
+  s_6a7a7af2ceeb96::t_4621749fe10eb2 89,148
+src/components/github/RepoCard.vue
+  s_6a7a7af2ceeb96::t_de78b0e5565485 1-40
+src/components/ui/BaseIcon.vue
+  s_6a7a7af2ceeb96::t_7a91c336d2072e 10
+src/components/auth/DeviceCodePanel.vue
+  s_6a7a7af2ceeb96::t_ef4b1a66abeabc 1-46
+src-tauri/tauri.conf.json
+  s_6a7a7af2ceeb96::t_ae84dfcae9ac78 3,5
+  s_6a7a7af2ceeb96::t_e5f15242ec9c90 16
+  s_6a7a7af2ceeb96::t_dc4f694733aa42 17-18
+  s_6a7a7af2ceeb96::t_d797a5398e597b 19-20
+  s_6a7a7af2ceeb96::t_827518ebc62667 30-32
+src/views/SettingsView.vue
+  s_6a7a7af2ceeb96::t_ffdab761d06424 425-438,440-450,452,454-456,458,460-462,464,466-468,470,472-474,476,478-485
+  s_6a7a7af2ceeb96::t_2e82dd6f73c42c 328-329,396,401,406,411,416,439,451,453,457,459,463,465,469,471,475,477,527
+  s_6a7a7af2ceeb96::t_6e08a88f0e9c53 18
+  s_6a7a7af2ceeb96::t_39a032e0927dd6 158
+  s_6a7a7af2ceeb96::t_5163c8ff48b6f6 262-265
+  s_6a7a7af2ceeb96::t_441810eef6be31 570
+  s_6a7a7af2ceeb96::t_559df3c1a472f7 22,24-25,37,113,118,159,168,183,198-199,208,212,228,233,238,243-245,247
+  s_6a7a7af2ceeb96::t_f0944f92741b5c 211,213-222
+  s_6a7a7af2ceeb96::t_905ec2785c057d 422-424,537-544
+  s_6a7a7af2ceeb96::t_6cfc303f5f3749 296
+  s_6a7a7af2ceeb96::t_fcb9a619d2f4ab 546
+  s_6a7a7af2ceeb96::t_e8e3fe88b77b90 336-348
+  s_6a7a7af2ceeb96::t_09c6bfb86f316a 5,9,19,29-33,41,44,65,70-76,90-94,101-108,112,114-117,134-141,180-181,184-188,191-193,200-207,278-295,297,310-321,323-327,330-333,335,349-364,367,373-374,381,395,397-400,402-405,407-410,412-415,417-419,560-564,571-572,574
+  s_6a7a7af2ceeb96::t_402c9fe5b17f44 50,53-56
+  s_6a7a7af2ceeb96::t_09ea3639887622 21,23
+  s_6a7a7af2ceeb96::t_d760aade1cbbdf 26-27
+  s_6a7a7af2ceeb96::t_6bbb4a36d1a5df 420
+  s_6a7a7af2ceeb96::t_d1c56ce3dc0646 556-559
+  s_6a7a7af2ceeb96::t_c670af87b98390 223
+  s_6a7a7af2ceeb96::t_020b30a18a2539 224
+  s_6a7a7af2ceeb96::t_83b8755a046e7f 2,45,182,189-190
+  s_6a7a7af2ceeb96::t_b4dd10d7538f98 298-309
+  s_6a7a7af2ceeb96::t_cb7cd9f532e204 248
+  s_6a7a7af2ceeb96::t_02b44442daf28d 382-394
+  s_6a7a7af2ceeb96::t_d06c87ffd94989 174
+  s_6a7a7af2ceeb96::t_9e1cdecb7a1429 486-513,520-526,528-536
+  s_6a7a7af2ceeb96::t_0fa069270cde93 1,3-4,6-8,10-16,28,34-36,38,42-43,46-49,52,57-59,62-64,66-69,79-82,85-89,95-100,109-111,128-133,142-157,160-167,169-173,175-179,194-197,209-210,225-226,242,246,249-252,255-261,365-366,368-372,375-379,421,545,547-553,555,565-569,573,575-580
+  s_6a7a7af2ceeb96::t_957fa815a2fda6 83-84
+  s_6a7a7af2ceeb96::t_6da0508abe59ee 253-254
+  s_6a7a7af2ceeb96::t_4ca58493bc1bc0 554
+  s_6a7a7af2ceeb96::t_954baa3465cf0b 266-277
+  s_6a7a7af2ceeb96::t_80d848aa1f9798 60-61
+  s_6a7a7af2ceeb96::t_78457789ea4867 51,121-125,514-519
+  s_6a7a7af2ceeb96::t_f5c64cfa128a09 77-78
+  s_6a7a7af2ceeb96::t_dcfa239a576b7e 227,229-232,234-237,239-241
+  s_6a7a7af2ceeb96::t_50849c9fd5c1ce 380
+  s_6a7a7af2ceeb96::t_efb758a5eb333a 334
+  s_6a7a7af2ceeb96::t_ad28aaf803fc36 20
+  s_6a7a7af2ceeb96::t_aba40fe85bb1e9 39
+  s_6a7a7af2ceeb96::t_ab5643c0a1a232 322
+  s_6a7a7af2ceeb96::t_f31cafa56bca9a 119-120,126-127
+  s_6a7a7af2ceeb96::t_51546427a03d63 17
+  s_6a7a7af2ceeb96::t_a071122a0736ef 40
+src/main.ts
+  s_6a7a7af2ceeb96::t_6efcd6e5f5c41c 27
+src-tauri/gen/android/app/src/main/res/values-night/themes.xml
+  s_6a7a7af2ceeb96::t_a608b1652a9460 3,7,10
+src-tauri/gen/apple/Podfile
+  s_6a7a7af2ceeb96::t_617cc6ccc9aa50 3,5,8,10
+src/components/auth/SignInActions.vue
+  s_6a7a7af2ceeb96::t_b8cf216167ea9d 1-30
+src-tauri/config/README.md
+  s_6a7a7af2ceeb96::t_5a41a5462aea35 1-90
+src-tauri/src/lib.rs
+  s_6a7a7af2ceeb96::t_1201d29d657a89 30,32,34-35
+  s_6a7a7af2ceeb96::t_78b70668e5d4e1 109-113,115-118,121-127
+  s_6a7a7af2ceeb96::t_2e9cc04bcf24c8 209
+  s_6a7a7af2ceeb96::t_23d85a12b24938 12
+  s_6a7a7af2ceeb96::t_68b64d6f9c0fe3 66
+  s_6a7a7af2ceeb96::t_d6589415e9817f 2,4,233-235
+  s_6a7a7af2ceeb96::t_cc4ee35970d7c7 36,56,63-64,67,71-77,82-99,104,138,141,147-148,151-154,157-158,231-232
+  s_6a7a7af2ceeb96::t_d2f2b206cca8a4 189
+  s_6a7a7af2ceeb96::t_1699c401e5fb38 139,155-156
+  s_6a7a7af2ceeb96::t_0cd5f0fab9939c 1,3,8,10-11,13,41,45-50,52,65,149-150,169,230,236-239
+  s_6a7a7af2ceeb96::t_a2cefac6f9ac76 51
+  s_6a7a7af2ceeb96::t_ff210e71c2cb06 15-22,42-44,57-59,114,119-120
+  s_6a7a7af2ceeb96::t_128f428fb6931d 240
+  s_6a7a7af2ceeb96::t_a7cad05ba7fca7 242-244,249-250
+  s_6a7a7af2ceeb96::t_dc3b3d209ab8ad 183-185
+  s_6a7a7af2ceeb96::t_aedb3e3dd9bbf0 245-248
+  s_6a7a7af2ceeb96::t_9b42ba2fa62009 132
+  s_6a7a7af2ceeb96::t_a88eb12c58e953 9
+  s_6a7a7af2ceeb96::t_ddd95042e40f8e 14
+  s_6a7a7af2ceeb96::t_95c4cccf55e612 40
+  s_6a7a7af2ceeb96::t_3ac5b85b8d32ea 108
+src/composables/useNotification.ts
+  s_6a7a7af2ceeb96::t_ca11d7faededbe 59-72,106
+  s_6a7a7af2ceeb96::t_b624841cc8b516 24-28
+src/composables/useAppBootstrap.ts
+  s_6a7a7af2ceeb96::t_897c79e90cab67 74-81
+  s_6a7a7af2ceeb96::t_7b20b0e2088608 6-7,13-14,42-43,45-46,52
+  s_6a7a7af2ceeb96::t_7945fee142d4da 5,11,44,68
+  s_6a7a7af2ceeb96::t_1ba171855c1064 2-4,9-10,12,16,19,57,66,88
+  s_6a7a7af2ceeb96::t_43cdc7e31999d0 17,41,48,50-51,53-55,59-60,62-63,65,70-72,82-87
+  s_6a7a7af2ceeb96::t_02becb2ea40bb6 1,21-39
+  s_6a7a7af2ceeb96::t_5efb51b2d362d5 61
+  s_6a7a7af2ceeb96::t_b42b8a1e164d9d 20
+src/composables/useTrayMenu.ts
+  s_6a7a7af2ceeb96::t_c630d4249e8afa 111
+  s_6a7a7af2ceeb96::t_c16e0f1babb6cd 1-3,5-7,18,20-21,23-31,34-35,38-43,45-48,53,76,78,80-82,86-88,99-100,103-104,108-110,112-114,118-120
+  s_6a7a7af2ceeb96::t_4a5f56b2ed593b 32
+  s_6a7a7af2ceeb96::t_1edbab31b73f09 44,49
+  s_6a7a7af2ceeb96::t_fb2dd9a75afdb6 8-9,36-37,54,61
+  s_6a7a7af2ceeb96::t_7cf443109ac280 4
+  s_6a7a7af2ceeb96::t_87123c8c131f61 94-96
+  s_6a7a7af2ceeb96::t_b5323e1dc50b45 50-52
+  s_6a7a7af2ceeb96::t_362af8db553294 11-16,56-60,62-75,90,92-93,98,105-107
+src/components/github/EmptyState.vue
+  s_6a7a7af2ceeb96::t_d07a68f4ba4de2 1-37
+src/components/dashboard/DashboardToolbar.vue
+  s_6a7a7af2ceeb96::t_08b6269913bb97 10
+  s_6a7a7af2ceeb96::t_f56c4adaab5192 1-9,11-18
+src/github/feed.ts
+  s_6a7a7af2ceeb96::t_3c145d264ba18a 51,53,68,70,84
+  s_6a7a7af2ceeb96::t_8dfab5ae6dff21 1-50,52,54-67,69,71-83,85-106,108-109,218-224,226,228-234
+  s_6a7a7af2ceeb96::t_a92a04dc7e2efd 110-118,147-208,210-215,227
+  s_6a7a7af2ceeb96::t_812240b810451f 107,119-146,209,216-217,225
+public/gitpulse-icon.svg
+  s_6a7a7af2ceeb96::t_dd6001de8c4331 1-2,5-6,9-12,33
+  s_6a7a7af2ceeb96::t_27c312719f291a 3-4,7-8,13-32
+src/components/auth/AuthLinks.vue
+  s_6a7a7af2ceeb96::t_e657c60718f70d 1-40
+src/github/countDiff.ts
+  s_6a7a7af2ceeb96::t_4a51761cea5e54 1,3-14,17-19,21-23,25-30,32-33,36-37,40-41,43-47,49-55,58-65
+  s_6a7a7af2ceeb96::t_6d90abfec9d6ec 2
+  s_6a7a7af2ceeb96::t_c73793e778b7ef 15-16
+  s_6a7a7af2ceeb96::t_4c6eef64d5ad38 20
+  s_6a7a7af2ceeb96::t_b979c82096ee08 24
+  s_6a7a7af2ceeb96::t_d9c2ad446e2fa5 31
+  s_6a7a7af2ceeb96::t_4ae0f2c4010a34 34-35
+  s_6a7a7af2ceeb96::t_85e02a780f2883 38-39
+  s_6a7a7af2ceeb96::t_94450eddf612a4 42
+  s_6a7a7af2ceeb96::t_18a02962fccc94 48
+  s_6a7a7af2ceeb96::t_6c8fd1131befbb 56-57
+  s_6a7a7af2ceeb96::t_f6d97afdd7d37b 66
+public/splashscreen.html
+  s_6a7a7af2ceeb96::t_c115aa83abe102 91-93,95
+  s_6a7a7af2ceeb96::t_f18b395da19caa 6
+src/composables/useGitHubAuth.ts
+  s_6a7a7af2ceeb96::t_d1dae47082aa9f 1,3-4,6,8-18,20-24,28-33,35,37-39,41-49,53-59
+src-tauri/src/gh_cli.rs
+  s_6a7a7af2ceeb96::t_8d5b1681e2b6c1 2-3,5-99
+  s_6a7a7af2ceeb96::t_cfd9550eb3fbc0 1,4
+src-tauri/gen/android/app/build.gradle.kts
+  s_6a7a7af2ceeb96::t_c3d346a4f0aed2 21
+  s_6a7a7af2ceeb96::t_9448c5d5390ff6 18
+src-tauri/gen/apple/project.yml
+  s_6a7a7af2ceeb96::t_7a3a7ce2072aa8 1,3,13-14,28,35,41,58
+src/github/queries.ts
+  s_6a7a7af2ceeb96::t_e92613e429b83d 17-20
+  s_6a7a7af2ceeb96::t_34d589ab9634dd 1-2,5-10,15-16,21-35
+  s_6a7a7af2ceeb96::t_76b7fba2de92bd 3-4,11-14
+src-tauri/src/config.rs
+  s_6a7a7af2ceeb96::t_d8ddb442e735dc 1-3,5-11,14-29,31-35,37-62,64-70,72-80
+  s_6a7a7af2ceeb96::t_51f63720e0bc98 4
+  s_6a7a7af2ceeb96::t_21b8fd336a8337 12-13
+  s_6a7a7af2ceeb96::t_b9b49d2e6a5405 30
+  s_6a7a7af2ceeb96::t_362783e7cd430b 36
+  s_6a7a7af2ceeb96::t_133d9e6fc0a77a 63
+  s_6a7a7af2ceeb96::t_fd4d476bd8f93e 71
+  s_6a7a7af2ceeb96::t_db172344fa7550 81
+src-tauri/Cargo.toml
+  s_6a7a7af2ceeb96::t_e3b24aff02ec49 35
+  s_6a7a7af2ceeb96::t_820169de3bf7fb 14
+  s_6a7a7af2ceeb96::t_8ec3695a34f45a 2
+  s_6a7a7af2ceeb96::t_88138ecc4ad2f0 4
+src/github/countDiff.test.ts
+  s_6a7a7af2ceeb96::t_512a520157e19e 1-83
+src/components/layout/AppHeaderProfile.vue
+  s_6a7a7af2ceeb96::t_01973e51bac199 1-26
+src/i18n/locales/ru/ui.ts
+  s_6a7a7af2ceeb96::t_f9552e5ae93574 74-78
+  s_6a7a7af2ceeb96::t_c440bb0f7b9203 36-46
+  s_6a7a7af2ceeb96::t_2283bd867bc418 82
+  s_6a7a7af2ceeb96::t_808ba74418230f 2-4
+  s_6a7a7af2ceeb96::t_8676c3f5eeb874 145-149,151
+  s_6a7a7af2ceeb96::t_a9abf0477564f0 164-174,176-189,191-198,200-213,218-220
+  s_6a7a7af2ceeb96::t_5c84880aecea8c 175
+  s_6a7a7af2ceeb96::t_e3a3227a4d5f12 199
+  s_6a7a7af2ceeb96::t_8652ac0494801c 216-217
+  s_6a7a7af2ceeb96::t_50206fef69c327 28,30
+  s_6a7a7af2ceeb96::t_68151f147d50bc 106
+  s_6a7a7af2ceeb96::t_2665c3d5fbb708 150
+  s_6a7a7af2ceeb96::t_68ce01f2ea08b8 48-50
+  s_6a7a7af2ceeb96::t_a46095ed41de3b 51-73,190
+  s_6a7a7af2ceeb96::t_ea82721b05a9f0 127-138
+  s_6a7a7af2ceeb96::t_fe81c168acdfa9 214-215
+  s_6a7a7af2ceeb96::t_f2f4eb2b0ff469 9-10,12-14,21,25,33,85-87,90-105,107-116,126,142,144,152-161
+  s_6a7a7af2ceeb96::t_b979fca301a0bd 5-8,11,15-20,22-24,26-27,29,31-32,47,79-81,83-84,88-89,117-125,139-141,143,162-163
+  s_6a7a7af2ceeb96::t_2310dfe4fbe557 34-35
+src/components/layout/AppShell.vue
+  s_6a7a7af2ceeb96::t_afe94a81315f84 1-11,13,21-27,29,71-73,75-106,111-133,147-148,150-151,153-156
+  s_6a7a7af2ceeb96::t_7c1c6209f633a6 107-110,134-146
+  s_6a7a7af2ceeb96::t_47334a982478b2 149
+  s_6a7a7af2ceeb96::t_91ecf98f8ca42b 33
+  s_6a7a7af2ceeb96::t_49bc565a24c8bc 12,14-20,28,30-32,34-70,74,152
+src/composables/useHttpClient.ts
+  s_6a7a7af2ceeb96::t_cd5f846de33b57 152-153
+  s_6a7a7af2ceeb96::t_a4987fc47072d4 46
+src/stores/settingsStore.ts
+  s_6a7a7af2ceeb96::t_0c021c7291fd1d 11
+  s_6a7a7af2ceeb96::t_59286b03a33cf4 23-26,40,42,47,55,60,69-73
+  s_6a7a7af2ceeb96::t_7e72e9633278d7 1-10,12-22,27-39,41,43-46,48-54,56-59,61-68,74-119
+src/github/client.ts
+  s_6a7a7af2ceeb96::t_26c017a5b79f71 24-33,117-118,120,122,127-128,130,132,137-138,142
+  s_6a7a7af2ceeb96::t_c7f43384cd73eb 8,11,13-14,16-20,40-58,66-69,125-126,129,131,133-134
+  s_6a7a7af2ceeb96::t_83502905c863f5 78-87
+  s_6a7a7af2ceeb96::t_d317a617a4a443 97-102
+  s_6a7a7af2ceeb96::t_23fd4b72f2d980 4,6,12,15,35-39,145-171
+  s_6a7a7af2ceeb96::t_a72d01c964dc16 1-3,5,7,9-10,21-23,34,59-65,70-77,88-96,103-116,119,121,123-124,135-136,139-141,143-144,172-185
+index.html
+  s_6a7a7af2ceeb96::t_317fc78a9ab01c 7
+src/components/github/GroupedRepoView.vue
+  s_6a7a7af2ceeb96::t_2124e0d265deeb 1-9,11-21,23-51,53-57,59-218
+  s_6a7a7af2ceeb96::t_c9d6f9ea0718ed 10,22,52,58
+pnpm-lock.yaml
+  s_6a7a7af2ceeb96::t_49eeb39715e788 108-110,886-891,908-936,1056-1059,1069-1080,1091-1103,1116-1118,1127-1133,1172-1174,1245-1247,1258-1260,1301-1307,1339-1341,1350-1358,1389-1394,1403-1406,1411-1418,1427-1431,1472-1499,1523-1527,2029-2035,2049-2090,2218-2219,2228-2239,2248-2253,2263-2264,2296-2301,2325-2326,2376-2377,2388-2389,2444-2447,2500-2501,2506-2513,2536-2539,2547-2548,2551-2554,2559-2579,2594-2634,2661-2665
+src/components/ui/BaseModal.vue
+  s_6a7a7af2ceeb96::t_32b85f2725a8ed 76-81
+gitbar-main/.github/workflows/release.yml
+  s_6a7a7af2ceeb96::t_869d05e1aaf0c4 1-96
+gitbar-main/.github/workflows/site-deploy.yml
+  s_6a7a7af2ceeb96::t_d08ef46ce38ec4 1-46
+gitbar-main/.gitignore
+  s_6a7a7af2ceeb96::t_128da8a52fffca 1-12
+gitbar-main/Casks/gitbar.rb
+  s_6a7a7af2ceeb96::t_671967e355175e 1-18
+gitbar-main/Formula/gitbar.rb
+  s_6a7a7af2ceeb96::t_699e4e6c084937 1-86
+gitbar-main/Package.swift
+  s_6a7a7af2ceeb96::t_46fca117435e72 1-16
+gitbar-main/README.md
+  s_6a7a7af2ceeb96::t_29094db8247b72 1-99
+gitbar-main/Sources/Gitbar/App.swift
+  s_6a7a7af2ceeb96::t_77e024b1d2ff8b 1-292
+gitbar-main/Sources/Gitbar/Config.swift
+  s_6a7a7af2ceeb96::t_09c55460a2671f 1-140
+gitbar-main/Sources/Gitbar/GHCLIAuth.swift
+  s_6a7a7af2ceeb96::t_2534c438a7451a 1-290
+gitbar-main/Sources/Gitbar/GitHub.swift
+  s_6a7a7af2ceeb96::t_ff88f5cc2bfaa3 1-413
+gitbar-main/Sources/Gitbar/LaunchAtLogin.swift
+  s_6a7a7af2ceeb96::t_6e37b836c31ed8 1-22
+gitbar-main/Sources/Gitbar/Sections.swift
+  s_6a7a7af2ceeb96::t_d5489c17dd4d72 1-672
+gitbar-main/Sources/Gitbar/StatsMetrics.swift
+  s_6a7a7af2ceeb96::t_26e1b09a571445 1-242
+gitbar-main/Sources/Gitbar/Store.swift
+  s_6a7a7af2ceeb96::t_97a46b8924ff50 1-554
+gitbar-main/Sources/Gitbar/Theme.swift
+  s_6a7a7af2ceeb96::t_da75d3c6418576 1-108
+gitbar-main/Sources/Gitbar/Updater.swift
+  s_6a7a7af2ceeb96::t_28f4bad12c49af 1-95
+gitbar-main/Sources/Gitbar/Views/AvatarView.swift
+  s_6a7a7af2ceeb96::t_2863d08ccb2f32 1-114
+gitbar-main/Sources/Gitbar/Views/CLISignInView.swift
+  s_6a7a7af2ceeb96::t_0c1afc4af0bd6c 1-268
+gitbar-main/Sources/Gitbar/Views/Chips.swift
+  s_6a7a7af2ceeb96::t_d1eb94fc829453 1-232
+gitbar-main/Sources/Gitbar/Views/EmojiCaptureField.swift
+  s_6a7a7af2ceeb96::t_f707cae906ca97 1-87
+gitbar-main/Sources/Gitbar/Views/LucideGithubIcons.swift
+  s_6a7a7af2ceeb96::t_e0e9b60359781b 1-302
+gitbar-main/Sources/Gitbar/Views/LucideIcons.swift
+  s_6a7a7af2ceeb96::t_ff527cc8a766db 1-80
+gitbar-main/Sources/Gitbar/Views/PanelView.swift
+  s_6a7a7af2ceeb96::t_6cf66e908ffbf9 1-985
+gitbar-main/Sources/Gitbar/Views/Rows.swift
+  s_6a7a7af2ceeb96::t_902614689d888c 1-321
+gitbar-main/Sources/Gitbar/Views/SectionEditorView.swift
+  s_6a7a7af2ceeb96::t_5c192b5cddbe44 1-944
+gitbar-main/Sources/Gitbar/Views/SectionsManagerView.swift
+  s_6a7a7af2ceeb96::t_b668afec988b50 1-302
+gitbar-main/Sources/Gitbar/Views/SettingsView.swift
+  s_6a7a7af2ceeb96::t_3838d597f78748 1-428
+gitbar-main/Sources/Gitbar/Views/StatsView.swift
+  s_6a7a7af2ceeb96::t_c4405db8090598 1-367
+gitbar-main/Sources/Gitbar/Views/TokenField.swift
+  s_6a7a7af2ceeb96::t_7c829809242713 1-2,4-8,10-11,14-29,32-35,38-40,42-50
+gitbar-main/docs/RELEASING.md
+  s_6a7a7af2ceeb96::t_14b7cb997d2c59 1-123
+gitbar-main/flo.yml
+  s_6a7a7af2ceeb96::t_3ff600dedf4f58 1-12
+gitbar-main/install
+  s_6a7a7af2ceeb96::t_3f43fca29668e1 1-82
+gitbar-main/scripts/release.sh
+  s_6a7a7af2ceeb96::t_ad4906d0261c84 1-280
+gitbar-main/site/assets/css/styles.css
+  s_6a7a7af2ceeb96::t_73ac8998e1de48 1-594
+gitbar-main/site/assets/js/main.js
+  s_6a7a7af2ceeb96::t_db3d558a97e6f6 1-55
+gitbar-main/site/index.html
+  s_6a7a7af2ceeb96::t_b5d224fbfae517 1-293
+gitbar-main/site/package.json
+  s_6a7a7af2ceeb96::t_0c52e9b75f9369 1-13
+gitbar-main/site/pnpm-lock.yaml
+  s_6a7a7af2ceeb96::t_671001f0f94033 1-635
+src-tauri/Cargo.lock
+  s_6a7a7af2ceeb96::t_3a268c9d5c7906 1460,1729-1751,3703,3705
+src-tauri/gen/android/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml
+  s_6a7a7af2ceeb96::t_4703a5becab2b8 1-5
+src-tauri/gen/android/app/src/main/res/values/ic_launcher_background.xml
+  s_6a7a7af2ceeb96::t_66f9d86de9ff88 1-4
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "2b82a889638a12df308faef166c5cc24a0125403",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
