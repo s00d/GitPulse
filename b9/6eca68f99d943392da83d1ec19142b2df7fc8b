@@ -1,0 +1,52 @@
+.github/DISCUSSION_TEMPLATE/feedback.yml
+  s_6a7a7af2ceeb96::t_a9db32b56aa62b 1-29
+docs/promotion/reddit-vuejs.md
+  s_6a7a7af2ceeb96::t_3e63ebedbb1ea3 1-27
+docs/promotion/discord-tauri.md
+  s_6a7a7af2ceeb96::t_d9899f6f375f15 1-23
+docs/promotion/reddit-tauri.md
+  s_6a7a7af2ceeb96::t_f984737dde08bd 1-31
+docs/promotion/README.md
+  s_6a7a7af2ceeb96::t_1d59c3d924dae8 1-45
+docs/assets/screenshots/README.md
+  s_6a7a7af2ceeb96::t_f04978f88141b7 1-26
+.github/ISSUE_TEMPLATE/config.yml
+  s_6a7a7af2ceeb96::t_923b5e2066928b 4
+  s_6a7a7af2ceeb96::t_ae00f486a9d697 1-3,5-8
+.github/ISSUE_TEMPLATE/bug_report.yml
+  s_6a7a7af2ceeb96::t_c4f1f68f9ce356 1-61
+docs/promotion/reddit-macapps.md
+  s_6a7a7af2ceeb96::t_f46df1176d5d61 1-39
+docs/promotion/product-hunt.md
+  s_6a7a7af2ceeb96::t_10e854f2f80479 1-60
+.github/ISSUE_TEMPLATE/feature_request.yml
+  s_6a7a7af2ceeb96::t_35780b1243e5ed 1-32
+docs/promotion/devto-article.md
+  s_6a7a7af2ceeb96::t_8e3cec008db159 1-81
+docs/promotion/reddit-opensource.md
+  s_6a7a7af2ceeb96::t_96800d36585673 1-36
+docs/promotion/show-hn.md
+  s_6a7a7af2ceeb96::t_894ecedd9df425 1-35
+README.md
+  s_6a7a7af2ceeb96::t_58c95bbf2e342d 65,67-69
+  s_6a7a7af2ceeb96::t_8ed6c3eca73c2f 78-80
+  s_6a7a7af2ceeb96::t_ad649d7f22c702 133-134,137-139
+  s_6a7a7af2ceeb96::t_698a3f2eae722a 32,34-36,38
+  s_6a7a7af2ceeb96::t_5f3aeab83fab25 140
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "b96eca68f99d943392da83d1ec19142b2df7fc8b",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
