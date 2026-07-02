@@ -1,0 +1,23 @@
+---
+description: UI-kit стандарты для Vue компонентов
+globs: src/components/ui/*.vue
+alwaysApply: false
+---
+
+# UI-kit Standards
+
+- Используй `tv` из `src/lib/tv.ts`; не пиши ad-hoc классы вместо variant/slot-конфигов.
+- Размеры контролов только из шкалы `2xs|xs|sm|md|lg|xl`.
+- Во всех интерактивных компонентах обязательны `dark:` состояния и единый motion (`uiMotion`).
+- Overlay-компоненты (`Modal`, `Dropdown`, `Select`, `Tooltip`, `ContextMenu`, `Toast`) рендерь через `Teleport` в `#overlay-root`.
+- Для иконок используй только `BaseIcon` (без прямых `i-mdi-*` в шаблонах).
+- Для новых компонентов добавляй экспорт в `src/components/ui/index.ts`.
+
+```vue
+<!-- ❌ BAD -->
+<button class="h-10 px-4 bg-blue-600 hover:bg-blue-700">Save</button>
+
+<!-- ✅ GOOD -->
+<!-- size/variant через tv + token scale -->
+<BaseButton size="md" variant="solid">Save</BaseButton>
+```

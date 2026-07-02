@@ -1,0 +1,25 @@
+---
+description: Стандарты composables и Tauri plugin API
+globs: src/composables/**/*.ts
+alwaysApply: false
+---
+
+# Composables Standards
+
+- Формат API composable: `isLoading`, `error`, typed методы, явные возвращаемые типы.
+- Ошибки нормализуй в shape `{ message: string }`; не пробрасывай сырые `unknown`.
+- Для персиста не использовать `localStorage`; только `@tauri-apps/plugin-store` / `useTauriStore`.
+- Для внешних plugin API держи thin-wrapper: минимум преобразований, максимум типизации.
+- Любой async метод должен быть безопасен для web/test контекста, где Tauri может быть недоступен.
+- Избегай дублирования логики загрузки/инициализации: выноси в `ensureReady`/`run`.
+
+```ts
+// ❌ BAD
+export async function saveLocale(v: string) {
+  localStorage.setItem("locale", v);
+}
+
+// ✅ GOOD
+const store = new LazyStore("app-settings.json", { defaults: {}, autoSave: 200 });
+await store.set("app-locale", v);
+```

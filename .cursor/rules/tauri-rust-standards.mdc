@@ -1,0 +1,31 @@
+---
+description: Tauri Rust правила для команд, плагинов и startup lifecycle
+globs: src-tauri/src/**/*.rs
+alwaysApply: false
+---
+
+# Tauri Rust Standards
+
+- Команды `#[tauri::command]` должны возвращать `Result<_, String>` при runtime-ошибках.
+- Startup-команды (`app_ready`) должны быть идемпотентны: повторный вызов не ломает состояние.
+- Плагины подключать централизованно в `run()` и сохранять осмысленный порядок инициализации.
+- Платформо-специфичную логику отделять через `#[cfg(...)]` (desktop/mobile).
+- Для window/tray операций всегда обрабатывать отсутствие окна (`get_webview_window(...).ok_or_else(...)`).
+- Побочные эффекты startup (`splashscreen`, `main.show`) держать в `setup`, не размазывать по коду.
+
+```rust
+// ❌ BAD
+#[tauri::command]
+fn app_ready(app: tauri::AppHandle) {
+    app.get_webview_window("main").unwrap().show().unwrap();
+}
+
+// ✅ GOOD
+#[tauri::command]
+fn app_ready(app: tauri::AppHandle) -> Result<(), String> {
+    if let Some(main) = app.get_webview_window("main") {
+        let _ = main.show();
+    }
+    Ok(())
+}
+```

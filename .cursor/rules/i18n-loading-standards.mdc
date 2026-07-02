@@ -1,0 +1,23 @@
+---
+description: Lazy i18n загрузка и структура локалей
+globs: src/i18n/**/*.ts
+alwaysApply: false
+---
+
+# i18n Loading Standards
+
+- Локали храним в TS-файлах по структуре `src/i18n/locales/<locale>/**/*.ts`.
+- Лоадинг только lazy через `import.meta.glob`; не использовать статические импорты всех локалей.
+- Список локалей получать динамически из найденных модулей; не хардкодить массив языков.
+- В памяти держать только активную локаль (остальные очищать через `setLocaleMessage(locale, {})`).
+- Сохранение выбранной локали выполнять через `plugin-store`, не через `localStorage`.
+- `setAppLocale` и `initI18nLocale` должны быть идемпотентны и безопасны в не-Tauri окружении.
+
+```ts
+// ❌ BAD
+import en from "./locales/en/ui";
+import ru from "./locales/ru/ui";
+
+// ✅ GOOD
+const localeModules = import.meta.glob("./locales/*/**/*.ts", { import: "default" });
+```

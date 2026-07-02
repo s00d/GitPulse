@@ -1,0 +1,10 @@
+@import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
+
+@plugin "@egoist/tailwindcss-icons";
+
+#overlay-root {
+  position: relative;
+  z-index: 999;
+  isolation: isolate;
+}
