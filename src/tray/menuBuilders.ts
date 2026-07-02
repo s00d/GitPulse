@@ -1,14 +1,21 @@
 import { invoke } from "@tauri-apps/api/core";
-import { Menu, MenuItem, PredefinedMenuItem, Submenu } from "@tauri-apps/api/menu";
+import {
+  IconMenuItem,
+  Menu,
+  MenuItem,
+  PredefinedMenuItem,
+  Submenu,
+  type SubmenuOptions,
+} from "@tauri-apps/api/menu";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import type { useI18n } from "vue-i18n";
 import { formatActivityTrayLabel } from "@/github/itemDiff";
 import {
-  formatItemLabel,
+  formatIssueTrayLabel,
+  formatNotificationTrayLabel,
   labelWithCountAndDelta,
-  starredRepoLabel,
+  starredRepoTrayLabel,
   submenuWithCountAndDelta,
-  truncate,
 } from "@/github/menuFormat";
 import {
   issueRepoKey,
@@ -22,12 +29,28 @@ import { sortNotificationsByUpdatedDesc, sortReposByUpdatedDesc } from "@/github
 import type { MenuVisibilitySettings } from "@/settings/appSettings";
 import type { useGitHubStore } from "@/stores/githubStore";
 import type { useRefreshStore } from "@/stores/refreshStore";
-import type { GhCliStatus, GitHubIssue, GitHubNotification, PrCategoryKind, PrRepoGroup, RepoGroup, StarredRepo, WatchedRepo } from "@/github/types";
+import type {
+  GhCliStatus,
+  GitHubIssue,
+  GitHubNotification,
+  PrCategoryKind,
+  PrRepoGroup,
+  RepoGroup,
+  StarredRepo,
+  WatchedRepo,
+} from "@/github/types";
+import { isPullRequest } from "@/github/types";
+import {
+  issueItemIcon,
+  trayBadgeIcon,
+  trayGlyphIcon,
+  type TrayGlyph,
+} from "@/tray/trayIconGenerator";
 
 const ABOUT_URL = "https://github.com/s00d/GitPulse";
 const TRAY_REPO_LIMIT = 30;
 
-export type TrayMenuEntry = MenuItem | Submenu | PredefinedMenuItem;
+export type TrayMenuEntry = MenuItem | IconMenuItem | Submenu | PredefinedMenuItem;
 
 type TranslateFn = ReturnType<typeof useI18n>["t"];
 
@@ -63,14 +86,45 @@ async function sectionSeparator() {
   return PredefinedMenuItem.new({ item: "Separator" });
 }
 
-function prCategoryLabel(t: TranslateFn, kind: PrCategoryKind, count: number): string {
+async function glyphSubmenu(opts: {
+  id?: string;
+  text: string;
+  glyph: TrayGlyph;
+  count?: number;
+  items: NonNullable<SubmenuOptions["items"]>;
+}): Promise<Submenu> {
+  const icon =
+    opts.count !== undefined && opts.count > 0
+      ? await trayBadgeIcon(opts.glyph, opts.count)
+      : await trayGlyphIcon(opts.glyph);
+
+  return Submenu.new({
+    id: opts.id,
+    text: opts.text,
+    icon,
+    items: opts.items,
+  });
+}
+
+function prCategoryGlyph(kind: PrCategoryKind): TrayGlyph {
   switch (kind) {
     case "needsReview":
-      return t("menu.prNeedsReviewCount", { count });
+      return "prReview";
     case "myPrs":
-      return t("menu.prMineCount", { count });
+      return "myPr";
     case "waitingOnAuthor":
-      return t("menu.prWaitingCount", { count });
+      return "prWait";
+  }
+}
+
+function prCategoryTitle(t: TranslateFn, kind: PrCategoryKind): string {
+  switch (kind) {
+    case "needsReview":
+      return t("menu.prNeedsReview");
+    case "myPrs":
+      return t("menu.prMine");
+    case "waitingOnAuthor":
+      return t("menu.prWaiting");
   }
 }
 
@@ -82,18 +136,20 @@ function makeOpenAction(ctx: TrayMenuBuildContext, keys: string[], url: string) 
   };
 }
 
-function issueItem(ctx: TrayMenuBuildContext, issue: GitHubIssue, keys: string[]) {
-  return MenuItem.new({
+async function issueItem(ctx: TrayMenuBuildContext, issue: GitHubIssue, keys: string[]) {
+  return IconMenuItem.new({
     id: `open:${issue.html_url}`,
-    text: formatItemLabel(issue),
+    text: formatIssueTrayLabel(issue),
+    icon: await issueItemIcon(isPullRequest(issue)),
     action: () => void makeOpenAction(ctx, keys, issue.html_url)(),
   });
 }
 
-function overflowItem(ctx: TrayMenuBuildContext, keys: string[], url: string, label: string) {
-  return MenuItem.new({
+async function overflowItem(ctx: TrayMenuBuildContext, keys: string[], url: string, label: string) {
+  return IconMenuItem.new({
     id: `open:${url}`,
     text: label,
+    icon: await trayGlyphIcon("external"),
     action: () => void makeOpenAction(ctx, keys, url)(),
   });
 }
@@ -101,9 +157,10 @@ function overflowItem(ctx: TrayMenuBuildContext, keys: string[], url: string, la
 export async function buildLoadingFooter(ctx: TrayMenuBuildContext): Promise<TrayMenuEntry[]> {
   return [
     await sectionSeparator(),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:settings",
       text: ctx.t("menu.settings"),
+      icon: await trayGlyphIcon("settings"),
       action: () => void invoke("show_settings_window"),
     }),
     await MenuItem.new({
@@ -117,9 +174,10 @@ export async function buildLoadingFooter(ctx: TrayMenuBuildContext): Promise<Tra
 export async function buildLoadingMenu(ctx: TrayMenuBuildContext) {
   return Menu.new({
     items: [
-      await MenuItem.new({
+      await IconMenuItem.new({
         id: "loading",
         text: ctx.t("menu.loading"),
+        icon: await trayGlyphIcon("activity"),
         enabled: false,
       }),
       ...(await buildLoadingFooter(ctx)),
@@ -130,9 +188,10 @@ export async function buildLoadingMenu(ctx: TrayMenuBuildContext) {
 async function maybePrependRefreshing(ctx: TrayMenuBuildContext, items: TrayMenuEntry[]): Promise<TrayMenuEntry[]> {
   if (ctx.isLoading && ctx.isBootstrapped && ctx.lastRefreshed) {
     return [
-      await MenuItem.new({
+      await IconMenuItem.new({
         id: "refreshing",
         text: ctx.t("menu.refreshing"),
+        icon: await trayGlyphIcon("refresh"),
         enabled: false,
       }),
       await sectionSeparator(),
@@ -142,12 +201,13 @@ async function maybePrependRefreshing(ctx: TrayMenuBuildContext, items: TrayMenu
   return items;
 }
 
-async function buildIssueRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submenu | MenuItem>> {
+async function buildIssueRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submenu | IconMenuItem>> {
   if (!ctx.issues.length) {
     return [
-      await MenuItem.new({
+      await IconMenuItem.new({
         id: "issues-empty",
         text: ctx.t("menu.noIssues"),
+        icon: await trayGlyphIcon("issue"),
         enabled: false,
       }),
     ];
@@ -164,8 +224,11 @@ async function buildIssueRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Sub
       const ackKeys = [repoKey];
 
       if (!group.items.length && group.overflowUrl) {
-        return Submenu.new({
+        return glyphSubmenu({
+          id: `issue-repo:${group.repo}`,
           text: label,
+          glyph: "repo",
+          count: group.totalCount,
           items: [
             await overflowItem(ctx, ackKeys, group.overflowUrl, ctx.t("menu.viewMoreOnGitHub")),
           ],
@@ -181,17 +244,24 @@ async function buildIssueRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Sub
         );
       }
 
-      return Submenu.new({ text: label, items });
+      return glyphSubmenu({
+        id: `issue-repo:${group.repo}`,
+        text: label,
+        glyph: "repo",
+        count: group.totalCount,
+        items,
+      });
     }),
   );
 }
 
-async function buildPrRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submenu | MenuItem>> {
+async function buildPrRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submenu | IconMenuItem>> {
   if (!ctx.prGroups.length) {
     return [
-      await MenuItem.new({
+      await IconMenuItem.new({
         id: "prs-empty",
         text: ctx.t("menu.noPullRequests"),
+        icon: await trayGlyphIcon("pullRequest"),
         enabled: false,
       }),
     ];
@@ -207,11 +277,18 @@ async function buildPrRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submen
       );
       const ackKeys = [repoKey, PRS_TOTAL_KEY];
 
-      if (!group.categories.some((c) => c.items.length)) {
+      const visibleCategories = group.categories.filter(
+        (category) => category.items.length > 0 || category.overflowUrl,
+      );
+
+      if (!visibleCategories.length) {
         const overflow = group.categories.find((c) => c.overflowUrl);
         if (overflow?.overflowUrl) {
-          return Submenu.new({
+          return glyphSubmenu({
+            id: `pr-repo:${group.repo}`,
             text: label,
+            glyph: "repo",
+            count: group.totalCount,
             items: [
               await overflowItem(ctx, ackKeys, overflow.overflowUrl, ctx.t("menu.viewMoreOnGitHub")),
             ],
@@ -219,31 +296,59 @@ async function buildPrRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submen
         }
       }
 
-      const categoryMenus = await Promise.all(
-        group.categories.map(async (category) => {
-          const items = await Promise.all(
-            category.items.map((item) => issueItem(ctx, item, ackKeys)),
-          );
-          if (category.overflowUrl) {
-            items.push(
-              await overflowItem(
-                ctx,
-                ackKeys,
-                category.overflowUrl,
-                ctx.t("menu.viewMoreOnGitHub"),
-              ),
-            );
-          }
-          return Submenu.new({
-            text: prCategoryLabel(ctx.t, category.kind, category.totalCount),
-            items: items.length
-              ? items
-              : [await MenuItem.new({ id: "cat-empty", text: "—", enabled: false })],
-          });
-        }),
-      );
+      const flatItems: TrayMenuEntry[] = [];
 
-      return Submenu.new({ text: label, items: categoryMenus });
+      for (let index = 0; index < visibleCategories.length; index++) {
+        const category = visibleCategories[index]!;
+        const glyph = prCategoryGlyph(category.kind);
+
+        flatItems.push(
+          await IconMenuItem.new({
+            id: `pr-cat:${group.repo}:${category.kind}`,
+            text: prCategoryTitle(ctx.t, category.kind),
+            icon: await trayBadgeIcon(glyph, category.totalCount),
+            enabled: false,
+          }),
+        );
+
+        const prItems = await Promise.all(
+          category.items.map((item) => issueItem(ctx, item, ackKeys)),
+        );
+        flatItems.push(...prItems);
+
+        if (category.overflowUrl) {
+          flatItems.push(
+            await overflowItem(
+              ctx,
+              ackKeys,
+              category.overflowUrl,
+              ctx.t("menu.viewMoreOnGitHub"),
+            ),
+          );
+        }
+
+        if (index < visibleCategories.length - 1) {
+          flatItems.push(await sectionSeparator());
+        }
+      }
+
+      if (!flatItems.length) {
+        flatItems.push(
+          await MenuItem.new({
+            id: `pr-repo-empty:${group.repo}`,
+            text: "—",
+            enabled: false,
+          }),
+        );
+      }
+
+      return glyphSubmenu({
+        id: `pr-repo:${group.repo}`,
+        text: label,
+        glyph: "repo",
+        count: group.totalCount,
+        items: flatItems,
+      });
     }),
   );
 }
@@ -260,8 +365,11 @@ async function buildPrSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
     ctx.refreshState.getCountDelta(PRS_TOTAL_KEY),
   );
 
-  return Submenu.new({
+  return glyphSubmenu({
+    id: "submenu:pull-requests",
     text: prLabel,
+    glyph: "pullRequest",
+    count: prCount,
     items: repoMenus,
   });
 }
@@ -269,12 +377,15 @@ async function buildPrSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
 async function buildStarsSubmenu(ctx: TrayMenuBuildContext) {
   const sortedRepos = sortReposByUpdatedDesc(ctx.starredRepos).slice(0, TRAY_REPO_LIMIT);
   if (!sortedRepos.length) {
-    return Submenu.new({
+    return glyphSubmenu({
+      id: "submenu:stars",
       text: ctx.t("menu.stars"),
+      glyph: "star",
       items: [
-        await MenuItem.new({
+        await IconMenuItem.new({
           id: "stars-empty",
           text: ctx.t("menu.noStars"),
+          icon: await trayGlyphIcon("star"),
           enabled: false,
         }),
       ],
@@ -282,24 +393,29 @@ async function buildStarsSubmenu(ctx: TrayMenuBuildContext) {
   }
 
   const items = await Promise.all(
-    sortedRepos.map((repo) =>
-      MenuItem.new({
+    sortedRepos.map(async (repo) =>
+      IconMenuItem.new({
         id: `open:${repo.html_url}`,
-        text: starredRepoLabel(repo),
+        text: starredRepoTrayLabel(repo),
+        icon: await trayGlyphIcon("star"),
         action: () => void openExternal(repo.html_url),
       }),
     ),
   );
   items.push(
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: `open:${starredUrl()}`,
       text: ctx.t("menu.viewAllStars"),
+      icon: await trayGlyphIcon("external"),
       action: () => void openExternal(starredUrl()),
     }),
   );
 
-  return Submenu.new({
+  return glyphSubmenu({
+    id: "submenu:stars",
     text: ctx.t("menu.stars"),
+    glyph: "star",
+    count: sortedRepos.length,
     items,
   });
 }
@@ -308,12 +424,15 @@ async function buildWatchingSubmenu(ctx: TrayMenuBuildContext) {
   const sortedRepos = sortReposByUpdatedDesc(ctx.watchedRepos).slice(0, TRAY_REPO_LIMIT);
   const count = sortedRepos.length;
   if (!count) {
-    return Submenu.new({
+    return glyphSubmenu({
+      id: "submenu:watching",
       text: ctx.t("menu.watchingCount", { count: 0 }),
+      glyph: "watch",
       items: [
-        await MenuItem.new({
+        await IconMenuItem.new({
           id: "watching-empty",
           text: ctx.t("menu.noWatching"),
+          icon: await trayGlyphIcon("watch"),
           enabled: false,
         }),
       ],
@@ -322,10 +441,11 @@ async function buildWatchingSubmenu(ctx: TrayMenuBuildContext) {
 
   const ackKeys = [WATCHING_TOTAL_KEY];
   const items = await Promise.all(
-    sortedRepos.map((repo) =>
-      MenuItem.new({
+    sortedRepos.map(async (repo) =>
+      IconMenuItem.new({
         id: `open:${repo.html_url}`,
-        text: starredRepoLabel(repo),
+        text: starredRepoTrayLabel(repo),
+        icon: await trayGlyphIcon("watch"),
         action: () => void makeOpenAction(ctx, ackKeys, repo.html_url)(),
       }),
     ),
@@ -339,7 +459,13 @@ async function buildWatchingSubmenu(ctx: TrayMenuBuildContext) {
     ctx.refreshState.getCountDelta(WATCHING_TOTAL_KEY),
   );
 
-  return Submenu.new({ text: label, items });
+  return glyphSubmenu({
+    id: "submenu:watching",
+    text: label,
+    glyph: "watch",
+    count,
+    items,
+  });
 }
 
 async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
@@ -354,12 +480,15 @@ async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
   );
 
   if (!visible.length) {
-    return Submenu.new({
+    return glyphSubmenu({
+      id: "submenu:notifications",
       text: notifLabel,
+      glyph: "notification",
       items: [
-        await MenuItem.new({
+        await IconMenuItem.new({
           id: "notif-empty",
           text: ctx.t("menu.noNotifications"),
+          icon: await trayGlyphIcon("notification"),
           enabled: false,
         }),
       ],
@@ -367,11 +496,16 @@ async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
   }
 
   const items = await Promise.all(
-    visible.map((n) => {
+    visible.map(async (n) => {
       const url = n.subject.url ?? n.repository.html_url;
-      return MenuItem.new({
+      return IconMenuItem.new({
         id: `open:${url}`,
-        text: truncate(`${n.repository.full_name}: ${n.subject.title}`),
+        text: formatNotificationTrayLabel(
+          n.repository.full_name,
+          n.subject.title,
+          n.updated_at,
+        ),
+        icon: await trayGlyphIcon("notification"),
         action: () => void makeOpenAction(ctx, ackKeys, url)(),
       });
     }),
@@ -380,7 +514,13 @@ async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
     await overflowItem(ctx, ackKeys, notificationsUrl(), ctx.t("menu.viewAllNotifications")),
   );
 
-  return Submenu.new({ text: notifLabel, items });
+  return glyphSubmenu({
+    id: "submenu:notifications",
+    text: notifLabel,
+    glyph: "notification",
+    count: unread,
+    items,
+  });
 }
 
 async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<TrayMenuEntry[]> {
@@ -388,19 +528,21 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
 
   if (!recent.length) {
     return [
-      await MenuItem.new({
+      await IconMenuItem.new({
         id: "history-empty",
         text: ctx.t("menu.noRecentActivity"),
+        icon: await trayGlyphIcon("activity"),
         enabled: false,
       }),
     ];
   }
 
   return Promise.all(
-    recent.map((event) =>
-      MenuItem.new({
+    recent.map(async (event) =>
+      IconMenuItem.new({
         id: `open:${event.url}`,
         text: formatActivityTrayLabel(event),
+        icon: await trayGlyphIcon("activity"),
         action: () => void openExternal(event.url),
       }),
     ),
@@ -409,27 +551,31 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
 
 async function buildActionItems(ctx: TrayMenuBuildContext): Promise<TrayMenuEntry[]> {
   return [
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:open",
       text: ctx.t("menu.openApp"),
+      icon: await trayGlyphIcon("open"),
       action: () => void invoke("show_main_window"),
     }),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:refresh",
       text: ctx.t("menu.refresh"),
+      icon: await trayGlyphIcon("refresh"),
       action: async () => {
         await ctx.store.refresh({ source: "manual" });
       },
     }),
     await sectionSeparator(),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:settings",
       text: ctx.t("menu.settings"),
+      icon: await trayGlyphIcon("settings"),
       action: () => void invoke("show_settings_window"),
     }),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:about",
       text: ctx.t("menu.about"),
+      icon: await trayGlyphIcon("about"),
       action: () => void openExternal(ABOUT_URL),
     }),
     await sectionSeparator(),
@@ -462,10 +608,12 @@ async function appendSection(items: TrayMenuEntry[], section: TrayMenuEntry | Tr
 export async function buildSignedInMenu(ctx: TrayMenuBuildContext) {
   const visibility = ctx.menuVisibility;
   const items: TrayMenuEntry[] = [];
+  const recentCount = ctx.refreshState.recentEvents.length;
 
-  const historyHeader = await MenuItem.new({
+  const historyHeader = await IconMenuItem.new({
     id: "history-header",
     text: ctx.t("menu.recentActivity"),
+    icon: await (recentCount > 0 ? trayBadgeIcon("activity", recentCount) : trayGlyphIcon("activity")),
     enabled: false,
   });
   items.push(historyHeader, ...(await buildRecentHistorySection(ctx)));
@@ -500,34 +648,39 @@ export async function buildSignedOutMenu(ctx: TrayMenuBuildContext) {
 
   if (ctx.ghCliStatus === "not_installed") {
     items.push(
-      await MenuItem.new({
+      await IconMenuItem.new({
         id: "hint:gh-not-installed",
         text: ctx.t("menu.ghNotInstalledHint"),
+        icon: await trayGlyphIcon("hint"),
         enabled: false,
       }),
     );
   }
 
   items.push(
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:open",
       text: ctx.t("menu.openApp"),
+      icon: await trayGlyphIcon("open"),
       action: () => void invoke("show_main_window"),
     }),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:sign-in",
       text: ctx.t("menu.signIn"),
+      icon: await trayGlyphIcon("signIn"),
       action: () => void invoke("show_main_window"),
     }),
     await sectionSeparator(),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:settings",
       text: ctx.t("menu.settings"),
+      icon: await trayGlyphIcon("settings"),
       action: () => void invoke("show_settings_window"),
     }),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:about",
       text: ctx.t("menu.about"),
+      icon: await trayGlyphIcon("about"),
       action: () => void openExternal(ABOUT_URL),
     }),
     await sectionSeparator(),

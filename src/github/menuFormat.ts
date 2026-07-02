@@ -35,15 +35,74 @@ export function compactCount(value: number): string {
   return String(value);
 }
 
-export function starredRepoLabel(repo: StarredRepo | WatchedRepo): string {
-  return truncate(`${repo.full_name} ★ ${compactCount(repo.stargazers_count)}`);
+/** Compact date for tray menu rows, e.g. `3/24`. */
+export function formatTrayMenuDate(iso: string): string {
+  const ts = new Date(iso).getTime();
+  if (!Number.isFinite(ts)) return "";
+  return new Date(ts).toLocaleDateString(undefined, {
+    month: "numeric",
+    day: "numeric",
+  });
 }
 
-export function formatItemLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
+function withDateSuffix(label: string, iso: string, max = MENU_TEXT_MAX): string {
+  const date = formatTrayMenuDate(iso);
+  if (!date) return truncate(label, max);
+  const suffix = ` · ${date}`;
+  return truncate(`${label}${suffix}`, max);
+}
+
+/** Left column + tab + right-aligned date for native tray menus (macOS). */
+export function formatTrayMenuRow(main: string, updatedAt?: string, max = MENU_TEXT_MAX): string {
+  const left = truncate(main, max);
+  const date = updatedAt ? formatTrayMenuDate(updatedAt) : "";
+  if (!date) return left;
+  return `${left}\t${date}`;
+}
+
+export function formatIssueMainLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
   const parts: string[] = [`#${issue.number}`];
   if (issue.draft) parts.push("[draft]");
   const labels = issue.labels.slice(0, 2).map((l) => l.name);
   if (labels.length) parts.push(`${labels.join(",")}:`);
   parts.push(issue.title);
   return truncate(parts.join(" "), max);
+}
+
+export function formatIssueTrayLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
+  return formatTrayMenuRow(formatIssueMainLabel(issue, max), issue.updated_at, max);
+}
+
+export function starredRepoLabel(repo: StarredRepo | WatchedRepo): string {
+  return withDateSuffix(`${repo.full_name} ★ ${compactCount(repo.stargazers_count)}`, repo.updated_at);
+}
+
+export function starredRepoTrayLabel(repo: StarredRepo | WatchedRepo, max = MENU_TEXT_MAX): string {
+  return formatTrayMenuRow(
+    `${repo.full_name} ★ ${compactCount(repo.stargazers_count)}`,
+    repo.updated_at,
+    max,
+  );
+}
+
+export function formatItemLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
+  return withDateSuffix(formatIssueMainLabel(issue, max), issue.updated_at, max);
+}
+
+export function formatNotificationLabel(
+  repo: string,
+  title: string,
+  updatedAt: string,
+  max = MENU_TEXT_MAX,
+): string {
+  return withDateSuffix(`${repo}: ${title}`, updatedAt, max);
+}
+
+export function formatNotificationTrayLabel(
+  repo: string,
+  title: string,
+  updatedAt: string,
+  max = MENU_TEXT_MAX,
+): string {
+  return formatTrayMenuRow(`${repo}: ${title}`, updatedAt, max);
 }

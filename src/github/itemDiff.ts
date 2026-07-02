@@ -1,4 +1,5 @@
 import type { GitHubIssue, GitHubNotification } from "./types";
+import { formatTrayMenuRow } from "./menuFormat";
 import { isPullRequest, repoFullFromUrl } from "./types";
 
 export type ActivityItemKind = "issue" | "pull_request" | "notification";
@@ -152,12 +153,7 @@ export function mergeActivityEvents(
 export function formatActivityTrayLabel(event: ActivityEvent, max = 58): string {
   const prefix = event.change === "added" ? "+" : "~";
   const number = event.number ? `#${event.number} ` : "";
-  const date = new Date(event.detectedAt).toLocaleDateString(undefined, {
-    month: "numeric",
-    day: "numeric",
-  });
   const repoShort = event.repo.includes("/") ? event.repo.split("/").pop() : event.repo;
-  const base = `${prefix} ${repoShort} ${number}${event.title} · ${date}`;
-  if (base.length <= max) return base;
-  return `${base.slice(0, max - 1)}…`;
+  const main = `${prefix} ${repoShort} ${number}${event.title}`;
+  return formatTrayMenuRow(main, event.itemUpdatedAt, max);
 }
