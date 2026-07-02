@@ -1,0 +1,85 @@
+src/components/github/GroupedRepoView.vue
+  s_6a7a7af2ceeb96::t_fe6fed481747a9 90-93
+  s_6a7a7af2ceeb96::t_ff589044839e32 188
+  s_6a7a7af2ceeb96::t_c34a93663f3129 132
+  s_6a7a7af2ceeb96::t_c06fe8b2cb9e5f 162-167
+  s_6a7a7af2ceeb96::t_ec28d8d2f35df7 6-7
+  s_6a7a7af2ceeb96::t_f7946e0c89aecb 219,223,226,230
+src/components/github/RepoCard.vue
+  s_6a7a7af2ceeb96::t_934c50b380adf5 5,15,17,34-37,39-42
+src/components/dashboard/OverviewStatCard.vue
+  s_6a7a7af2ceeb96::t_b4cbb2c24fb495 4
+  s_6a7a7af2ceeb96::t_f89c7006293e88 32-34
+  s_6a7a7af2ceeb96::t_bdc1156f8e64d1 11,20-21,31,35-36
+src/components/github/EmptyState.vue
+  s_6a7a7af2ceeb96::t_d7e482d4f8930f 4,11,13,22,32-34
+src/components/github/IssueRow.vue
+  s_6a7a7af2ceeb96::t_dab5653d5ea351 5,8,16,21,32,45-47,51-54
+src/components/github/NotificationRow.vue
+  s_6a7a7af2ceeb96::t_efb1360b15bcb5 5,14-16,18,37-44,46-49
+src/components/layout/AppShell.vue
+  s_6a7a7af2ceeb96::t_739a0ecf4ecda5 123,127
+  s_6a7a7af2ceeb96::t_5b115cefb3e5e6 10
+  s_6a7a7af2ceeb96::t_e11d2e6221feda 68
+  s_6a7a7af2ceeb96::t_4442bede2334c2 32,34-38
+src/components/dashboard/tabs/StarsTab.vue
+  s_6a7a7af2ceeb96::t_210b1e653e59fb 39
+  s_6a7a7af2ceeb96::t_c6cc54a6e5360f 35
+  s_6a7a7af2ceeb96::t_1eb51ac6a6465a 5
+src/components/dashboard/tabs/WatchingTab.vue
+  s_6a7a7af2ceeb96::t_e1a8b09dd8d28f 35
+  s_6a7a7af2ceeb96::t_e141d1c83d99dc 5
+  s_6a7a7af2ceeb96::t_9c210c93361884 44
+src/components/dashboard/tabs/OverviewTab.vue
+  s_6a7a7af2ceeb96::t_3cb331e977b60d 6
+  s_6a7a7af2ceeb96::t_adef0e788cad7a 36,43,50,57,64
+  s_6a7a7af2ceeb96::t_232777c6a958c6 71-72
+  s_6a7a7af2ceeb96::t_cdb5882e859368 85
+src/components/ui/BaseIcon.vue
+  s_6a7a7af2ceeb96::t_b1823ced551e3b 12,22-51,54-55,58,61,66,72,82
+src/components/dashboard/DashboardSearchField.vue
+  s_6a7a7af2ceeb96::t_dea877e01394f9 3,13-26
+src/components/auth/SignInActions.vue
+  s_6a7a7af2ceeb96::t_bd49e2960e47fb 18,28
+  s_6a7a7af2ceeb96::t_4b1782e9dc3d83 2
+src/components/dashboard/tabs/FeedTab.vue
+  s_6a7a7af2ceeb96::t_c44186a5b491af 145,154
+  s_6a7a7af2ceeb96::t_a796eadf4cc638 223-227
+  s_6a7a7af2ceeb96::t_a9498d0db13203 124-127
+  s_6a7a7af2ceeb96::t_694fb18d8062aa 5
+src/components/auth/DeviceCodePanel.vue
+  s_6a7a7af2ceeb96::t_dfa6325b7c353a 6
+  s_6a7a7af2ceeb96::t_d9d57d3810413b 42-45
+.github/workflows/build.yml
+  s_6a7a7af2ceeb96::t_50de04f16b7590 42-47,49-50
+src/components/github/ActivityEventRow.vue
+  s_6a7a7af2ceeb96::t_516caf53f086e5 6
+  s_6a7a7af2ceeb96::t_19f0bc96a47ba1 18,25,27,38-41,53-63,91,98-105
+src/views/DashboardView.vue
+  s_6a7a7af2ceeb96::t_7fafc947f9ffbf 65
+  s_6a7a7af2ceeb96::t_c5cbf996ae9225 16
+src/components/ui/index.ts
+  s_6a7a7af2ceeb96::t_1b06b21be81ace 17
+src/components/ui/BaseButton.vue
+  s_6a7a7af2ceeb96::t_57de2a14e7aa71 29
+src/components/dashboard/tabs/NotificationsTab.vue
+  s_6a7a7af2ceeb96::t_e8b2a731154e73 5
+  s_6a7a7af2ceeb96::t_b7a40c3760bbef 44
+  s_6a7a7af2ceeb96::t_879cbc8143437a 55
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "fe46789c0d47125fbb4424ccab33a9f77c0cdcec",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
