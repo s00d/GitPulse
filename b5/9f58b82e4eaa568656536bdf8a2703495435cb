@@ -1,0 +1,25 @@
+scripts/generate-tray-icons.mjs
+  s_6a7a7af2ceeb96::t_18f201fe10105b 309,311
+  s_6a7a7af2ceeb96::t_9aea950b15be49 249
+  s_6a7a7af2ceeb96::t_f54e1ed92dd4a3 255-256,258,262,266-293
+  s_6a7a7af2ceeb96::t_4f01792ebf4f35 108,111-112,115-119,121-122,125-128,130-133,135-165,167-169,171-177,179-182,184-186,192-211,213-217
+  s_6a7a7af2ceeb96::t_4c11e45600defe 17-19
+  s_6a7a7af2ceeb96::t_664ffeb9c0ad2a 113,124,166,170,187-191
+  s_6a7a7af2ceeb96::t_5b18a247d94804 123
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.8",
+  "base_commit_sha": "b59f58b82e4eaa568656536bdf8a2703495435cb",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
