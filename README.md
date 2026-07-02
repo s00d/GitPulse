@@ -134,10 +134,6 @@ Full instructions: [docs/RELEASING.md](docs/RELEASING.md).
 - **Issues**: [github.com/s00d/GitPulse/issues](https://github.com/s00d/GitPulse/issues) — bugs and feature requests
 - **Releases**: [github.com/s00d/GitPulse/releases](https://github.com/s00d/GitPulse/releases)
 
-## Promotion / launch
-
-Copy-ready posts for Show HN, Reddit, Dev.to, Discord, and Product Hunt: [docs/promotion/README.md](docs/promotion/README.md).
-
 ## License
 
 MIT — see [LICENSE](LICENSE).
