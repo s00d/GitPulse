@@ -1,0 +1,32 @@
+src/tray/menuBuilders.ts
+  s_6a7a7af2ceeb96::t_d6419e7790f4e5 596,599-602
+package.json
+  h_ee6cac30a1b83a 3
+src/components/github/ActivityEventRow.vue
+  s_6a7a7af2ceeb96::t_47e1501850082c 77
+  s_6a7a7af2ceeb96::t_096a4db20e5bfc 8,12
+  s_6a7a7af2ceeb96::t_747fb1e1cef265 13
+src/stores/refreshStore.ts
+  s_6a7a7af2ceeb96::t_377db70f3314ea 123-130
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "24813e1c54901c3649139e8704d1e6a889b173dd",
+  "prompts": {},
+  "humans": {
+    "h_ee6cac30a1b83a": {
+      "author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
