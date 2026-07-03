@@ -1,4 +1,4 @@
-export type RefreshInterval = "30s" | "60s" | "5m" | "manual";
+export type RefreshInterval = "30s" | "60s" | "5m" | "1h" | "1d" | "manual";
 
 export interface MenuVisibilitySettings {
   showIssues: boolean;

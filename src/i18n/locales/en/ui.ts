@@ -127,6 +127,8 @@ export default {
     interval30s: "Every 30 seconds",
     interval60s: "Every 60 seconds",
     interval5m: "Every 5 minutes",
+    interval1h: "Every hour",
+    interval1d: "Once a day",
     intervalManual: "Manual only",
     launchAtLogin: "Launch at login",
     lastRefreshed: "Last refreshed: {time}",

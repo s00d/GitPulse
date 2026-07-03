@@ -43,6 +43,8 @@ const INTERVAL_MS: Record<Exclude<RefreshInterval, "manual">, number> = {
   "30s": 30_000,
   "60s": 60_000,
   "5m": 300_000,
+  "1h": 3_600_000,
+  "1d": 86_400_000,
 };
 
 let pollingTimer: ReturnType<typeof setInterval> | null = null;

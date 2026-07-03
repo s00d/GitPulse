@@ -86,6 +86,8 @@ const intervalOptions = computed(() => [
   { label: t("settings.interval30s"), value: "30s" },
   { label: t("settings.interval60s"), value: "60s" },
   { label: t("settings.interval5m"), value: "5m" },
+  { label: t("settings.interval1h"), value: "1h" },
+  { label: t("settings.interval1d"), value: "1d" },
   { label: t("settings.intervalManual"), value: "manual" },
 ]);
 

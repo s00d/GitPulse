@@ -127,6 +127,8 @@ export default {
     interval30s: "Каждые 30 секунд",
     interval60s: "Каждые 60 секунд",
     interval5m: "Каждые 5 минут",
+    interval1h: "Раз в час",
+    interval1d: "Раз в день",
     intervalManual: "Только вручную",
     launchAtLogin: "Запускать при входе",
     lastRefreshed: "Обновлено: {time}",
