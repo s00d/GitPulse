@@ -593,10 +593,13 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
   return Promise.all(
     recent.map(async (event) =>
       IconMenuItem.new({
-        id: `open:${event.url}`,
+        id: `history:${event.id}`,
         text: formatActivityTrayLabel(event),
         icon: await trayGlyphIcon("activity"),
-        action: () => void openExternal(event.url),
+        action: async () => {
+          await ctx.refreshState.dismissEvent(event.id);
+          void openExternal(event.url);
+        },
       }),
     ),
   );

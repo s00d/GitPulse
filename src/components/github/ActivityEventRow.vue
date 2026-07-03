@@ -5,8 +5,11 @@ import { openUrl } from "@tauri-apps/plugin-opener";
 import { tv } from "@/lib/tv";
 import { BaseIcon, type BaseIconName } from "@/components/ui";
 import type { ActivityEvent } from "@/github/itemDiff";
+import { useRefreshStore } from "@/stores/refreshStore";
 
 const props = defineProps<{ event: ActivityEvent }>();
+
+const refreshStore = useRefreshStore();
 
 const { t } = useI18n();
 
@@ -71,6 +74,7 @@ const detectedLabel = computed(() =>
 );
 
 async function open() {
+  await refreshStore.dismissEvent(props.event.id);
   try {
     await openUrl(props.event.url);
   } catch {

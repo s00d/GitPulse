@@ -120,6 +120,14 @@ export const useRefreshStore = defineStore("refresh", {
       return this.countDeltas[key] ?? 0;
     },
 
+    async dismissEvent(eventId: string) {
+      await this.init();
+      const next = this.events.filter((event) => event.id !== eventId);
+      if (next.length === this.events.length) return;
+      this.events = next;
+      await this.persist();
+    },
+
     async acknowledge(...keys: string[]) {
       await this.init();
       if (!this.seenCounts) {
