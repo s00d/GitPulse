@@ -1,0 +1,28 @@
+src/tray/trayState.ts
+  s_6a7a7af2ceeb96::t_de9504642a1565 3,9
+src/composables/useTrayMenu.ts
+  s_6a7a7af2ceeb96::t_8a77d15d60a04d 95
+src/composables/useAppBootstrap.ts
+  s_6a7a7af2ceeb96::t_5edc5cd07804c9 20-33,35,80,82,84,91
+README.md
+  s_6a7a7af2ceeb96::t_af51ac0c03bc34 32-33
+  s_6a7a7af2ceeb96::t_2ccebba071aba9 69,75-88
+  s_6a7a7af2ceeb96::t_001e3b20298608 97
+  s_6a7a7af2ceeb96::t_30dd4e3e939c5a 89
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "0225b8531069966efcf2045e3e990f1b6cf6d769",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
