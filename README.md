@@ -29,6 +29,8 @@ Built with **Rust + Tauri 2 + Vue 3**.
 
 - **Tray-first workflow** — open the app from the menu bar; close the window and keep working from the tray
 - **Issues & pull requests** — grouped by repository with review queues (needs review, my PRs, waiting on author)
+- **Milestones & Projects** — open milestones from issue repos; pinned GitHub Projects v2 boards
+- **Discussions & releases** — recent releases and unread discussions from watched repos
 - **Custom tray icons** — badge counts on menu icons for quick scanning
 - **Activity feed** — merged timeline from your work, people you follow, and followers
 - **Stars** — starred repos and your repositories sorted by popularity (separate tray entries and dashboard tabs)
@@ -64,10 +66,26 @@ Right-click the tray icon for quick access to:
 
 - Recent changes (detected on refresh)
 - Open issues and pull requests (with counts)
+- Milestones, GitHub Projects, and discussions/releases
 - Starred repos and your repositories by popularity
 - Watching and notifications
 - Refresh (with last updated time) and settings
 - Open the full dashboard window
+
+<p align="center">
+  <img src="docs/screenshots/gitpulse-menu-bar-root.png" alt="GitPulse tray menu — root level" width="720">
+  <br><em>Tray menu — root level</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/gitpulse-menu-bar-one-level.png" alt="GitPulse tray menu — one submenu level" width="720">
+  <br><em>Pull Requests → repositories (one submenu level)</em>
+</p>
+
+<p align="center">
+  <img src="docs/screenshots/gitpulse-menu-bar-screenshot.png" alt="GitPulse tray menu — nested submenus" width="720">
+  <br><em>Nested submenus — PR categories and quick actions</em>
+</p>
 
 ### Desktop dashboard
 
@@ -76,6 +94,7 @@ The main window provides:
 - **Overview** — stat cards and recent activity
 - **Feed** — news-style timeline of GitHub events
 - **Issues / Pull Requests** — repo picker + item lists (PR category chips)
+- **Milestones / Projects / Discussions & Releases** — dedicated tabs with repo or board pickers
 - **Stars** — Starred / Your repositories tabs with search
 - **Watching / Notifications** — dedicated tabs with search
 - **Settings** — token, refresh interval, repo filters, theme, notifications

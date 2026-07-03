@@ -92,7 +92,7 @@ export function useTrayMenu() {
 
     const ctx = buildContext();
 
-    if (isTrayLoadingState({ isBootstrapped, isLoading, lastRefreshed })) {
+    if (isTrayLoadingState({ isBootstrapped })) {
       await tray.setMenu(await buildLoadingMenu(ctx));
       await updateBadge();
       return;

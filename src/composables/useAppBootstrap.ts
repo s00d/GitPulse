@@ -17,7 +17,22 @@ export function useAppBootstrap() {
     githubStore.setBootstrapped(false);
 
     void (async () => {
+      await Promise.all([
+        listen("app://ready", () => {
+          void trayMenu.rebuild();
+        }),
+        listen("app://refresh-requested", async () => {
+          if (!githubStore.hasToken) return;
+          try {
+            await githubStore.refresh({ source: "manual" });
+          } catch {
+            // error stored in githubStore
+          }
+        }),
+      ]);
+
       await trayMenu.init();
+
       watch(
         () =>
           [
@@ -62,32 +77,18 @@ export function useAppBootstrap() {
 
         if (githubStore.hasToken) {
           await githubStore.hydrateFromCache();
-          if (githubStore.isRefreshDue()) {
-            try {
-              await githubStore.refresh({ source: "bootstrap" });
-            } catch {
-              // error stored in githubStore
-            }
-          }
           githubStore.reconfigurePolling();
-        }
-
-        await listen("app://ready", async () => {
-          await trayMenu.rebuild();
-        });
-
-        await listen("app://refresh-requested", async () => {
-          if (!githubStore.hasToken) return;
-          try {
-            await githubStore.refresh({ source: "manual" });
-          } catch {
-            // error stored in githubStore
+          if (githubStore.isRefreshDue()) {
+            void githubStore.refresh({ source: "bootstrap" }).catch(() => {
+              // error stored in githubStore
+            });
           }
-        });
+        }
       } catch (err) {
         console.error("[GitPulse] background init failed:", err);
       } finally {
         githubStore.setBootstrapped(true);
+        await trayMenu.rebuild();
       }
     })();
   });
