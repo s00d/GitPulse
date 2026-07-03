@@ -1,0 +1,34 @@
+src/stores/githubStore.ts
+  s_6a7a7af2ceeb96::t_a822a1d6cb9966 46-47
+src/views/SettingsView.vue
+  s_6a7a7af2ceeb96::t_c254061aeb921f 89-90
+src/i18n/locales/en/ui.ts
+  s_6a7a7af2ceeb96::t_c8927bb831a7fa 130-131
+package.json
+  h_ee6cac30a1b83a 3
+src/settings/appSettings.ts
+  s_6a7a7af2ceeb96::t_64d3bd66cd66a8 1
+src/i18n/locales/ru/ui.ts
+  s_6a7a7af2ceeb96::t_50987c7f1c3e00 130-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "98457efa8b8d6756734b6357e17af10767a72e71",
+  "prompts": {},
+  "humans": {
+    "h_ee6cac30a1b83a": {
+      "author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
