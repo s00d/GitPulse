@@ -1,0 +1,33 @@
+package.json
+  h_ee6cac30a1b83a 3
+src/stores/refreshStore.ts
+  s_6a7a7af2ceeb96::t_fe766c16790694 109
+  s_6a7a7af2ceeb96::t_1f082e8fc61699 61-69
+  s_6a7a7af2ceeb96::t_a29ae796098295 89,91,108,110-124,126-127,129-131,133-135,143,145-150,154,156-158,161-176,180,182-191
+  s_6a7a7af2ceeb96::t_1262458f94cc3a 181
+  s_6a7a7af2ceeb96::t_dd10a65bd80047 155
+  s_6a7a7af2ceeb96::t_b72380e71efd49 50-60
+  s_6a7a7af2ceeb96::t_854bdff3e39d49 90
+  s_6a7a7af2ceeb96::t_e22ebc085516be 144
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "de71567c3ef28f3f1cb4a4c07f47cd049a1ee255",
+  "prompts": {},
+  "humans": {
+    "h_ee6cac30a1b83a": {
+      "author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
