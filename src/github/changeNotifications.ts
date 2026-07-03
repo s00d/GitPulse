@@ -15,6 +15,11 @@ export function filterNotifiableEvents(
     if (event.kind === "issue" && !settings.issues) return false;
     if (event.kind === "pull_request" && !settings.pullRequests) return false;
     if (event.kind === "notification" && !settings.notifications) return false;
+    if (event.kind === "discussion" && !settings.discussions) return false;
+    if (event.kind === "release" && !settings.releases) return false;
+    if (event.kind === "commit" && !settings.commits) return false;
+    if (event.kind === "security" && !settings.securityAlerts) return false;
+    if (event.kind === "check" && !settings.checks) return false;
     return true;
   });
 }

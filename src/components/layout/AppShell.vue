@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { useMediaQuery } from "@vueuse/core";
 import { listen } from "@tauri-apps/api/event";
@@ -9,7 +9,10 @@ import AppHeaderProfile from "@/components/layout/AppHeaderProfile.vue";
 import TwoPaneLayout from "@/components/layout/TwoPaneLayout.vue";
 import { BaseButton, BaseIcon, BasePlatformMenu } from "@/components/ui";
 import type { AppScreen, DashboardTab } from "@/dashboard/types";
+import { isDashboardTabVisible } from "@/github/sectionFetch";
 import { useGitHubStore } from "@/stores/githubStore";
+import { useApiDebugStore } from "@/stores/apiDebugStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 type NavMenuItem = {
   label: string;
@@ -26,22 +29,58 @@ const props = defineProps<{ signedIn: boolean }>();
 const { t } = useI18n();
 const isDesktop = useMediaQuery("(min-width: 1024px)");
 const store = useGitHubStore();
+const apiDebugStore = useApiDebugStore();
+const settingsStore = useSettingsStore();
 const navOpen = ref(false);
 
-const dashboardItems = computed(() => [
+const allDashboardItems = computed(() => [
   { value: "overview" as const, label: t("dashboard.overview"), icon: "view-dashboard-outline" },
   { value: "feed" as const, label: t("dashboard.feed"), icon: "rss" },
   { value: "issues" as const, label: t("dashboard.issues"), icon: "circle-outline" },
+  { value: "milestones" as const, label: t("dashboard.milestones"), icon: "flag-outline" },
+  { value: "projects" as const, label: t("dashboard.projects"), icon: "view-column-outline" },
   { value: "pullRequests" as const, label: t("dashboard.pullRequests"), icon: "source-pull" },
   { value: "stars" as const, label: t("dashboard.stars"), icon: "star-outline" },
   { value: "watching" as const, label: t("dashboard.watching"), icon: "eye-outline" },
   { value: "notifications" as const, label: t("dashboard.notifications"), icon: "bell-outline" },
+  {
+    value: "discussionsReleases" as const,
+    label: t("dashboard.discussionsReleases"),
+    icon: "forum-outline",
+  },
+  {
+    value: "apiDebug" as const,
+    label: t("dashboard.apiDebug"),
+    icon: "history",
+  },
 ]);
+
+const dashboardItems = computed(() =>
+  allDashboardItems.value.filter((item) =>
+    isDashboardTabVisible(item.value, settingsStore.menuVisibility),
+  ),
+);
+
+watch(
+  () => settingsStore.menuVisibility,
+  () => {
+    if (screen.value !== "dashboard") return;
+    const currentTab = tab.value ?? "overview";
+    if (!isDashboardTabVisible(currentTab, settingsStore.menuVisibility)) {
+      tab.value = "overview";
+    }
+  },
+  { deep: true },
+);
 
 function tabBadge(tab: DashboardTab): number | undefined {
   switch (tab) {
     case "issues":
       return store.issues.length || undefined;
+    case "milestones":
+      return store.milestoneOpenTotal || undefined;
+    case "projects":
+      return store.projectOpenTotal || undefined;
     case "pullRequests":
       return store.prCount || undefined;
     case "stars":
@@ -50,6 +89,10 @@ function tabBadge(tab: DashboardTab): number | undefined {
       return store.watchedRepos.length || undefined;
     case "notifications":
       return store.unreadNotificationCount || undefined;
+    case "discussionsReleases":
+      return store.discussionsReleasesBadgeCount || undefined;
+    case "apiDebug":
+      return apiDebugStore.entries.length || undefined;
     default:
       return undefined;
   }

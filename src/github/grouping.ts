@@ -1,16 +1,20 @@
 import type { GitHubIssue, PrCategoryKind, PrRepoGroup, RepoGroup } from "./types";
 import { repoFullFromUrl } from "./types";
+import { sortRepoNames } from "./savedViews";
 import { issuesOverflowUrl, myPrsOverflowUrl, reviewOverflowUrl } from "./queries";
 
 export const MAX_REPOS_PER_SECTION = 20;
 export const MAX_ITEMS_PER_CATEGORY = 15;
 
-function sortRepos<T>(groups: RepoGroup<T>[]): RepoGroup<T>[] {
-  return [...groups].sort((a, b) => {
-    const diff = b.totalCount - a.totalCount;
-    if (diff !== 0) return diff;
-    return a.repo.localeCompare(b.repo);
-  });
+function sortRepoGroups<T>(groups: RepoGroup<T>[], pinnedRepos: string[] = []): RepoGroup<T>[] {
+  const repoCounts = new Map(groups.map((group) => [group.repo, group.totalCount]));
+  const order = sortRepoNames(
+    groups.map((group) => group.repo),
+    repoCounts,
+    pinnedRepos,
+  );
+  const byRepo = new Map(groups.map((group) => [group.repo, group]));
+  return order.map((repo) => byRepo.get(repo)!).filter(Boolean);
 }
 
 function groupByRepo(issues: GitHubIssue[]): Map<string, GitHubIssue[]> {
@@ -30,7 +34,10 @@ function buildOverflowUrl(base: string, repo: string, extra?: string): string {
   return `https://github.com/search?q=${encodeURIComponent(q)}&type=issues`;
 }
 
-export function groupIssuesByRepo(issues: GitHubIssue[]): RepoGroup<GitHubIssue>[] {
+export function groupIssuesByRepo(
+  issues: GitHubIssue[],
+  pinnedRepos: string[] = [],
+): RepoGroup<GitHubIssue>[] {
   const map = groupByRepo(issues);
   const groups: RepoGroup<GitHubIssue>[] = [];
 
@@ -50,7 +57,7 @@ export function groupIssuesByRepo(issues: GitHubIssue[]): RepoGroup<GitHubIssue>
     groups.push(group);
   }
 
-  const sorted = sortRepos(groups).slice(0, MAX_REPOS_PER_SECTION);
+  const sorted = sortRepoGroups(groups, pinnedRepos).slice(0, MAX_REPOS_PER_SECTION);
   if (map.size > MAX_REPOS_PER_SECTION) {
     sorted.push({
       repo: "…",
@@ -84,7 +91,10 @@ const CATEGORY_OVERFLOW: Record<PrCategoryKind, string> = {
   waitingOnAuthor: "is:pr+is:open+reviewed-by:@me+-author:@me",
 };
 
-export function groupPRsByRepoAndCategory(queues: PrQueues): PrRepoGroup[] {
+export function groupPRsByRepoAndCategory(
+  queues: PrQueues,
+  pinnedRepos: string[] = [],
+): PrRepoGroup[] {
   const byRepo = new Map<string, Map<PrCategoryKind, GitHubIssue[]>>();
 
   const add = (kind: PrCategoryKind, prs: GitHubIssue[]) => {
@@ -110,11 +120,7 @@ export function groupPRsByRepoAndCategory(queues: PrQueues): PrRepoGroup[] {
     repoCounts.set(repo, count);
   }
 
-  const sortedRepos = [...byRepo.keys()].sort((a, b) => {
-    const diff = (repoCounts.get(b) ?? 0) - (repoCounts.get(a) ?? 0);
-    if (diff !== 0) return diff;
-    return a.localeCompare(b);
-  });
+  const sortedRepos = sortRepoNames([...byRepo.keys()], repoCounts, pinnedRepos);
 
   const result: PrRepoGroup[] = [];
 

@@ -1,9 +1,13 @@
 import type { ActivityEvent } from "./itemDiff";
 import type {
   FeedItem,
+  GitHubDiscussionItem,
   GitHubIssue,
   GitHubNotification,
+  MilestoneRepoGroup,
   PrRepoGroup,
+  ProjectBoardGroup,
+  ReleaseRepoGroup,
   RepoGroup,
   StarredRepo,
 } from "./types";
@@ -71,6 +75,80 @@ export function filterIssueGroups(
     .filter((group) => group.items.length > 0);
 }
 
+export function filterMilestoneGroups(
+  groups: MilestoneRepoGroup[],
+  query: string,
+): MilestoneRepoGroup[] {
+  if (!normalizeSearchQuery(query)) return groups;
+
+  return groups
+    .map((group) => {
+      const milestones = group.milestones.filter((milestone) =>
+        matchesSearch([milestone.title, group.repo, milestone.open_issues], query),
+      );
+      const totalOpenIssues = milestones.reduce((sum, milestone) => sum + milestone.open_issues, 0);
+      return { ...group, milestones, totalOpenIssues };
+    })
+    .filter((group) => group.milestones.length > 0);
+}
+
+export function filterReleaseGroups(
+  groups: ReleaseRepoGroup[],
+  query: string,
+): ReleaseRepoGroup[] {
+  if (!normalizeSearchQuery(query)) return groups;
+
+  return groups
+    .map((group) => {
+      const releases = group.releases.filter((release) =>
+        matchesSearch(
+          [release.tag_name, release.name ?? "", group.repo, release.author.login],
+          query,
+        ),
+      );
+      return { ...group, releases, totalCount: releases.length };
+    })
+    .filter((group) => group.releases.length > 0);
+}
+
+export function filterProjectBoardGroups(
+  groups: ProjectBoardGroup[],
+  query: string,
+): ProjectBoardGroup[] {
+  if (!normalizeSearchQuery(query)) return groups;
+
+  return groups
+    .map((group) => {
+      const columns = group.columns.filter((column) =>
+        matchesSearch([column.name, group.title, column.openCount], query),
+      );
+      const recentItems = group.recentItems.filter((item) =>
+        matchesSearch(
+          [item.title, item.number, item.statusName, item.repoName ?? "", group.title],
+          query,
+        ),
+      );
+      const matchesGroup =
+        columns.length > 0 ||
+        recentItems.length > 0 ||
+        matchesSearch([group.title], query);
+      if (!matchesGroup) {
+        return { ...group, columns: [], recentItems: [], totalOpenCount: 0 };
+      }
+      const totalOpenCount =
+        columns.length > 0
+          ? columns.reduce((sum, column) => sum + column.openCount, 0)
+          : group.totalOpenCount;
+      return {
+        ...group,
+        columns: columns.length ? columns : group.columns,
+        recentItems: recentItems.length ? recentItems : group.recentItems,
+        totalOpenCount,
+      };
+    })
+    .filter((group) => group.columns.length > 0 || group.recentItems.length > 0);
+}
+
 export function filterPrGroups(groups: PrRepoGroup[], query: string): PrRepoGroup[] {
   if (!normalizeSearchQuery(query)) return groups;
 
@@ -106,6 +184,26 @@ export function filterNotifications(
   if (!normalizeSearchQuery(query)) return notifications;
   return notifications.filter((notification) =>
     matchesSearch(notificationSearchHaystacks(notification), query),
+  );
+}
+
+export function discussionSearchHaystacks(discussion: GitHubDiscussionItem): string[] {
+  return [
+    discussion.title,
+    discussion.repo,
+    discussion.author.login,
+    discussion.category ?? "",
+    String(discussion.number),
+  ];
+}
+
+export function filterDiscussions(
+  discussions: GitHubDiscussionItem[],
+  query: string,
+): GitHubDiscussionItem[] {
+  if (!normalizeSearchQuery(query)) return discussions;
+  return discussions.filter((discussion) =>
+    matchesSearch(discussionSearchHaystacks(discussion), query),
   );
 }
 

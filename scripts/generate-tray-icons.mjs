@@ -36,6 +36,8 @@ const GLYPHS = [
   "prReview",
   "myPr",
   "prWait",
+  "milestone",
+  "project",
 ];
 
 const GLYPH_COLORS = {
@@ -56,6 +58,8 @@ const GLYPH_COLORS = {
   prReview: "#ca8a04",
   myPr: "#7c3aed",
   prWait: "#94a3b8",
+  milestone: "#0d9488",
+  project: "#2563eb",
 };
 
 const GLYPH_LETTERS = {
@@ -76,6 +80,8 @@ const GLYPH_LETTERS = {
   prReview: "◎",
   myPr: "M",
   prWait: "…",
+  milestone: "◆",
+  project: "▦",
 };
 
 function roundRect(ctx, x, y, w, h, r) {

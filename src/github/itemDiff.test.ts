@@ -108,6 +108,71 @@ describe("diffItemSnapshots", () => {
 
     expect(events).toHaveLength(1);
     expect(events[0]?.itemKey).toBe("notif:n1");
-    expect(events[0]?.kind).toBe("notification");
+    expect(events[0]?.kind).toBe("issue");
+  });
+
+  it("maps inbox notification subject types to activity kinds", () => {
+    const cases: Array<[string, string]> = [
+      ["PullRequest", "pull_request"],
+      ["Commit", "commit"],
+      ["RepositoryVulnerabilityAlert", "security"],
+      ["CheckSuite", "check"],
+      ["RepositoryInvitation", "notification"],
+    ];
+
+    for (const [type, kind] of cases) {
+      const notifications: GitHubNotification[] = [
+        {
+          id: type,
+          unread: true,
+          reason: "subscribed",
+          updated_at: "2026-01-01T00:00:00Z",
+          subject: { title: type, type, url: "https://github.com/o/r" },
+          repository: { full_name: "o/r", html_url: "https://github.com/o/r" },
+        },
+      ];
+      const snapshot = buildItemSnapshot({ ...emptySource(), notifications });
+      expect(snapshot[`notif:${type}`]?.kind).toBe(kind);
+    }
+  });
+
+  it("maps discussion notifications to discussion kind", () => {
+    const notifications: GitHubNotification[] = [
+      {
+        id: "d1",
+        unread: true,
+        reason: "subscribed",
+        updated_at: "2026-01-01T00:00:00Z",
+        subject: { title: "RFC", type: "Discussion", url: "https://github.com/o/r/discussions/1" },
+        repository: { full_name: "o/r", html_url: "https://github.com/o/r" },
+      },
+    ];
+
+    const snapshot = buildItemSnapshot({ ...emptySource(), notifications });
+    expect(snapshot["notif:d1"]?.kind).toBe("discussion");
+  });
+
+  it("includes watched repo releases in snapshot", () => {
+    const snapshot = buildItemSnapshot({
+      ...emptySource(),
+      releases: [
+        {
+          repo: "o/r",
+          release: {
+            id: 9,
+            tag_name: "v1.0.0",
+            name: "Launch",
+            html_url: "https://github.com/o/r/releases/tag/v1.0.0",
+            published_at: "2026-01-01T00:00:00Z",
+            draft: false,
+            prerelease: false,
+            author: { login: "dev" },
+          },
+        },
+      ],
+    });
+
+    expect(snapshot["release:9"]?.kind).toBe("release");
+    expect(snapshot["release:9"]?.title).toBe("Launch");
   });
 });

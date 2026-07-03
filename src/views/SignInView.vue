@@ -11,7 +11,7 @@ const emit = defineEmits<{ signedIn: [] }>();
 
 const GH_INSTALL_URL = "https://cli.github.com";
 const CLASSIC_TOKEN_URL =
-  "https://github.com/settings/tokens/new?description=GitPulse&scopes=repo";
+  "https://github.com/settings/tokens/new?description=GitPulse&scopes=repo,read:project";
 
 const { t } = useI18n();
 const store = useGitHubStore();

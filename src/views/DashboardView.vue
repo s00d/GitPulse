@@ -6,8 +6,12 @@ import { dashboardSearchKey } from "@/dashboard/searchContext";
 import {
   DashboardSearchField,
   DashboardToolbar,
+  DiscussionsReleasesTab,
+  ApiDebugTab,
   FeedTab,
   IssuesTab,
+  MilestonesTab,
+  ProjectsTab,
   NotificationsTab,
   OverviewTab,
   PullRequestsTab,
@@ -17,7 +21,9 @@ import {
 import { BaseButton, BaseIcon } from "@/components/ui";
 import { formatLastRefreshedTime } from "@/github/formatLastRefreshed";
 import { normalizeSearchQuery } from "@/github/search";
+import type { SavedViewId } from "@/settings/appSettings";
 import { useGitHubStore } from "@/stores/githubStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 export type { DashboardTab };
 
@@ -25,17 +31,29 @@ const tab = defineModel<DashboardTab>("tab", { default: "overview" });
 const searchQuery = ref("");
 const refreshing = ref(false);
 const githubStore = useGitHubStore();
+const settingsStore = useSettingsStore();
 const { t, locale } = useI18n();
 provide(dashboardSearchKey, searchQuery);
+
+const viewOptions = computed(() => [
+  { id: "all" as const, label: t("dashboard.viewAll") },
+  { id: "myOrgs" as const, label: t("dashboard.viewMyOrgs") },
+  { id: "work" as const, label: t("dashboard.viewWork") },
+  { id: "urgent" as const, label: t("dashboard.viewUrgent") },
+]);
 
 const tabComponents: Record<DashboardTab, Component> = {
   overview: OverviewTab,
   feed: FeedTab,
   issues: IssuesTab,
+  milestones: MilestonesTab,
+  projects: ProjectsTab,
   pullRequests: PullRequestsTab,
   stars: StarsTab,
   watching: WatchingTab,
   notifications: NotificationsTab,
+  discussionsReleases: DiscussionsReleasesTab,
+  apiDebug: ApiDebugTab,
 };
 
 const activeTab = computed(() => tabComponents[tab.value ?? "overview"]);
@@ -61,6 +79,11 @@ async function refresh() {
   }
 }
 
+async function onViewChange(view: SavedViewId) {
+  await settingsStore.setActiveView(view);
+  githubStore.recomputeGroups();
+}
+
 watch(tab, () => {
   searchQuery.value = "";
 });
@@ -69,6 +92,19 @@ watch(tab, () => {
 <template>
   <div class="space-y-4">
     <DashboardToolbar />
+    <div class="flex flex-wrap items-center gap-2">
+      <div class="flex flex-wrap gap-1">
+        <BaseButton
+          v-for="option in viewOptions"
+          :key="option.id"
+          size="sm"
+          :variant="settingsStore.savedViews.activeView === option.id ? 'solid' : 'outline'"
+          @click="onViewChange(option.id)"
+        >
+          {{ option.label }}
+        </BaseButton>
+      </div>
+    </div>
     <div class="flex items-center gap-2">
       <DashboardSearchField v-model="searchQuery" class="min-w-0 flex-1" />
       <BaseButton variant="outline" size="sm" :disabled="refreshing" @click="refresh">

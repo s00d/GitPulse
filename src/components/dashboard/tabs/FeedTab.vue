@@ -112,7 +112,6 @@ async function openItem(url: string) {
 
 onMounted(async () => {
   await feedStore.init();
-  await feedStore.maybeAutoSync();
 });
 </script>
 

@@ -1,8 +1,16 @@
-import type { GitHubIssue, GitHubNotification } from "./types";
+import type { GitHubIssue, GitHubNotification, GitHubRelease } from "./types";
 import { formatTrayMenuRow } from "./menuFormat";
 import { isPullRequest, repoFullFromUrl } from "./types";
 
-export type ActivityItemKind = "issue" | "pull_request" | "notification";
+export type ActivityItemKind =
+  | "issue"
+  | "pull_request"
+  | "notification"
+  | "discussion"
+  | "release"
+  | "commit"
+  | "security"
+  | "check";
 export type ActivityChangeKind = "added" | "updated";
 
 export interface ActivityEvent {
@@ -38,6 +46,55 @@ export interface GitHubItemSource {
   myPrs: GitHubIssue[];
   waitingOnAuthor: GitHubIssue[];
   notifications: GitHubNotification[];
+  releases?: Array<{ repo: string; release: GitHubRelease }>;
+}
+
+/** Maps GitHub notification `subject.type` to desktop-notify filter buckets. */
+export function notificationSubjectToActivityKind(subjectType: string): ActivityItemKind {
+  switch (subjectType.toLowerCase()) {
+    case "issue":
+      return "issue";
+    case "pullrequest":
+      return "pull_request";
+    case "discussion":
+    case "discussioncomment":
+      return "discussion";
+    case "release":
+      return "release";
+    case "commit":
+      return "commit";
+    case "repositoryvulnerabilityalert":
+    case "repository_vulnerability_alert":
+    case "repositoryadvisory":
+      return "security";
+    case "checksuite":
+    case "checkrun":
+      return "check";
+    default:
+      return "notification";
+  }
+}
+
+function notificationActivityKind(notification: GitHubNotification): ActivityItemKind {
+  return notificationSubjectToActivityKind(notification.subject.type);
+}
+
+export function notificationsForActivitySnapshot(
+  source: GitHubNotification[],
+  options: {
+    includeInbox: boolean;
+    includeDiscussionsReleases: boolean;
+  },
+): GitHubNotification[] {
+  const unread = source.filter((notification) => notification.unread);
+  if (options.includeInbox) return unread;
+
+  if (!options.includeDiscussionsReleases) return [];
+
+  return unread.filter((notification) => {
+    const kind = notificationSubjectToActivityKind(notification.subject.type);
+    return kind === "discussion" || kind === "release";
+  });
 }
 
 function issueEntry(issue: GitHubIssue): ItemSnapshotEntry {
@@ -53,11 +110,21 @@ function issueEntry(issue: GitHubIssue): ItemSnapshotEntry {
 
 function notificationEntry(notification: GitHubNotification): ItemSnapshotEntry {
   return {
-    kind: "notification",
+    kind: notificationActivityKind(notification),
     title: notification.subject.title,
     repo: notification.repository.full_name,
     url: notification.subject.url ?? notification.repository.html_url,
     updatedAt: notification.updated_at,
+  };
+}
+
+function releaseEntry(repo: string, release: GitHubRelease): ItemSnapshotEntry {
+  return {
+    kind: "release",
+    title: release.name || release.tag_name,
+    repo,
+    url: release.html_url,
+    updatedAt: release.published_at ?? "",
   };
 }
 
@@ -78,6 +145,10 @@ export function buildItemSnapshot(source: GitHubItemSource): ItemSnapshot {
   for (const notification of source.notifications) {
     if (!notification.unread) continue;
     snapshot[`notif:${notification.id}`] = notificationEntry(notification);
+  }
+
+  for (const entry of source.releases ?? []) {
+    snapshot[`release:${entry.release.id}`] = releaseEntry(entry.repo, entry.release);
   }
 
   return snapshot;

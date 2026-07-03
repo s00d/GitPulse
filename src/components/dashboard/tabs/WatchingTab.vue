@@ -13,7 +13,7 @@ const { t } = useI18n();
 const store = useGitHubStore();
 const searchQuery = inject(dashboardSearchKey, ref(""));
 
-const repos = computed(() => filterRepos(store.watchedRepos, searchQuery.value));
+const repos = computed(() => filterRepos(store.viewWatchedRepos, searchQuery.value));
 
 async function loadMore() {
   await store.loadMore("watching");

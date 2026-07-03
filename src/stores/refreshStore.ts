@@ -150,6 +150,15 @@ export const useRefreshStore = defineStore("refresh", {
       });
     },
 
+    async dismissAllEvents() {
+      return runExclusive(async () => {
+        await ensureInitialized(this);
+        if (!this.events.length) return;
+        this.events = [];
+        await this.persist();
+      });
+    },
+
     async acknowledge(...keys: string[]) {
       return runExclusive(async () => {
         await ensureInitialized(this);

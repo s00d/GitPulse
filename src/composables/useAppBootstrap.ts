@@ -2,15 +2,15 @@ import { onMounted, watch } from "vue";
 import { listen } from "@tauri-apps/api/event";
 import { useTrayMenu } from "@/composables/useTrayMenu";
 import { useGitHubStore } from "@/stores/githubStore";
-import { useFeedStore } from "@/stores/feedStore";
 import { useRefreshStore } from "@/stores/refreshStore";
 import { useSettingsStore } from "@/stores/settingsStore";
+import { useSnoozeStore } from "@/stores/snoozeStore";
 
 export function useAppBootstrap() {
   const githubStore = useGitHubStore();
-  const feedStore = useFeedStore();
   const trayMenu = useTrayMenu();
   const settingsStore = useSettingsStore();
+  const snoozeStore = useSnoozeStore();
   const refreshStore = useRefreshStore();
 
   onMounted(() => {
@@ -25,9 +25,13 @@ export function useAppBootstrap() {
             githubStore.isLoading,
             githubStore.lastRefreshed,
             githubStore.hasToken,
-            githubStore.badgeCount,
+            githubStore.trayBadgeCount,
             githubStore.ghCliStatus,
             settingsStore.menuVisibility,
+            settingsStore.trayBadge,
+            settingsStore.savedViews,
+            settingsStore.itemActions,
+            snoozeStore.items,
             refreshStore.events.length,
             refreshStore.events[0]?.id,
             refreshStore.signature,
@@ -40,8 +44,8 @@ export function useAppBootstrap() {
 
       try {
         await settingsStore.init();
+        await snoozeStore.init();
         await refreshStore.init();
-        await feedStore.init();
         await githubStore.syncRefreshInterval();
         await githubStore.detectGhCliStatus();
 
@@ -57,15 +61,16 @@ export function useAppBootstrap() {
         }
 
         if (githubStore.hasToken) {
-          try {
-            await githubStore.refresh({ source: "bootstrap" });
-          } catch {
-            // error stored in githubStore
+          await githubStore.hydrateFromCache();
+          if (githubStore.isRefreshDue()) {
+            try {
+              await githubStore.refresh({ source: "bootstrap" });
+            } catch {
+              // error stored in githubStore
+            }
           }
           githubStore.reconfigurePolling();
         }
-
-        await feedStore.maybeAutoSync();
 
         await listen("app://ready", async () => {
           await trayMenu.rebuild();

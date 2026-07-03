@@ -15,43 +15,58 @@ const searchQuery = inject(dashboardSearchKey, ref(""));
 
 const unread = computed(() =>
   filterNotifications(
-    store.notifications.filter((notification) => notification.unread),
+    store.viewNotifications.filter((notification) => notification.unread),
     searchQuery.value,
   ),
 );
 
+const hasUnread = computed(() => unread.value.length > 0);
+
 async function loadMore() {
   await store.loadMore("notifications");
+}
+
+async function clearInbox() {
+  await store.clearNotificationsInbox();
 }
 </script>
 
 <template>
-  <div v-if="unread.length" class="space-y-3">
-    <div class="space-y-1">
-      <NotificationRow
-        v-for="notification in unread"
-        :key="notification.id"
-        :notification="notification"
-      />
+  <div class="space-y-3">
+    <div v-if="hasUnread" class="flex justify-end">
+      <BaseButton variant="ghost" size="sm" @click="clearInbox">
+        {{ t("dashboard.clearAllNotifications") }}
+      </BaseButton>
     </div>
-    <BaseButton
-      v-if="store.notificationsPage.hasMore && !hasSearchQuery"
-      variant="outline"
-      size="sm"
-      :disabled="store.notificationsPage.isLoadingMore"
-      @click="loadMore"
-    >
-      <BaseIcon name="chevron-double-down" size="xs" />
-      {{
-        store.notificationsPage.isLoadingMore
-          ? t("dashboard.loadingMore")
-          : t("dashboard.loadMore")
-      }}
-    </BaseButton>
+
+    <div v-if="unread.length" class="space-y-3">
+      <div class="space-y-1">
+        <NotificationRow
+          v-for="notification in unread"
+          :key="notification.id"
+          :notification="notification"
+        />
+      </div>
+      <BaseButton
+        v-if="store.notificationsPage.hasMore && !hasSearchQuery"
+        variant="outline"
+        size="sm"
+        :disabled="store.notificationsPage.isLoadingMore"
+        @click="loadMore"
+      >
+        <BaseIcon name="chevron-double-down" size="xs" />
+        {{
+          store.notificationsPage.isLoadingMore
+            ? t("dashboard.loadingMore")
+            : t("dashboard.loadMore")
+        }}
+      </BaseButton>
+    </div>
+
+    <EmptyState
+      v-else
+      :title="hasSearchQuery ? t('search.noResults') : t('dashboard.noNotifications')"
+      icon="bell-outline"
+    />
   </div>
-  <EmptyState
-    v-else
-    :title="hasSearchQuery ? t('search.noResults') : t('dashboard.noNotifications')"
-    icon="bell-outline"
-  />
 </template>

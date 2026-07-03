@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { useTauriStore } from "@/composables/useTauriStore";
-import { createGitHubClient } from "@/github/client";
+import { createGitHubClient, fetchViewerSocialGraph } from "@/api/github";
 import {
   FEED_LIMITS,
   finalizeFeed,
@@ -13,6 +13,7 @@ import {
 import type { FeedItem } from "@/github/types";
 import { useGitHubAuth } from "@/composables/useGitHubAuth";
 import { useGitHubStore } from "@/stores/githubStore";
+import { useSettingsStore } from "@/stores/settingsStore";
 
 const ONE_DAY_MS = 24 * 60 * 60 * 1000;
 
@@ -124,8 +125,25 @@ export const useFeedStore = defineStore("feed", {
       this.progress = { current, total, label };
     },
 
+    async clear() {
+      this.cancelSync();
+      this.items = [];
+      this.lastSyncedAt = null;
+      this.nextAutoSyncAt = null;
+      this.status = "idle";
+      this.error = null;
+      this.step = "idle";
+      this.progress = { current: 0, total: 0, label: "" };
+      await feedCache.init();
+      await feedCache.set("items", []);
+      await feedCache.set("lastSyncedAt", null);
+      await feedCache.set("nextAutoSyncAt", null);
+    },
+
     async syncNow() {
       if (this.status === "syncing") return;
+
+      if (!useSettingsStore().menuVisibility.showFeed) return;
 
       this.status = "syncing";
       this.error = null;
@@ -139,7 +157,9 @@ export const useFeedStore = defineStore("feed", {
         }
 
         this.setStep("core", "feed.stepCore", 0, 1);
-        await githubStore.refresh({ source: "manual" });
+        if (!githubStore.lastRefreshed) {
+          await githubStore.refresh({ source: "manual" });
+        }
         this.ensureNotCanceled();
 
         const coreItems = [
@@ -160,13 +180,13 @@ export const useFeedStore = defineStore("feed", {
         const client = createGitHubClient(() => auth.getTokenSync() ?? token);
 
         this.setStep("following-list", "feed.stepFollowingList", 0, FEED_LIMITS.followingUsers);
-        const following = (
-          await client.following({
-            perPage: FEED_LIMITS.followingUsers,
-            page: 1,
-          })
-        ).slice(0, FEED_LIMITS.followingUsers);
+        const socialGraph = await fetchViewerSocialGraph(client, {
+          followingFirst: FEED_LIMITS.followingUsers,
+          followersFirst: FEED_LIMITS.followersUsers,
+        });
         this.ensureNotCanceled();
+
+        const following = socialGraph.following.slice(0, FEED_LIMITS.followingUsers);
 
         const followingItems: FeedItem[] = [];
         this.setStep(
@@ -187,12 +207,7 @@ export const useFeedStore = defineStore("feed", {
         }
 
         this.setStep("followers-list", "feed.stepFollowersList", 0, FEED_LIMITS.followersUsers);
-        const followers = (
-          await client.followers({
-            perPage: FEED_LIMITS.followersUsers,
-            page: 1,
-          })
-        ).slice(0, FEED_LIMITS.followersUsers);
+        const followers = socialGraph.followers.slice(0, FEED_LIMITS.followersUsers);
         this.ensureNotCanceled();
 
         const followerItems: FeedItem[] = [];

@@ -18,8 +18,8 @@ type StarsSubTab = "starred" | "owned";
 
 const activeTab = ref<StarsSubTab>("starred");
 
-const starredRepos = computed(() => filterRepos(store.starredRepos, searchQuery.value));
-const ownedRepos = computed(() => filterRepos(store.ownedRepos, searchQuery.value));
+const starredRepos = computed(() => filterRepos(store.viewStarredRepos, searchQuery.value));
+const ownedRepos = computed(() => filterRepos(store.viewOwnedRepos, searchQuery.value));
 
 const tabs = computed(() => [
   { id: "starred" as const, label: t("dashboard.starsStarred"), count: starredRepos.value.length },

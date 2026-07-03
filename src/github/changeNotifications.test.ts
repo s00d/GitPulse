@@ -65,6 +65,70 @@ describe("filterNotifiableEvents", () => {
     expect(result).toHaveLength(1);
     expect(result[0]?.kind).toBe("issue");
   });
+
+  it("filters releases and discussions separately from inbox", () => {
+    const events = [
+      makeEvent({ kind: "release", title: "v1.0.0" }),
+      makeEvent({
+        id: "notif:1:added:...",
+        itemKey: "notif:1",
+        kind: "discussion",
+        number: undefined,
+        title: "RFC",
+      }),
+      makeEvent({
+        id: "notif:2:added:...",
+        itemKey: "notif:2",
+        kind: "notification",
+        number: undefined,
+        title: "Repo invite",
+      }),
+      makeEvent({
+        id: "notif:3:added:...",
+        itemKey: "notif:3",
+        kind: "commit",
+        number: undefined,
+        title: "Fix typo",
+      }),
+    ];
+    expect(
+      filterNotifiableEvents(events, {
+        ...DEFAULT_NOTIFICATION_SETTINGS,
+        releases: false,
+        discussions: false,
+        notifications: true,
+        commits: true,
+      }),
+    ).toEqual([events[2], events[3]]);
+    expect(
+      filterNotifiableEvents(events, {
+        ...DEFAULT_NOTIFICATION_SETTINGS,
+        releases: true,
+        discussions: true,
+        notifications: false,
+        commits: false,
+      }),
+    ).toEqual([events[0], events[1]]);
+  });
+
+  it("routes inbox issue threads through the issues filter", () => {
+    const events = [
+      makeEvent({ kind: "issue", title: "Assigned" }),
+      makeEvent({
+        id: "notif:1:added:...",
+        itemKey: "notif:1",
+        kind: "issue",
+        number: undefined,
+        title: "Mention on issue",
+      }),
+    ];
+    expect(
+      filterNotifiableEvents(events, {
+        ...DEFAULT_NOTIFICATION_SETTINGS,
+        issues: false,
+      }),
+    ).toEqual([]);
+  });
 });
 
 describe("formatSingleEventBody", () => {

@@ -5,20 +5,25 @@ import { uiMotion, type UiControlSize } from "@/lib/ui-tv";
 
 const model = defineModel<boolean>({ default: false });
 const props = withDefaults(
-  defineProps<{ disabled?: boolean; label?: string; size?: UiControlSize }>(),
+  defineProps<{ disabled?: boolean; label?: string; size?: UiControlSize; fullWidth?: boolean }>(),
   {
     disabled: false,
     label: "",
     size: "md",
+    fullWidth: false,
   },
 );
-const disabled = computed(() => props.disabled);
-const label = computed(() => props.label);
+
+function toggle() {
+  if (props.disabled) return;
+  model.value = !model.value;
+}
 
 const switchTv = tv({
   slots: {
-    wrapper: "inline-flex min-h-8 items-center gap-2 sm:min-h-9",
-    track: `relative rounded-full transition-all ${uiMotion.base} bg-slate-300 data-[on=true]:bg-indigo-600 dark:bg-slate-700 dark:data-[on=true]:bg-indigo-500`,
+    wrapper:
+      "inline-flex min-h-8 cursor-pointer select-none items-center gap-2 sm:min-h-9",
+    track: `relative shrink-0 rounded-full transition-all ${uiMotion.base} bg-slate-300 data-[on=true]:bg-indigo-600 dark:bg-slate-700 dark:data-[on=true]:bg-indigo-500`,
     thumb: `absolute rounded-full bg-white transition-all ${uiMotion.base}`,
     label: "text-sm leading-tight text-slate-700 dark:text-slate-200",
   },
@@ -49,22 +54,29 @@ const switchTv = tv({
         thumb: "top-1 left-1 h-6 w-6 data-[on=true]:translate-x-6",
       },
     },
+    fullWidth: {
+      true: { wrapper: "flex w-full" },
+      false: {},
+    },
   },
 });
-const ui = computed(() => switchTv({ size: props.size }));
+const ui = computed(() => switchTv({ size: props.size, fullWidth: props.fullWidth }));
 </script>
 
 <template>
-  <label :class="ui.wrapper()">
-    <button
-      type="button"
-      :disabled="disabled"
+  <label
+    :class="ui.wrapper()"
+    :aria-disabled="props.disabled || undefined"
+    @click.prevent="toggle"
+  >
+    <span
+      role="switch"
+      :aria-checked="model"
       :data-on="model"
       :class="ui.track()"
-      @click="model = !model"
     >
       <span :data-on="model" :class="ui.thumb()" />
-    </button>
-    <span v-if="label" :class="ui.label()">{{ label }}</span>
+    </span>
+    <span v-if="props.label" :class="ui.label()">{{ props.label }}</span>
   </label>
 </template>

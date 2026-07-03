@@ -14,10 +14,15 @@ import { formatLastRefreshedTime } from "@/github/formatLastRefreshed";
 import {
   formatIssueTrayLabel,
   formatNotificationTrayLabel,
+  formatProjectItemTrayLabel,
   labelWithCountAndDelta,
   starredRepoTrayLabel,
   submenuWithCountAndDelta,
 } from "@/github/menuFormat";
+import {
+  MAX_PROJECT_COLUMNS_TRAY,
+  MAX_PROJECT_RECENT_TRAY_TOTAL,
+} from "@/github/projects";
 import {
   issueRepoKey,
   NOTIFICATIONS_TOTAL_KEY,
@@ -26,8 +31,14 @@ import {
   WATCHING_TOTAL_KEY,
 } from "@/github/countDiff";
 import { notificationsUrl, ownedReposUrl, starredUrl, watchingUrl } from "@/github/queries";
+import { milestonesIndexUrl } from "@/github/milestones";
 import { sortNotificationsByUpdatedDesc, sortReposByStarsDesc, sortReposByUpdatedDesc } from "@/github/search";
-import type { MenuVisibilitySettings } from "@/settings/appSettings";
+import type { ItemActionSettings, MenuVisibilitySettings } from "@/settings/appSettings";
+import {
+  notificationOpenUrl,
+  snoozeKeyForIssue,
+} from "@/github/itemActions";
+import { useSnoozeStore } from "@/stores/snoozeStore";
 import type { useGitHubStore } from "@/stores/githubStore";
 import type { useRefreshStore } from "@/stores/refreshStore";
 import type {
@@ -59,6 +70,7 @@ export interface TrayMenuBuildContext {
   t: TranslateFn;
   store: ReturnType<typeof useGitHubStore>;
   menuVisibility: MenuVisibilitySettings;
+  itemActions: ItemActionSettings;
   refreshState: ReturnType<typeof useRefreshStore>;
   hasToken: boolean;
   issueGroups: RepoGroup<GitHubIssue>[];
@@ -138,12 +150,164 @@ function makeOpenAction(ctx: TrayMenuBuildContext, keys: string[], url: string) 
   };
 }
 
+async function buildTrayActionItems(
+  ctx: TrayMenuBuildContext,
+  opts: {
+    openUrl: string;
+    ackKeys: string[];
+    issue?: GitHubIssue;
+    notification?: GitHubNotification;
+  },
+): Promise<TrayMenuEntry[]> {
+  const items: TrayMenuEntry[] = [];
+
+  items.push(
+    await IconMenuItem.new({
+      id: `action-open:${opts.openUrl}`,
+      text: ctx.t("actions.openBrowser"),
+      icon: await trayGlyphIcon("external"),
+      action: () => void makeOpenAction(ctx, opts.ackKeys, opts.openUrl)(),
+    }),
+  );
+
+  if (opts.notification?.unread) {
+    const notification = opts.notification;
+    items.push(
+      await IconMenuItem.new({
+        id: `action-mark:${notification.id}`,
+        text: ctx.t("actions.markRead"),
+        icon: await trayGlyphIcon("notification"),
+        action: () =>
+          void (async () => {
+            await ctx.store.markNotificationRead(notification);
+            await ctx.onRebuild();
+          })(),
+      }),
+    );
+  }
+
+  if (opts.issue && isPullRequest(opts.issue)) {
+    const issue = opts.issue;
+    items.push(
+      await IconMenuItem.new({
+        id: `action-review:${issue.id}`,
+        text: ctx.t("actions.openReview"),
+        icon: await trayGlyphIcon("pullRequest"),
+        action: () =>
+          void (async () => {
+            await ctx.store.openPullRequestReview(issue);
+          })(),
+      }),
+    );
+    if (ctx.itemActions.enableQuickApprove) {
+      items.push(
+        await IconMenuItem.new({
+          id: `action-approve:${issue.id}`,
+          text: ctx.t("actions.approve"),
+          icon: await trayGlyphIcon("pullRequest"),
+          action: () =>
+            void (async () => {
+              await ctx.store.approvePullRequest(issue);
+              await ctx.onRebuild();
+            })(),
+        }),
+      );
+    }
+  }
+
+  if (opts.issue) {
+    const issue = opts.issue;
+    const snoozeStore = useSnoozeStore();
+    const key = snoozeKeyForIssue(issue);
+    if (snoozeStore.isKeySnoozed(key)) {
+      items.push(
+        await IconMenuItem.new({
+          id: `action-unsnooze:${issue.id}`,
+          text: ctx.t("actions.unsnooze"),
+          icon: await trayGlyphIcon("issue"),
+          action: () =>
+            void (async () => {
+              await ctx.store.unsnoozeIssue(issue);
+              await ctx.onRebuild();
+            })(),
+        }),
+      );
+    } else {
+      for (const hours of ctx.itemActions.snoozePresetHours) {
+        items.push(
+          await IconMenuItem.new({
+            id: `action-snooze:${issue.id}:${hours}`,
+            text: ctx.t("actions.snoozeHours", { hours }),
+            icon: await trayGlyphIcon("issue"),
+            action: () =>
+              void (async () => {
+                await ctx.store.snoozeIssue(issue, hours);
+                await ctx.onRebuild();
+              })(),
+          }),
+        );
+      }
+    }
+  }
+
+  return items;
+}
+
 async function issueItem(ctx: TrayMenuBuildContext, issue: GitHubIssue, keys: string[]) {
-  return IconMenuItem.new({
-    id: `open:${issue.html_url}`,
-    text: formatIssueTrayLabel(issue),
-    icon: await issueItemIcon(isPullRequest(issue)),
-    action: () => void makeOpenAction(ctx, keys, issue.html_url)(),
+  const label = formatIssueTrayLabel(issue, undefined, ctx.store.prCiById[issue.id]);
+  const icon = await issueItemIcon(isPullRequest(issue));
+
+  if (!ctx.itemActions.trayItemSubmenus) {
+    return IconMenuItem.new({
+      id: `open:${issue.html_url}`,
+      text: label,
+      icon,
+      action: () => void makeOpenAction(ctx, keys, issue.html_url)(),
+    });
+  }
+
+  return Submenu.new({
+    id: `issue:${issue.id}`,
+    text: label,
+    icon,
+    items: await buildTrayActionItems(ctx, {
+      openUrl: issue.html_url,
+      ackKeys: keys,
+      issue,
+    }),
+  });
+}
+
+async function notificationItem(
+  ctx: TrayMenuBuildContext,
+  notification: GitHubNotification,
+  keys: string[],
+) {
+  const url = notificationOpenUrl(notification);
+  const label = formatNotificationTrayLabel(
+    notification.repository.full_name,
+    notification.subject.title,
+    notification.updated_at,
+  );
+
+  if (!ctx.itemActions.trayItemSubmenus) {
+    return IconMenuItem.new({
+      id: `open:${url}`,
+      text: label,
+      icon: await trayGlyphIcon("notification"),
+      action: () => void makeOpenAction(ctx, keys, url)(),
+    });
+  }
+
+  return Submenu.new({
+    id: `notif:${notification.id}`,
+    text: label,
+    icon: await trayGlyphIcon("notification"),
+    items: await buildTrayActionItems(ctx, {
+      openUrl: url,
+      ackKeys: keys,
+      notification,
+    }),
   });
 }
 
@@ -355,6 +519,170 @@ async function buildPrRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submen
   );
 }
 
+async function buildMilestonesSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
+  const groups = ctx.store.viewMilestoneGroups;
+  const total = ctx.store.milestoneOpenTotal;
+
+  if (!groups.length) {
+    return glyphSubmenu({
+      id: "submenu:milestones",
+      text: ctx.t("menu.milestones", { count: 0 }),
+      glyph: "milestone",
+      items: [
+        await IconMenuItem.new({
+          id: "milestones-empty",
+          text: ctx.t("menu.noMilestones"),
+          icon: await trayGlyphIcon("milestone"),
+          enabled: false,
+        }),
+      ],
+    });
+  }
+
+  const flatItems: TrayMenuEntry[] = [];
+
+  for (let index = 0; index < groups.length; index++) {
+    const group = groups[index]!;
+
+    flatItems.push(
+      await IconMenuItem.new({
+        id: `milestone-repo:${group.repo}`,
+        text: group.repo,
+        icon: await trayBadgeIcon("repo", group.totalOpenIssues),
+        enabled: false,
+      }),
+    );
+
+    for (const milestone of group.milestones) {
+      flatItems.push(
+        await IconMenuItem.new({
+          id: `milestone:${group.repo}:${milestone.number}`,
+          text: `${milestone.title} — ${ctx.t("milestone.openCount", { count: milestone.open_issues })}`,
+          icon: await trayGlyphIcon("milestone"),
+          action: () => void openExternal(milestone.html_url),
+        }),
+      );
+    }
+
+    flatItems.push(
+      await IconMenuItem.new({
+        id: `milestone-overflow:${group.repo}`,
+        text: ctx.t("menu.viewMilestonesOnGitHub"),
+        icon: await trayGlyphIcon("external"),
+        action: () => void openExternal(milestonesIndexUrl(group.repo)),
+      }),
+    );
+
+    if (index < groups.length - 1) {
+      flatItems.push(await sectionSeparator());
+    }
+  }
+
+  return glyphSubmenu({
+    id: "submenu:milestones",
+    text: ctx.t("menu.milestones", { count: total }),
+    glyph: "milestone",
+    count: total,
+    items: flatItems,
+  });
+}
+
+async function buildProjectsSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
+  const groups = ctx.store.projectBoardGroups;
+  const total = ctx.store.projectOpenTotal;
+
+  if (!groups.length) {
+    return glyphSubmenu({
+      id: "submenu:projects",
+      text: ctx.t("menu.projects", { count: 0 }),
+      glyph: "project",
+      items: [
+        await IconMenuItem.new({
+          id: "projects-empty",
+          text: ctx.t("menu.noProjects"),
+          icon: await trayGlyphIcon("project"),
+          enabled: false,
+        }),
+      ],
+    });
+  }
+
+  const flatItems: TrayMenuEntry[] = [];
+  let trayIssuesAdded = 0;
+
+  for (let index = 0; index < groups.length; index++) {
+    const group = groups[index]!;
+
+    flatItems.push(
+      await IconMenuItem.new({
+        id: `project-header:${group.id}`,
+        text: group.title,
+        icon: await trayBadgeIcon("project", group.totalOpenCount),
+        enabled: false,
+      }),
+    );
+
+    const visibleColumns = group.columns.slice(0, MAX_PROJECT_COLUMNS_TRAY);
+    for (const column of visibleColumns) {
+      flatItems.push(
+        await IconMenuItem.new({
+          id: `project-col:${group.id}:${column.name}`,
+          text: `${column.name} — ${ctx.t("project.openCount", { count: column.openCount })}`,
+          icon: await trayGlyphIcon("project"),
+          enabled: false,
+        }),
+      );
+    }
+
+    const hiddenColumnCount = group.columns.length - visibleColumns.length;
+    if (hiddenColumnCount > 0) {
+      flatItems.push(
+        await IconMenuItem.new({
+          id: `project-cols-more:${group.id}`,
+          text: ctx.t("menu.projectMoreColumns", { count: hiddenColumnCount }),
+          icon: await trayGlyphIcon("hint"),
+          enabled: false,
+        }),
+      );
+    }
+
+    const remaining = MAX_PROJECT_RECENT_TRAY_TOTAL - trayIssuesAdded;
+    const trayItems = group.trayRecentItems.slice(0, Math.max(0, remaining));
+    for (const item of trayItems) {
+      flatItems.push(
+        await IconMenuItem.new({
+          id: `project-item:${group.id}:${item.id}`,
+          text: formatProjectItemTrayLabel(item),
+          icon: await trayGlyphIcon("issue"),
+          action: () => void openExternal(item.url),
+        }),
+      );
+      trayIssuesAdded += 1;
+    }
+
+    flatItems.push(
+      await IconMenuItem.new({
+        id: `project-overflow:${group.id}`,
+        text: ctx.t("menu.viewProjectOnGitHub"),
+        icon: await trayGlyphIcon("external"),
+        action: () => void openExternal(group.url),
+      }),
+    );
+
+    if (index < groups.length - 1) {
+      flatItems.push(await sectionSeparator());
+    }
+  }
+
+  return glyphSubmenu({
+    id: "submenu:projects",
+    text: ctx.t("menu.projects", { count: total }),
+    glyph: "project",
+    count: total,
+    items: flatItems,
+  });
+}
+
 async function buildPrSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
   const prCount = new Set(
     [...ctx.store.reviewRequests, ...ctx.store.myPrs, ...ctx.store.waitingOnAuthor].map(
@@ -549,19 +877,7 @@ async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
   }
 
   const items = await Promise.all(
-    visible.map(async (n) => {
-      const url = n.subject.url ?? n.repository.html_url;
-      return IconMenuItem.new({
-        id: `open:${url}`,
-        text: formatNotificationTrayLabel(
-          n.repository.full_name,
-          n.subject.title,
-          n.updated_at,
-        ),
-        icon: await trayGlyphIcon("notification"),
-        action: () => void makeOpenAction(ctx, ackKeys, url)(),
-      });
-    }),
+    visible.map((n) => notificationItem(ctx, n, ackKeys)),
   );
   items.push(
     await overflowItem(ctx, ackKeys, notificationsUrl(), ctx.t("menu.viewAllNotifications")),
@@ -576,8 +892,79 @@ async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
   });
 }
 
+async function buildDiscussionsReleasesSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
+  const releases = ctx.store.viewReleaseGroups
+    .flatMap((group) => group.releases.map((release) => ({ release, repo: group.repo })))
+    .slice(0, 5);
+  const discussions = ctx.store.viewDiscussionItems.slice(0, 5);
+  const count = ctx.store.discussionsReleasesBadgeCount;
+
+  if (!releases.length && !discussions.length) {
+    return glyphSubmenu({
+      id: "submenu:discussions-releases",
+      text: ctx.t("menu.discussionsReleases", { count: 0 }),
+      glyph: "repo",
+      items: [
+        await IconMenuItem.new({
+          id: "discussions-releases-empty",
+          text: ctx.t("menu.noDiscussionsReleases"),
+          icon: await trayGlyphIcon("repo"),
+          enabled: false,
+        }),
+      ],
+    });
+  }
+
+  const items: TrayMenuEntry[] = [];
+
+  for (const entry of releases) {
+    const title = entry.release.name || entry.release.tag_name;
+    items.push(
+      await IconMenuItem.new({
+        id: `release:${entry.repo}:${entry.release.id}`,
+        text: `${entry.repo} — ${title}`,
+        icon: await trayGlyphIcon("repo"),
+        action: () => void openExternal(entry.release.html_url),
+      }),
+    );
+  }
+
+  if (releases.length && discussions.length) {
+    items.push(await sectionSeparator());
+  }
+
+  for (const discussion of discussions) {
+    items.push(
+      await IconMenuItem.new({
+        id: `discussion:${discussion.id}`,
+        text: `${discussion.repo} — ${discussion.title}`,
+        icon: await trayGlyphIcon("repo"),
+        action: () => void openExternal(discussion.url),
+      }),
+    );
+  }
+
+  items.push(
+    await IconMenuItem.new({
+      id: "discussions-releases-open-app",
+      text: ctx.t("menu.openApp"),
+      icon: await trayGlyphIcon("open"),
+      action: () => void invoke("show_main_window"),
+    }),
+  );
+
+  return glyphSubmenu({
+    id: "submenu:discussions-releases",
+    text: ctx.t("menu.discussionsReleases", { count }),
+    glyph: "repo",
+    count: count || undefined,
+    items,
+  });
+}
+
 async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<TrayMenuEntry[]> {
   const recent = ctx.refreshState.recentEvents;
+  const hasStoredEvents = ctx.refreshState.events.length > 0;
 
   if (!recent.length) {
     return [
@@ -590,7 +977,7 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
     ];
   }
 
-  return Promise.all(
+  const items: TrayMenuEntry[] = await Promise.all(
     recent.map(async (event) =>
       IconMenuItem.new({
         id: `history:${event.id}`,
@@ -603,6 +990,24 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
       }),
     ),
   );
+
+  if (hasStoredEvents) {
+    items.push(
+      await sectionSeparator(),
+      await IconMenuItem.new({
+        id: "history:clear-all",
+        text: ctx.t("menu.clearRecentActivity"),
+        icon: await trayGlyphIcon("activity"),
+        action: () =>
+          void (async () => {
+            await ctx.refreshState.dismissAllEvents();
+            await ctx.onRebuild();
+          })(),
+      }),
+    );
+  }
+
+  return items;
 }
 
 function refreshMenuLabel(ctx: TrayMenuBuildContext): string {
@@ -685,6 +1090,14 @@ export async function buildSignedInMenu(ctx: TrayMenuBuildContext) {
     await appendSection(items, await buildIssueRepoMenus(ctx));
   }
 
+  if (visibility.showMilestones) {
+    await appendSection(items, await buildMilestonesSubmenu(ctx));
+  }
+
+  if (visibility.showProjects) {
+    await appendSection(items, await buildProjectsSubmenu(ctx));
+  }
+
   if (visibility.showPullRequests) {
     await appendSection(items, await buildPrSubmenu(ctx));
   }
@@ -700,6 +1113,10 @@ export async function buildSignedInMenu(ctx: TrayMenuBuildContext) {
 
   if (visibility.showNotifications) {
     await appendSection(items, await buildNotificationsSubmenu(ctx));
+  }
+
+  if (visibility.showDiscussionsReleases) {
+    await appendSection(items, await buildDiscussionsReleasesSubmenu(ctx));
   }
 
   await appendSection(items, await buildActionItems(ctx));

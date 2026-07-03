@@ -1,31 +1,14 @@
+import { print, type DocumentNode } from "graphql";
+import type { TadaDocumentNode } from "gql.tada";
 import { useHttpClient } from "@/composables/useHttpClient";
-import {
-  notificationSchema,
-  publicEventSchema,
-  searchResponseSchema,
-  socialUserSchema,
-  starredRepoSchema,
-  watchedRepoSchema,
-  viewerSchema,
-} from "@/schemas/github";
-import type {
-  GitHubPublicEvent,
-  GitHubIssue,
-  GitHubNotification,
-  GitHubSocialUser,
-  GitHubViewer,
-  RateLimitInfo,
-  StarredRepo,
-  WatchedRepo,
-} from "./types";
-import { GITHUB_SEARCH } from "./queries";
+import type { GraphqlResponse } from "@/graphql/execute";
+import { notificationSchema, publicEventSchema } from "@/schemas/github";
+import type { GitHubPublicEvent, GitHubNotification, RateLimitInfo } from "./types";
+import { fetchRestArray } from "./restFetch";
+import { resolveGitHubDebugRecorder } from "./apiDebugRecorder";
+import type { MarkNotificationReadBody } from "./restEndpoints";
 
 const GITHUB_API = "https://api.github.com";
-export interface RepoListOptions {
-  perPage?: number;
-  page?: number;
-  sort?: "created" | "updated";
-}
 
 export interface NotificationListOptions {
   perPage?: number;
@@ -35,6 +18,11 @@ export interface NotificationListOptions {
 export interface SocialListOptions {
   perPage?: number;
   page?: number;
+}
+
+export interface GraphqlRequestBody<TVariables extends Record<string, unknown>> {
+  query: string;
+  variables?: TVariables;
 }
 
 function parseRateLimitHeaders(headers: Headers): RateLimitInfo | null {
@@ -67,128 +55,44 @@ export function createGitHubClient(
       const info = parseRateLimitHeaders(headers);
       if (info) onRateLimit?.(info);
     },
+    debugRecorder: resolveGitHubDebugRecorder(),
   });
-
-  async function searchIssues(q: string, perPage = 50): Promise<GitHubIssue[]> {
-    const data = await http.get<unknown>("/search/issues", { q, per_page: perPage });
-    const parsed = searchResponseSchema.parse(data);
-    return parsed.items;
-  }
-
-  function mergeIssuesById(issues: GitHubIssue[]): GitHubIssue[] {
-    const byId = new Map<number, GitHubIssue>();
-    for (const issue of issues) {
-      byId.set(issue.id, issue);
-    }
-    return [...byId.values()].sort(
-      (a, b) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime(),
-    );
-  }
 
   return {
     isLoading: http.isLoading,
     error: http.error,
 
-    async viewer(): Promise<GitHubViewer> {
-      const data = await http.get<unknown>("/user");
-      return viewerSchema.parse(data);
-    },
-
-    async assignedIssues() {
-      const [assigned, unassignedOwned] = await Promise.all([
-        searchIssues(GITHUB_SEARCH.assignedIssues),
-        searchIssues(GITHUB_SEARCH.unassignedOwnedIssues),
-      ]);
-      return mergeIssuesById([...assigned, ...unassignedOwned]);
-    },
-
-    reviewRequests() {
-      return searchIssues(GITHUB_SEARCH.reviewRequests);
-    },
-
-    myPrs() {
-      return searchIssues(GITHUB_SEARCH.myPrs);
-    },
-
-    reviewedByMe() {
-      return searchIssues(GITHUB_SEARCH.reviewedByMe);
-    },
-
-    async starredRepos(options: RepoListOptions = {}): Promise<StarredRepo[]> {
-      const { perPage = 30, page = 1, sort = "updated" } = options;
-      const data = await http.get<unknown[]>("/user/starred", {
-        sort,
-        per_page: perPage,
-        page,
-      });
-      return (data ?? []).map((item) => starredRepoSchema.parse(item));
-    },
-
-    async ownedRepos(options: RepoListOptions = {}): Promise<StarredRepo[]> {
-      const { perPage = 30, page = 1 } = options;
-      const data = await http.get<unknown[]>("/user/repos", {
-        affiliation: "owner",
-        per_page: perPage,
-        page,
-        sort: "updated",
-      });
-      return (data ?? []).map((item) => starredRepoSchema.parse(item));
-    },
-
-    async watchedRepos(options: RepoListOptions = {}): Promise<WatchedRepo[]> {
-      const { perPage = 30, page = 1, sort = "updated" } = options;
-      const data = await http.get<unknown[]>("/user/subscriptions", {
-        sort,
-        per_page: perPage,
-        page,
-      });
-      return (data ?? []).map((item) => watchedRepoSchema.parse(item));
-    },
-
     async notifications(options: NotificationListOptions = {}): Promise<GitHubNotification[]> {
       const { perPage = 30, page = 1 } = options;
-      const data = await http.get<unknown[]>("/notifications", {
+      return fetchRestArray(http, "/notifications", notificationSchema, {
         participating: "true",
         per_page: perPage,
         page,
       });
-      return (data ?? []).map((item) => notificationSchema.parse(item));
-    },
-
-    async following(options: SocialListOptions = {}): Promise<GitHubSocialUser[]> {
-      const { perPage = 30, page = 1 } = options;
-      const data = await http.get<unknown[]>("/user/following", {
-        per_page: perPage,
-        page,
-      });
-      return (data ?? []).map((item) => socialUserSchema.parse(item));
-    },
-
-    async followers(options: SocialListOptions = {}): Promise<GitHubSocialUser[]> {
-      const { perPage = 30, page = 1 } = options;
-      const data = await http.get<unknown[]>("/user/followers", {
-        per_page: perPage,
-        page,
-      });
-      return (data ?? []).map((item) => socialUserSchema.parse(item));
     },
 
     async userEvents(username: string, options: SocialListOptions = {}): Promise<GitHubPublicEvent[]> {
       const { perPage = 20, page = 1 } = options;
-      const data = await http.get<unknown[]>(`/users/${username}/events/public`, {
+      return fetchRestArray(http, `/users/${username}/events/public`, publicEventSchema, {
         per_page: perPage,
         page,
       });
-      return (data ?? []).map((item) => publicEventSchema.parse(item));
     },
 
-    async validateToken(): Promise<boolean> {
-      try {
-        await http.get("/user");
-        return true;
-      } catch {
-        return false;
-      }
+    /** Typed gql.tada entry point: document + variables → raw GraphQL envelope. */
+    graphqlDocument<TData, TVariables extends Record<string, unknown>>(
+      document: TadaDocumentNode<TData, TVariables> | DocumentNode,
+      variables: TVariables,
+    ): Promise<GraphqlResponse<TData>> {
+      return http.post<GraphqlResponse<TData>, GraphqlRequestBody<TVariables>>("/graphql", {
+        query: print(document),
+        variables,
+      });
+    },
+
+    async markNotificationRead(threadId: string): Promise<void> {
+      const body: MarkNotificationReadBody = { read: true };
+      await http.patch(`/notifications/threads/${threadId}`, body);
     },
   };
 }

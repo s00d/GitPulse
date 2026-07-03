@@ -84,13 +84,22 @@ fn tray_set_badge(app: tauri::AppHandle, count: u32) -> Result<(), String> {
         .tray_by_id("main-tray")
         .ok_or_else(|| "Tray icon not found".to_string())?;
     let title = if count > 0 {
-        format!(" {count}")
+        if count > 99 {
+            " 99+".to_string()
+        } else {
+            format!(" {count}")
+        }
     } else {
         String::new()
     };
     tray.set_title(Some(&title)).map_err(|e| e.to_string())?;
     let tooltip = if count > 0 {
-        format!("GitPulse — {count} items")
+        let label = if count > 99 {
+            "99+".to_string()
+        } else {
+            count.to_string()
+        };
+        format!("GitPulse — {label} items needing attention")
     } else {
         "GitPulse".to_string()
     };

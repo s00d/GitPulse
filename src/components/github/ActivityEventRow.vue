@@ -50,6 +50,16 @@ const kindLabel = computed(() => {
       return t("activity.kindPullRequest");
     case "notification":
       return t("activity.kindNotification");
+    case "release":
+      return t("activity.kindRelease");
+    case "discussion":
+      return t("activity.kindDiscussion");
+    case "commit":
+      return t("activity.kindCommit");
+    case "security":
+      return t("activity.kindSecurity");
+    case "check":
+      return t("activity.kindCheck");
   }
 });
 
@@ -61,6 +71,16 @@ const kindIcon = computed<BaseIconName>(() => {
       return "source-pull";
     case "notification":
       return "bell-outline";
+    case "release":
+      return "tag-outline";
+    case "discussion":
+      return "forum-outline";
+    case "commit":
+      return "source-commit";
+    case "security":
+      return "flag-outline";
+    case "check":
+      return "check-circle-outline";
   }
 });
 

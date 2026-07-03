@@ -1,4 +1,4 @@
-import type { GitHubIssue, StarredRepo, WatchedRepo } from "./types";
+import type { GitHubIssue, PrCiStatus, ProjectItem, StarredRepo, WatchedRepo } from "./types";
 
 export const MENU_TEXT_MAX = 58;
 
@@ -60,6 +60,13 @@ export function formatTrayMenuRow(main: string, updatedAt?: string, max = MENU_T
   return `${left}\t${date}`;
 }
 
+export function formatPrCiSuffix(status?: PrCiStatus): string {
+  if (!status || status.state === "none") return "";
+  if (status.state === "success") return " ✓";
+  if (status.state === "failure") return " ✗";
+  return " · CI…";
+}
+
 export function formatIssueMainLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
   const parts: string[] = [`#${issue.number}`];
   if (issue.draft) parts.push("[draft]");
@@ -69,8 +76,18 @@ export function formatIssueMainLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): s
   return truncate(parts.join(" "), max);
 }
 
-export function formatIssueTrayLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
-  return formatTrayMenuRow(formatIssueMainLabel(issue, max), issue.updated_at, max);
+export function formatIssueTrayLabel(
+  issue: GitHubIssue,
+  max = MENU_TEXT_MAX,
+  ciStatus?: PrCiStatus,
+): string {
+  const main = `${formatIssueMainLabel(issue, max)}${formatPrCiSuffix(ciStatus)}`;
+  return formatTrayMenuRow(main, issue.updated_at, max);
+}
+
+export function formatProjectItemTrayLabel(item: ProjectItem, max = MENU_TEXT_MAX): string {
+  const main = truncate(`#${item.number} ${item.title} · ${item.statusName}`, max);
+  return formatTrayMenuRow(main, item.updatedAt, max);
 }
 
 export function starredRepoLabel(repo: StarredRepo | WatchedRepo): string {

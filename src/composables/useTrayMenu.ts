@@ -40,35 +40,36 @@ export function useTrayMenu() {
     hasToken,
     issueGroups,
     prGroups,
-    starredRepos,
-    ownedRepos,
-    watchedRepos,
-    notifications,
-    badgeCount,
+    viewStarredRepos,
+    viewOwnedRepos,
+    viewWatchedRepos,
+    viewNotifications,
+    viewUnreadNotificationCount,
+    trayBadgeCount,
     issues,
-    unreadNotificationCount,
     ghCliStatus,
     isBootstrapped,
     isLoading,
     lastRefreshed,
   } = storeToRefs(store);
-  const { menuVisibility } = storeToRefs(settingsStore);
+  const { menuVisibility, itemActions } = storeToRefs(settingsStore);
 
   function buildContext(): TrayMenuBuildContext {
     return {
       t,
       store,
       menuVisibility: menuVisibility.value,
+      itemActions: itemActions.value,
       refreshState: refreshStore,
       hasToken: hasToken.value,
       issueGroups: issueGroups.value,
       prGroups: prGroups.value,
       issues: issues.value,
-      starredRepos: starredRepos.value,
-      ownedRepos: ownedRepos.value,
-      watchedRepos: watchedRepos.value,
-      notifications: notifications.value,
-      unreadNotificationCount: unreadNotificationCount.value,
+      starredRepos: viewStarredRepos.value,
+      ownedRepos: viewOwnedRepos.value,
+      watchedRepos: viewWatchedRepos.value,
+      notifications: viewNotifications.value,
+      unreadNotificationCount: viewUnreadNotificationCount.value,
       ghCliStatus: ghCliStatus.value,
       isLoading: isLoading.value,
       isBootstrapped: isBootstrapped.value,
@@ -79,7 +80,7 @@ export function useTrayMenu() {
 
   async function updateBadge() {
     try {
-      await invoke("tray_set_badge", { count: badgeCount.value });
+      await invoke("tray_set_badge", { count: trayBadgeCount.value });
     } catch {
       // no-op outside Tauri
     }

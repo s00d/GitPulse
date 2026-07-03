@@ -17,7 +17,9 @@ export type TrayGlyph =
   | "hint"
   | "prReview"
   | "myPr"
-  | "prWait";
+  | "prWait"
+  | "milestone"
+  | "project";
 
 const glyphUrls = import.meta.glob<string>("./icons/glyph/*.png", {
   eager: true,

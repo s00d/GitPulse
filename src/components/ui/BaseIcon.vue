@@ -47,8 +47,13 @@ const ICON_CLASS_MAP = {
   "close-circle-outline": "i-mdi-close-circle-outline",
   "source-commit": "i-mdi-source-commit",
   "tag-outline": "i-mdi-tag-outline",
+  "forum-outline": "i-mdi-forum-outline",
+  "flag-outline": "i-mdi-flag-outline",
+  "view-column-outline": "i-mdi-view-column-outline",
   "history": "i-mdi-history",
   "download-outline": "i-mdi-download-outline",
+  "dots-vertical": "i-mdi-dots-vertical",
+  "check-circle-outline": "i-mdi-check-circle-outline",
 } as const;
 
 export type BaseIconName = keyof typeof ICON_CLASS_MAP;

@@ -1,5 +1,12 @@
 import { ref } from "vue";
 import { fetch } from "@tauri-apps/plugin-http";
+import {
+  createApiDebugEntryId,
+  pickResponseHeaders,
+  redactHeaders,
+  truncateForDebug,
+  type ApiDebugEntry,
+} from "@/github/apiDebug";
 
 type Primitive = string | number | boolean;
 type QueryValue = Primitive | null | undefined;
@@ -47,6 +54,7 @@ export interface UseHttpClientOptions {
   requestInterceptor?: RequestInterceptor;
   responseInterceptor?: ResponseInterceptor;
   errorInterceptor?: ErrorInterceptor;
+  debugRecorder?: (entry: ApiDebugEntry) => void;
 }
 
 function withQuery(url: string, query?: Record<string, QueryValue>) {
@@ -140,6 +148,16 @@ export function useHttpClient(options: UseHttpClientOptions = {}) {
       }
     }
 
+    const debugRecorder = options.debugRecorder;
+    const debugStartedAt = debugRecorder ? new Date().toISOString() : undefined;
+    const debugStartedMs = debugRecorder ? performance.now() : 0;
+    let debugStatus: number | undefined;
+    let debugStatusText: string | undefined;
+    let debugResponseHeaders: Record<string, string> | undefined;
+    let debugResponseBody: unknown;
+    let debugResponseTruncated = false;
+    let debugError: string | undefined;
+
     try {
       const response = await fetch(url, {
         method,
@@ -150,6 +168,10 @@ export function useHttpClient(options: UseHttpClientOptions = {}) {
       });
 
       options.onRateLimitHeaders?.(response.headers);
+
+      debugStatus = response.status;
+      debugStatusText = response.statusText;
+      debugResponseHeaders = pickResponseHeaders(response.headers);
 
       if (!response.ok) {
         let err: HttpErrorShape = {
@@ -165,10 +187,12 @@ export function useHttpClient(options: UseHttpClientOptions = {}) {
         } catch {
           // ignore response parsing errors for error details
         }
+        debugResponseBody = err.details;
         if (options.errorInterceptor) {
           err = await options.errorInterceptor(err, finalConfig);
         }
         error.value = err;
+        debugError = err.message;
         throw err;
       }
 
@@ -186,6 +210,10 @@ export function useHttpClient(options: UseHttpClientOptions = {}) {
         result = (await response.text()) as TResponse;
       }
 
+      const truncated = truncateForDebug(result);
+      debugResponseBody = truncated.value;
+      debugResponseTruncated = truncated.truncated;
+
       if (options.responseInterceptor) {
         return await options.responseInterceptor(result, finalConfig);
       }
@@ -202,8 +230,31 @@ export function useHttpClient(options: UseHttpClientOptions = {}) {
         }
         error.value = fallback;
       }
+      if (!debugError) {
+        debugError = err instanceof Error ? err.message : String(err);
+      }
       throw err;
     } finally {
+      if (debugRecorder && debugStartedAt) {
+        const requestBody =
+          finalConfig.body instanceof FormData ? "[FormData]" : finalConfig.body;
+        const truncatedRequest = truncateForDebug(requestBody);
+        debugRecorder({
+          id: createApiDebugEntryId(),
+          startedAt: debugStartedAt,
+          durationMs: Math.round(performance.now() - debugStartedMs),
+          method,
+          url,
+          requestHeaders: redactHeaders(headers),
+          requestBody: truncatedRequest.value,
+          status: debugStatus,
+          statusText: debugStatusText,
+          responseHeaders: debugResponseHeaders,
+          responseBody: debugResponseBody,
+          responseTruncated: debugResponseTruncated,
+          error: debugError,
+        });
+      }
       isLoading.value = false;
     }
   }

@@ -35,11 +35,8 @@ export interface GitHubIssue {
   created_at?: string;
   updated_at: string;
   comments: number;
-}
-
-export interface GitHubSearchResponse {
-  total_count: number;
-  items: GitHubIssue[];
+  /** GitHub GraphQL node ID — set for pull requests loaded via GraphQL. */
+  graphql_id?: string;
 }
 
 export interface StarredRepo {
@@ -89,6 +86,95 @@ export interface PrRepoGroup {
   repo: string;
   categories: PrCategoryGroup[];
   totalCount: number;
+}
+
+export type PrCiState = "success" | "failure" | "pending" | "none";
+
+export interface PrCiStatus {
+  state: PrCiState;
+  totalCount: number;
+}
+
+export interface GitHubMilestone {
+  id: number;
+  number: number;
+  title: string;
+  state: string;
+  open_issues: number;
+  closed_issues: number;
+  due_on: string | null;
+  html_url: string;
+}
+
+export interface GitHubRelease {
+  id: number;
+  tag_name: string;
+  name: string | null;
+  html_url: string;
+  published_at: string | null;
+  draft: boolean;
+  prerelease: boolean;
+  author: GitHubUser;
+}
+
+export interface GitHubDiscussionItem {
+  id: string;
+  number: number;
+  title: string;
+  url: string;
+  updatedAt: string;
+  repo: string;
+  author: GitHubUser;
+  category?: string;
+  commentCount?: number;
+  unread: boolean;
+  notificationId?: string;
+}
+
+export interface ReleaseRepoGroup {
+  repo: string;
+  releases: GitHubRelease[];
+  totalCount: number;
+}
+
+export interface MilestoneRepoGroup {
+  repo: string;
+  milestones: GitHubMilestone[];
+  totalOpenIssues: number;
+}
+
+export type ProjectOwnerType = "user" | "org";
+
+export interface TrackedProject {
+  id: string;
+  owner: string;
+  number: number;
+  ownerType: ProjectOwnerType;
+}
+
+export interface ProjectColumn {
+  name: string;
+  openCount: number;
+}
+
+export interface ProjectItem {
+  id: string;
+  number: number;
+  title: string;
+  url: string;
+  statusName: string;
+  updatedAt: string;
+  repoName?: string;
+}
+
+export interface ProjectBoardGroup {
+  id: string;
+  title: string;
+  url: string;
+  columns: ProjectColumn[];
+  recentItems: ProjectItem[];
+  trayRecentItems: ProjectItem[];
+  totalOpenCount: number;
 }
 
 export type GhCliStatus = "not_installed" | "installed_not_authed" | "authed";
