@@ -1,0 +1,938 @@
+src/stores/apiDebugStore.ts
+  s_6a7a7af2ceeb96::t_f3b383c13cc859 1-27
+src/graphql/mapStatusCheckRollup.test.ts
+  s_6a7a7af2ceeb96::t_fa889876ea9e69 1-39
+src/components/github/MilestoneRow.vue
+  s_6a7a7af2ceeb96::t_f53e4f57375a10 1-58
+src/github/itemDiff.test.ts
+  s_6a7a7af2ceeb96::t_caa3b7140b9d0e 111-136
+  s_6a7a7af2ceeb96::t_e0a5dcb355b428 137-176
+src/github/apiDebug.test.ts
+  s_6a7a7af2ceeb96::t_fcf77bb82c3d8b 1-38
+src/github/types.ts
+  s_6a7a7af2ceeb96::t_f0244b9f9545ea 38-39
+  s_6a7a7af2ceeb96::t_a6488bcadaa534 91-97
+  s_6a7a7af2ceeb96::t_22ca28fa19bec5 120-133
+  s_6a7a7af2ceeb96::t_54cdd01fcdb314 109-119,134-139
+  s_6a7a7af2ceeb96::t_532765caefcd2a 160-169,175-176
+  s_6a7a7af2ceeb96::t_6daf20ce65b61b 98-108,140-145
+  s_6a7a7af2ceeb96::t_efbdd21ed20a87 146-159,170-174,177-179
+src/components/github/ItemActionMenu.vue
+  s_6a7a7af2ceeb96::t_967f0bcbc24891 11
+  s_6a7a7af2ceeb96::t_41b5a25ed80be2 222
+  s_6a7a7af2ceeb96::t_43b668bdf3ccfd 16-19
+  s_6a7a7af2ceeb96::t_87186476b856ef 1-10,12-15,20-221,223-228
+src/settings/appSettings.test.ts
+  s_6a7a7af2ceeb96::t_e4ba925cd3ef5d 6,25-30
+  s_6a7a7af2ceeb96::t_87c001abec054e 1-5,7-24,31-32
+src/tray/trayIconGenerator.ts
+  s_6a7a7af2ceeb96::t_802157636fb58c 21-22
+  s_6a7a7af2ceeb96::t_d56b292a8ac6c7 20
+src/github/apiDebugRecorder.ts
+  s_6a7a7af2ceeb96::t_d2b12a41393de8 1-14
+src/github/changeNotifications.ts
+  s_6a7a7af2ceeb96::t_3ea6d57a6cf603 18-19
+  s_6a7a7af2ceeb96::t_238e9839e8dda1 20-22
+src/i18n/locales/en/ui.ts
+  s_6a7a7af2ceeb96::t_130f2dd07afcc3 166-181,183
+  s_6a7a7af2ceeb96::t_15e2367eb1e3d1 258-259,267-278
+  s_6a7a7af2ceeb96::t_d02b91139c0fff 39
+  s_6a7a7af2ceeb96::t_c597a5c8a3a298 129
+  s_6a7a7af2ceeb96::t_e7cf43e2cc6391 156
+  s_6a7a7af2ceeb96::t_7b317ddcbed00e 12
+  s_6a7a7af2ceeb96::t_866d4882018a32 334
+  s_6a7a7af2ceeb96::t_f6314eef1d5665 34-35
+  s_6a7a7af2ceeb96::t_497fd1508c2b35 37
+  s_6a7a7af2ceeb96::t_44d00c27ad195f 335,338
+  s_6a7a7af2ceeb96::t_36959d23cc2d56 366,369
+  s_6a7a7af2ceeb96::t_b0a1630dc4fad6 148
+  s_6a7a7af2ceeb96::t_a611c7dcc5bb7e 26
+  s_6a7a7af2ceeb96::t_402d3055cb1704 149
+  s_6a7a7af2ceeb96::t_f96bdcd2ee1203 38
+  s_6a7a7af2ceeb96::t_125ddd4086a064 25
+  s_6a7a7af2ceeb96::t_29bebda461a04a 326-329
+  s_6a7a7af2ceeb96::t_71c7efa9545163 386-397
+  s_6a7a7af2ceeb96::t_f2c4375b9de3b3 319
+  s_6a7a7af2ceeb96::t_2f0ae22e9eb4c0 157-162
+  s_6a7a7af2ceeb96::t_fee1f9006e7725 11
+  s_6a7a7af2ceeb96::t_59a7ae5524a1a1 154
+  s_6a7a7af2ceeb96::t_950bb065518bf8 56,61
+  s_6a7a7af2ceeb96::t_d22cdcd87a6183 398-400
+  s_6a7a7af2ceeb96::t_429cbbb7ce2a38 69-71
+  s_6a7a7af2ceeb96::t_e1bdb7a78926ed 76-86
+  s_6a7a7af2ceeb96::t_134762e67df8e9 123
+  s_6a7a7af2ceeb96::t_e30495466fc16d 232-245
+  s_6a7a7af2ceeb96::t_6f71d16d3ed460 347,349-352
+  s_6a7a7af2ceeb96::t_ca9ad0fba8e36a 376-379
+  s_6a7a7af2ceeb96::t_9d108af4512add 163-165,182,184-187
+  s_6a7a7af2ceeb96::t_4facdf8f398c7f 227-228
+  s_6a7a7af2ceeb96::t_df55e9ef19f27d 354
+  s_6a7a7af2ceeb96::t_e07f527ffc7f75 188-198
+  s_6a7a7af2ceeb96::t_d59282489685f4 370
+  s_6a7a7af2ceeb96::t_636cd9f6d27905 336-337
+  s_6a7a7af2ceeb96::t_2be7d527bd64e2 368
+  s_6a7a7af2ceeb96::t_a09d1fe9d2c533 155
+  s_6a7a7af2ceeb96::t_5eb5ed2897e149 220-221
+  s_6a7a7af2ceeb96::t_7692c8f5d805eb 346
+  s_6a7a7af2ceeb96::t_314fcfd8566d2a 355
+  s_6a7a7af2ceeb96::t_be40bc21af56bd 67-68
+  s_6a7a7af2ceeb96::t_ee84f61730974f 226,229-231
+  s_6a7a7af2ceeb96::t_19ada65b067e1b 380-385
+  s_6a7a7af2ceeb96::t_9350a8a6c67997 135
+  s_6a7a7af2ceeb96::t_3eafe497ebed6a 320
+  s_6a7a7af2ceeb96::t_c2f2381b8d3e4a 260-266
+  s_6a7a7af2ceeb96::t_debbe0c9ba2bd1 348
+src/schemas/github.ts
+  s_6a7a7af2ceeb96::t_59ac7bf1e1e197 2-12,14-16,20-23,25-28,31,33-35,38-40,42-45
+  s_6a7a7af2ceeb96::t_b48efe1600e6b1 1
+src/graphql/queries/dashboardRefresh.ts
+  s_6a7a7af2ceeb96::t_47cde09944e440 14
+  s_6a7a7af2ceeb96::t_b70a0b3ab70224 8
+  s_6a7a7af2ceeb96::t_47bbe8a0df6924 2-7,9-13,15-88,90-154,158-186,188-197,199-212,214-271
+  s_6a7a7af2ceeb96::t_df6b4a72d255d7 198,213
+  s_6a7a7af2ceeb96::t_72fc798031419d 187
+  s_6a7a7af2ceeb96::t_f15fcf52905c82 155
+  s_6a7a7af2ceeb96::t_8f1ddfb2cf392b 1
+  s_6a7a7af2ceeb96::t_c1d1715e723381 89
+  s_6a7a7af2ceeb96::t_4e0ae93491ae13 156-157
+src/graphql/github.ts
+  s_6a7a7af2ceeb96::t_1e7113717ceffb 16
+  s_6a7a7af2ceeb96::t_98f500dd3e82d0 1-15
+  s_6a7a7af2ceeb96::t_aa8e70e374a86f 17
+src/graphql/mapProject.test.ts
+  s_6a7a7af2ceeb96::t_4497fdafef389c 1-79
+src/graphql/mapPullRequest.test.ts
+  s_6a7a7af2ceeb96::t_436c11a824663e 11
+  s_6a7a7af2ceeb96::t_524a8e500c887c 52-53
+  s_6a7a7af2ceeb96::t_0b0d97c1617e95 10
+  s_6a7a7af2ceeb96::t_865e6a20c13930 25
+  s_6a7a7af2ceeb96::t_cf3ff7d71703af 1-9,12-24,26-45,47-51,54-61,63-66,68-93
+  s_6a7a7af2ceeb96::t_244646173a17b4 62,67
+  s_6a7a7af2ceeb96::t_02ec0207ef0032 46
+src/graphql/fragments/discussionListItem.ts
+  s_6a7a7af2ceeb96::t_53ba9d3a8ffdd6 1-24
+src/components/github/PrCiBadge.vue
+  s_6a7a7af2ceeb96::t_4a20f7d9c11b85 1-54
+src/github/sectionFetch.test.ts
+  s_6a7a7af2ceeb96::t_8f2b9ad5191a26 127
+  s_6a7a7af2ceeb96::t_f13bcbd4b7a745 13
+  s_6a7a7af2ceeb96::t_6f8544d4e5f9f4 57,67
+  s_6a7a7af2ceeb96::t_ec723962c11b05 36
+  s_6a7a7af2ceeb96::t_3d44251b1a0134 123-126,128-129
+  s_6a7a7af2ceeb96::t_5839e3bfd478f8 35
+  s_6a7a7af2ceeb96::t_4858149820329e 1
+  s_6a7a7af2ceeb96::t_2c7da03a9663b0 63
+  s_6a7a7af2ceeb96::t_e1c2cb7553b64c 130-146
+  s_6a7a7af2ceeb96::t_50f8a9c2676cc5 87-92
+  s_6a7a7af2ceeb96::t_3e0e7437211e11 48
+  s_6a7a7af2ceeb96::t_dfa9409cf21564 115-120
+  s_6a7a7af2ceeb96::t_e55a83928a9628 2-12,14-34,37-47,49-55,58-62,64-65,68-75,77-78,80-83,85-86,93-114,121-122,147-159
+  s_6a7a7af2ceeb96::t_9ec37f42fdc6dc 76,79,84
+  s_6a7a7af2ceeb96::t_7304b2b0f1e253 56
+  s_6a7a7af2ceeb96::t_3affcbc3dee2df 66
+src/components/ui/index.ts
+  s_6a7a7af2ceeb96::t_0efad86c797ee7 3
+src/github/changeNotifications.test.ts
+  s_6a7a7af2ceeb96::t_63e6b9c81f7b7c 70,72-74,76,78-79,83-131
+  s_6a7a7af2ceeb96::t_c640539ac2fd51 68-69
+  s_6a7a7af2ceeb96::t_b072dae00f788b 71
+  s_6a7a7af2ceeb96::t_e7d7b719acfd5b 75
+  s_6a7a7af2ceeb96::t_e3f1ca04197957 77
+  s_6a7a7af2ceeb96::t_c149c96f2c5374 80-82
+src/github/restEndpoints.ts
+  s_6a7a7af2ceeb96::t_99e61bbab9be6d 3,5,7
+  s_6a7a7af2ceeb96::t_c5900fab038390 1-2,4,6
+src/graphql/fragments/repoDerivedFields.ts
+  s_6a7a7af2ceeb96::t_0181e983979af7 1-39
+src/stores/snoozeStore.ts
+  s_6a7a7af2ceeb96::t_a7fce4db0e0619 10
+  s_6a7a7af2ceeb96::t_420ceb88130126 1-9,11-70
+src-tauri/src/lib.rs
+  s_6a7a7af2ceeb96::t_14a749962ca9f6 87-91,97-102
+src/github/trayBadge.ts
+  s_6a7a7af2ceeb96::t_0ab295d2296f95 1-45
+src/components/ui/BaseSwitch.vue
+  s_6a7a7af2ceeb96::t_908010b33b48ec 8,13,16-20,24-26,57-60,63,67-74,79-80
+src/github/releases.test.ts
+  s_6a7a7af2ceeb96::t_c43baec0f6cead 1-75
+src/github/discussions.ts
+  s_6a7a7af2ceeb96::t_652c0edd31e914 2-3
+  s_6a7a7af2ceeb96::t_b7b49bfe60c9ed 54-60
+  s_6a7a7af2ceeb96::t_9839bb63920b45 1,4-53
+src/graphql/execute.ts
+  s_6a7a7af2ceeb96::t_ab7a271704e4df 53
+  s_6a7a7af2ceeb96::t_dbd5b23e14bc60 52
+  s_6a7a7af2ceeb96::t_e833cf4ad83061 3-4,7-15,26-42,45,48-49,51,62
+  s_6a7a7af2ceeb96::t_d354cec6063c0a 43-44,50,54,56-61
+  s_6a7a7af2ceeb96::t_0ea2a569cd346c 5-6
+  s_6a7a7af2ceeb96::t_39a026ae113ac9 46
+  s_6a7a7af2ceeb96::t_2495fb74c63789 1
+  s_6a7a7af2ceeb96::t_b12f2f692e06d0 16-25
+  s_6a7a7af2ceeb96::t_ac6e3c20f4f00c 55
+  s_6a7a7af2ceeb96::t_b01a0cbc6458c4 2,47
+src/github/apiDebug.ts
+  s_6a7a7af2ceeb96::t_676ad5544a46a4 1-90
+src/github/sectionFetch.ts
+  s_6a7a7af2ceeb96::t_c572de9f20098c 3
+  s_6a7a7af2ceeb96::t_59f23ef5b646f4 150
+  s_6a7a7af2ceeb96::t_115be5dfa9bc2d 32
+  s_6a7a7af2ceeb96::t_0f3771551c4b7d 109
+  s_6a7a7af2ceeb96::t_7573307c3817b8 6
+  s_6a7a7af2ceeb96::t_8e6f4c66e8f19d 1-2,4-5,7-10,12-18,20-26,29-31,33-39,42-45,47-52,54-76,79-107,111-147,155-167
+  s_6a7a7af2ceeb96::t_d443d4e356b31e 77
+  s_6a7a7af2ceeb96::t_e904ab61058516 148-149,151
+  s_6a7a7af2ceeb96::t_286bf2deac8779 19
+  s_6a7a7af2ceeb96::t_f8647015df5447 11
+  s_6a7a7af2ceeb96::t_0546d66c003973 78
+  s_6a7a7af2ceeb96::t_4c8887eb02f45e 46
+  s_6a7a7af2ceeb96::t_37b40325480a2e 28
+  s_6a7a7af2ceeb96::t_aac576b9d142f0 41
+  s_6a7a7af2ceeb96::t_c32c77f978fbf5 40
+  s_6a7a7af2ceeb96::t_c6682f7da61ac5 152-154
+  s_6a7a7af2ceeb96::t_c1b1472355eaa1 27
+  s_6a7a7af2ceeb96::t_fd2b3eb71e9166 53
+  s_6a7a7af2ceeb96::t_afab832a48991e 108,110
+src/components/github/DiscussionRow.vue
+  s_6a7a7af2ceeb96::t_90bd7ffc94b373 1-84
+src/dashboard/types.ts
+  s_6a7a7af2ceeb96::t_aff44b28c6fb05 6
+  s_6a7a7af2ceeb96::t_e41bd16dbd13d8 5
+  s_6a7a7af2ceeb96::t_2cfa44b64108a6 10
+  s_6a7a7af2ceeb96::t_244cd7c182b1aa 11-12
+src/github/refreshSchedule.test.ts
+  s_6a7a7af2ceeb96::t_5e2a9f9e3c6f2e 1-26
+src/graphql/queries/projectBoard.ts
+  s_6a7a7af2ceeb96::t_c25df393f05ee7 1
+  s_6a7a7af2ceeb96::t_fc7d48227f63a2 67
+  s_6a7a7af2ceeb96::t_7873f04cb7f96c 2-12,17-21,24,29,35-39,42,47,49-66,68-117
+  s_6a7a7af2ceeb96::t_9bfb6e9f9927b2 13-16,22-23,25-28,30-34,40-41,43-46,48
+src/github/refreshSchedule.ts
+  s_6a7a7af2ceeb96::t_469117412594bc 1-40
+src/components/dashboard/tabs/ProjectsTab.vue
+  s_6a7a7af2ceeb96::t_2e1a5639c0ee65 1-6,8-67,69-123,132-150
+  s_6a7a7af2ceeb96::t_aa9f318d9dad0d 68
+  s_6a7a7af2ceeb96::t_04b459ad27c46a 124-131
+  s_6a7a7af2ceeb96::t_8482d4cdb91f4b 7
+src/components/github/ReleaseRow.vue
+  s_6a7a7af2ceeb96::t_2e08d75d3ef05c 1-53
+src/github/client.ts
+  s_6a7a7af2ceeb96::t_08cef8dfd93354 1-2,4,7,23-27,67,74-76,82-89
+  s_6a7a7af2ceeb96::t_8379ee921dc534 94-95
+  s_6a7a7af2ceeb96::t_c7cf6ed0d717fd 5-6,9
+  s_6a7a7af2ceeb96::t_35a6bb88fc144f 8
+  s_6a7a7af2ceeb96::t_c5bcfe7d3155c8 93
+  s_6a7a7af2ceeb96::t_1ea777c5a51bec 58
+src/graphql/mutations/addPullRequestReview.ts
+  s_6a7a7af2ceeb96::t_31c15d09f7b1f4 1-36
+src/graphql/mapIssue.ts
+  s_6a7a7af2ceeb96::t_47f01cf7e8023e 1-54
+src/graphql/batch/repoDerivedBatchVars.ts
+  s_6a7a7af2ceeb96::t_f69d7be4ab66aa 1-2,4-14,22-41,46
+  s_6a7a7af2ceeb96::t_b573c932355969 15-17,19
+  s_6a7a7af2ceeb96::t_eeb2386af3bdac 3,18,20-21,42-45
+src/components/ui/BaseTimeInput.vue
+  s_6a7a7af2ceeb96::t_bb152e312bde41 1-42
+src/stores/feedStore.ts
+  s_6a7a7af2ceeb96::t_1c59321c5329fb 16
+  s_6a7a7af2ceeb96::t_4b3808769c31ee 3
+  s_6a7a7af2ceeb96::t_2149da9164cc91 160-162
+  s_6a7a7af2ceeb96::t_5f6ca758ab924b 183-186,189
+  s_6a7a7af2ceeb96::t_4299bad2393efb 210
+  s_6a7a7af2ceeb96::t_b213c1e863fc78 128-142,146
+  s_6a7a7af2ceeb96::t_f294ebd6c0b554 147
+  s_6a7a7af2ceeb96::t_7bd061fd6f02b3 190
+src/graphql/fragments/issueQueueItem.ts
+  s_6a7a7af2ceeb96::t_01dfb12b310c93 1-28
+src/components/dashboard/tabs/StarsTab.vue
+  s_6a7a7af2ceeb96::t_77c27b9e8759da 21-22
+src/composables/useHttpClient.ts
+  s_6a7a7af2ceeb96::t_2e95d3c24cb5d0 57
+  s_6a7a7af2ceeb96::t_1ed56ea044eb04 172-175
+  s_6a7a7af2ceeb96::t_a9e457bc223592 3-9
+  s_6a7a7af2ceeb96::t_e0de69837c947e 195,213-216,233-235,238-257
+  s_6a7a7af2ceeb96::t_631cdd090b948d 190
+  s_6a7a7af2ceeb96::t_e687326487113e 151-160
+src/components/dashboard/tabs/NotificationsTab.vue
+  s_6a7a7af2ceeb96::t_299c45b9889e59 18
+  s_6a7a7af2ceeb96::t_f36525faadba6a 64,66
+  s_6a7a7af2ceeb96::t_d77e46dda21b53 36-37,41-63,65,67-70
+  s_6a7a7af2ceeb96::t_63431edd8545b4 23-24,28-31,35,38-39
+src/graphql/fragments/projectV2Item.ts
+  s_6a7a7af2ceeb96::t_091f3b22e90059 1-34
+src/github/githubCache.ts
+  s_6a7a7af2ceeb96::t_ef01a7ad0e11ca 1
+  s_6a7a7af2ceeb96::t_a2a8af75f173fb 185
+  s_6a7a7af2ceeb96::t_12dd28aadfc998 2-3,5-15,17-29,31-33,35-43,45-60,62-64,66-87,89-91,93-112,114-116,118-125,135-138,145-157,160-162,164,169-184,186-188,190-200
+  s_6a7a7af2ceeb96::t_8a6e3bf95c5018 158-159
+  s_6a7a7af2ceeb96::t_b397f0519c3722 61
+  s_6a7a7af2ceeb96::t_b323dea26cf4aa 4,34,44,65,92,117,126-134,139-144,163,165-168,189
+  s_6a7a7af2ceeb96::t_95b9a91f2ebed3 16
+  s_6a7a7af2ceeb96::t_5d157cb077cf9c 88
+  s_6a7a7af2ceeb96::t_c19970171a912a 113
+  s_6a7a7af2ceeb96::t_bb4d47a47f01a1 30
+src/github/itemActions.test.ts
+  s_6a7a7af2ceeb96::t_1f92dfd575ca03 1-69
+src/graphql/queries/repoDerivedBatch.ts
+  s_6a7a7af2ceeb96::t_415f8891b427f5 78-80,87-88,99-100,102
+  s_6a7a7af2ceeb96::t_57cb8052b55e98 86
+  s_6a7a7af2ceeb96::t_283b952c34f5fb 68-69,76
+  s_6a7a7af2ceeb96::t_e40e89d614cab2 48-51
+  s_6a7a7af2ceeb96::t_a325556e22a9fe 67
+  s_6a7a7af2ceeb96::t_925c5107e2788e 28-33,35,42-45,55,57-60,70-71,73-75,81-82,85,90-94,97,103-107,116,118,138,140,142
+  s_6a7a7af2ceeb96::t_2b7d8543a791d4 77,89,101
+  s_6a7a7af2ceeb96::t_2e91004d4a2986 98
+  s_6a7a7af2ceeb96::t_b359f626c2c1d4 1-7,9-12,14-19,24-25,27,36-41,46-47,52-54,56,61-66,72,83-84,95-96,108-115,117,119-137,139,141,143-149
+  s_6a7a7af2ceeb96::t_40fdc6cdab2a19 20-23,26,34
+  s_6a7a7af2ceeb96::t_5c79c6039d1100 8
+  s_6a7a7af2ceeb96::t_62bef7d4cfb2d8 13
+scripts/generate-tray-icons.mjs
+  s_6a7a7af2ceeb96::t_8ac12464e5ef6c 40
+  s_6a7a7af2ceeb96::t_5abf90f31359ae 61
+  s_6a7a7af2ceeb96::t_3f2e6f794b7345 62
+  s_6a7a7af2ceeb96::t_494305f1d58ce4 84
+  s_6a7a7af2ceeb96::t_7888b3511af630 83
+  s_6a7a7af2ceeb96::t_d13a7293f32a35 39
+src/graphql/batch/repoSlots.ts
+  s_6a7a7af2ceeb96::t_f600fe87ff3efd 1-14
+src/components/github/index.ts
+  s_6a7a7af2ceeb96::t_a1af67ea630e47 6
+  s_6a7a7af2ceeb96::t_f8fc16a3bac3c4 5
+  s_6a7a7af2ceeb96::t_405bf4fec9c851 8
+  s_6a7a7af2ceeb96::t_b4340a92fdf689 9
+  s_6a7a7af2ceeb96::t_39f833bb21dfee 11
+  s_6a7a7af2ceeb96::t_326566cb995535 13
+  s_6a7a7af2ceeb96::t_da607349cf281e 7
+src/components/github/ActivityEventRow.vue
+  s_6a7a7af2ceeb96::t_78bc2b98af4ebd 57-62
+  s_6a7a7af2ceeb96::t_fab11d4f62c393 78-83
+  s_6a7a7af2ceeb96::t_92d31d021bb106 53-56,74-77
+src/github/apiDebugRecorder.test.ts
+  s_6a7a7af2ceeb96::t_30bc1b151b8fb5 1,12-49
+  s_6a7a7af2ceeb96::t_6874884935cd71 2-11
+src/github/notificationSchedule.ts
+  s_6a7a7af2ceeb96::t_3fd38c5cd780eb 40
+  s_6a7a7af2ceeb96::t_3eaeddf6c90b87 48-49,52,54,56-57
+  s_6a7a7af2ceeb96::t_f725d110405776 3-39,41-47,50-51,53,55,58-62
+  s_6a7a7af2ceeb96::t_ecbb44f29a0b13 1-2
+src/views/DashboardView.vue
+  s_6a7a7af2ceeb96::t_692ef649ecd3ff 101
+  s_6a7a7af2ceeb96::t_555492f343b3ce 49
+  s_6a7a7af2ceeb96::t_fcd0e8935ee19e 50
+  s_6a7a7af2ceeb96::t_c3e5fee2717e1e 10
+  s_6a7a7af2ceeb96::t_91bd474dd760be 9
+  s_6a7a7af2ceeb96::t_a45b5e32c191b4 24,26,34,38-43
+  s_6a7a7af2ceeb96::t_9bfeca6008facd 13
+  s_6a7a7af2ceeb96::t_ffb6854b2f325c 56
+  s_6a7a7af2ceeb96::t_0d243a8d48d19b 14
+  s_6a7a7af2ceeb96::t_1b4a68ba641eda 82-86
+  s_6a7a7af2ceeb96::t_2172859e7a98f8 55
+  s_6a7a7af2ceeb96::t_8d2966609ac16d 95-100,102-107
+  s_6a7a7af2ceeb96::t_17e626bc3c66e1 44
+src/github/notificationSchedule.test.ts
+  s_6a7a7af2ceeb96::t_82c6088a5c6a4d 1-91
+src/components/github/NotificationRow.vue
+  s_6a7a7af2ceeb96::t_f573225473a4e6 33-35
+  s_6a7a7af2ceeb96::t_7d248319acac79 2,6-7,9,13-15,19-20,32,37-38,45-52,56-75,77-79,81-82
+  s_6a7a7af2ceeb96::t_5cea0ecd5224b4 76,80
+  s_6a7a7af2ceeb96::t_97c611b98bbd88 36
+src/github/restFetch.ts
+  s_6a7a7af2ceeb96::t_d4c0922c025c09 1-19
+src/components/layout/AppShell.vue
+  s_6a7a7af2ceeb96::t_3a67561928fd60 40
+  s_6a7a7af2ceeb96::t_749387169880a7 82-83
+  s_6a7a7af2ceeb96::t_7a36f322e4aecd 92-93
+  s_6a7a7af2ceeb96::t_41f973eafd158b 94
+  s_6a7a7af2ceeb96::t_3f1ef5350733cb 14
+  s_6a7a7af2ceeb96::t_a0b52f32e7c3e7 32
+  s_6a7a7af2ceeb96::t_5c223be3a6c9be 2,12,15
+  s_6a7a7af2ceeb96::t_12f0c11c39dc60 80-81
+  s_6a7a7af2ceeb96::t_a152234a861521 95
+  s_6a7a7af2ceeb96::t_fb0ab0667a9cfd 68-69
+  s_6a7a7af2ceeb96::t_5190ea1a78b3a0 41
+  s_6a7a7af2ceeb96::t_904e2418847d42 51-55
+  s_6a7a7af2ceeb96::t_21501aa6913cb0 46-50
+  s_6a7a7af2ceeb96::t_009f3edaa0cc5b 33,36,58-67,70-74
+  s_6a7a7af2ceeb96::t_4c1bd8c52181ac 75
+src/graphql/mapMilestone.test.ts
+  s_6a7a7af2ceeb96::t_e0c172542c3c7f 1-21
+src/components/github/IssueRow.vue
+  s_6a7a7af2ceeb96::t_bbd52460a3a6ce 43-45
+  s_6a7a7af2ceeb96::t_83eaba9d317917 2,6,11-12,18-20,24-25,46-47,52,59-66,70-86,88-89,91-93,95-96
+  s_6a7a7af2ceeb96::t_400728eb66a7c2 10,13,17
+  s_6a7a7af2ceeb96::t_695c08abade061 48-50
+  s_6a7a7af2ceeb96::t_da5902cd9301e5 90,94
+src/graphql/graphql-env.d.ts
+  s_6a7a7af2ceeb96::t_56ab8017129713 1-1657
+src/graphql/fragments/milestoneListItem.ts
+  s_6a7a7af2ceeb96::t_3b83c5d9ce22ca 1-16
+src/graphql/index.ts
+  s_6a7a7af2ceeb96::t_90a0cceaa009e7 13,15-19,21-22
+  s_6a7a7af2ceeb96::t_0afdbca03166aa 1-9,11-12,14,20
+  s_6a7a7af2ceeb96::t_f9a954be8c4877 10
+src/github/menuFormat.ts
+  s_6a7a7af2ceeb96::t_231717b46f0e2e 79-85
+  s_6a7a7af2ceeb96::t_72c8841ef11d5c 1
+  s_6a7a7af2ceeb96::t_c5945c4245c390 88-90
+  s_6a7a7af2ceeb96::t_a5de2f5905e986 63-69,86
+  s_6a7a7af2ceeb96::t_d58fb40f6e29bb 87
+src/components/dashboard/tabs/ApiDebugTab.vue
+  s_6a7a7af2ceeb96::t_60436e403ee04a 1-7,9-14,16-75,80-135
+  s_6a7a7af2ceeb96::t_ce305f817f3b96 8
+  s_6a7a7af2ceeb96::t_4b89c4f95a17dc 76-79
+  s_6a7a7af2ceeb96::t_89744d6cbd41fc 15
+src/github/releases.ts
+  s_6a7a7af2ceeb96::t_115cd73ece04b7 2-20,22-70
+  s_6a7a7af2ceeb96::t_326ea718fdf9e5 1
+  s_6a7a7af2ceeb96::t_956ffc6a732f90 21
+src/graphql/mapStatusCheckRollup.ts
+  s_6a7a7af2ceeb96::t_1ed9bf0a6e22f2 1-11,15-34
+  s_6a7a7af2ceeb96::t_f3b79db1755553 12-14
+src/components/ui/BaseIcon.vue
+  s_6a7a7af2ceeb96::t_224b35c304e61e 50
+  s_6a7a7af2ceeb96::t_8f906eaad578aa 51
+  s_6a7a7af2ceeb96::t_446d4d86603739 55-56
+  s_6a7a7af2ceeb96::t_212806848f0455 52
+src/github/projects.ts
+  s_6a7a7af2ceeb96::t_c53b8612bcd445 1,4-8,35-38,41-42,52-57,61,67,73-82,94,96,102-103
+  s_6a7a7af2ceeb96::t_15bd00a8ab3eb7 2-3,9-34,39-40,43-51,58-60,62-66,68-72,83-93,95,97-101,104-124
+src/github/notificationsInbox.test.ts
+  s_6a7a7af2ceeb96::t_c97d18867263e7 1-49
+src/components/github/ProjectColumnRow.vue
+  s_6a7a7af2ceeb96::t_678b74be4f6e8c 1-50
+src/github/notificationsInbox.ts
+  s_6a7a7af2ceeb96::t_4285e7926341a0 1-43
+src/graphql/mapMilestone.ts
+  s_6a7a7af2ceeb96::t_5222e2df9f83e8 1-3,5,7-15
+  s_6a7a7af2ceeb96::t_36b3b382fb6689 4,6
+src/graphql/mapRelease.test.ts
+  s_6a7a7af2ceeb96::t_80087bc95ff3ed 2-3,9,17-19,27-37
+  s_6a7a7af2ceeb96::t_e4205fad0a640d 4-8,10-16,20-26,38-46
+  s_6a7a7af2ceeb96::t_cc44ddb8890ba0 1
+tsconfig.json
+  s_6a7a7af2ceeb96::t_62e717f90d6bb3 25-32
+src/composables/useTrayMenu.ts
+  s_6a7a7af2ceeb96::t_b62b61d28bd50c 48
+  s_6a7a7af2ceeb96::t_c5c7644cfa9123 68-72
+  s_6a7a7af2ceeb96::t_5b8e98ee7685ad 62
+  s_6a7a7af2ceeb96::t_9b1bf8c9b67732 83
+  s_6a7a7af2ceeb96::t_1fc469d2731f82 43-47
+  s_6a7a7af2ceeb96::t_ae650daf5c065f 55
+src/github/itemActions.ts
+  s_6a7a7af2ceeb96::t_4fe7bd49b77321 1-80
+src/github/savedViews.ts
+  s_6a7a7af2ceeb96::t_54c89371223cd0 1-158
+src/graphql/fragments/pullRequestQueueItem.ts
+  s_6a7a7af2ceeb96::t_5a4fbd7825272a 6
+  s_6a7a7af2ceeb96::t_5ff38ec57b603c 2-4,7-32
+  s_6a7a7af2ceeb96::t_65d1ccfca2711c 1
+  s_6a7a7af2ceeb96::t_0ceae1305c4cef 5
+  s_6a7a7af2ceeb96::t_4e0a6af8472dcc 33
+src/components/dashboard/tabs/OverviewTab.vue
+  s_6a7a7af2ceeb96::t_b01519f538531d 90,95-107
+  s_6a7a7af2ceeb96::t_2c0d8cf762a415 6
+  s_6a7a7af2ceeb96::t_1f5e94cfbc6db5 45-52
+  s_6a7a7af2ceeb96::t_2fc0bd262cce3f 53-58
+  s_6a7a7af2ceeb96::t_6a3dd6d97654c4 68
+  s_6a7a7af2ceeb96::t_ef56fdc60bab33 82
+  s_6a7a7af2ceeb96::t_9278c62d573f13 75
+  s_6a7a7af2ceeb96::t_e03cccf3acee8f 40
+  s_6a7a7af2ceeb96::t_afafef2ffd78d3 27-32
+  s_6a7a7af2ceeb96::t_f41736f7adeba8 61
+src/graphql/mapDiscussion.ts
+  s_6a7a7af2ceeb96::t_a14f99aaa7634e 2,4-9,12-15,23
+  s_6a7a7af2ceeb96::t_0768e58748488c 1,3,10-11,16-22,24-34
+src/components/github/ProjectItemRow.vue
+  s_6a7a7af2ceeb96::t_6cbea092e1b46b 11
+  s_6a7a7af2ceeb96::t_1faeef92715279 1-10,12-50
+src/i18n/locales/ru/ui.ts
+  s_6a7a7af2ceeb96::t_4bbb3a3095b631 76-86
+  s_6a7a7af2ceeb96::t_96030e8c6b4c08 350
+  s_6a7a7af2ceeb96::t_d47671fed22f90 378-381
+  s_6a7a7af2ceeb96::t_eacb6403b05a09 67-68
+  s_6a7a7af2ceeb96::t_55469eec6d5a9a 322
+  s_6a7a7af2ceeb96::t_3eba72221de1a0 154
+  s_6a7a7af2ceeb96::t_62e19e951ef328 233-246
+  s_6a7a7af2ceeb96::t_66582151759fea 227,230-232
+  s_6a7a7af2ceeb96::t_002312499615a3 337,340
+  s_6a7a7af2ceeb96::t_400e95e31173dd 34-35
+  s_6a7a7af2ceeb96::t_0a5d5cec76464a 69-71
+  s_6a7a7af2ceeb96::t_aed5e25e9a29e6 123
+  s_6a7a7af2ceeb96::t_4511a21751994e 148
+  s_6a7a7af2ceeb96::t_80bc34f3e48968 149
+  s_6a7a7af2ceeb96::t_de242cb740b581 12
+  s_6a7a7af2ceeb96::t_c7eeb68f71ee7d 155
+  s_6a7a7af2ceeb96::t_0f2f5488e2f6d9 157-162
+  s_6a7a7af2ceeb96::t_43108a7c588734 260-261,269-280
+  s_6a7a7af2ceeb96::t_3a532d6c8902ba 262-268
+  s_6a7a7af2ceeb96::t_f38b408a590b8a 356
+  s_6a7a7af2ceeb96::t_c45de40f5206d5 25
+  s_6a7a7af2ceeb96::t_a490f387cefc7d 221-222
+  s_6a7a7af2ceeb96::t_62f2e99064379a 368,371
+  s_6a7a7af2ceeb96::t_4b9d73ea4c5f9d 382-387
+  s_6a7a7af2ceeb96::t_b9e25d0f3d92b1 38
+  s_6a7a7af2ceeb96::t_85cb85de5401ff 163-165,182,184-187
+  s_6a7a7af2ceeb96::t_912e9dabf3ea01 388-399
+  s_6a7a7af2ceeb96::t_ba66cc2aeac173 372
+  s_6a7a7af2ceeb96::t_253a2fa9248f44 135
+  s_6a7a7af2ceeb96::t_7db8aefb906ade 228-229
+  s_6a7a7af2ceeb96::t_2619f74e3a5266 357
+  s_6a7a7af2ceeb96::t_6f47d1ef444bd5 129
+  s_6a7a7af2ceeb96::t_e2e1c2f853b33b 37
+  s_6a7a7af2ceeb96::t_f7921dede44141 321
+  s_6a7a7af2ceeb96::t_474f6fa0c60547 166-181,183
+  s_6a7a7af2ceeb96::t_f473386a7d8f89 328-331
+  s_6a7a7af2ceeb96::t_5ceb6a2c9eb7f7 349,351-354
+  s_6a7a7af2ceeb96::t_c043c6db0212f3 156
+  s_6a7a7af2ceeb96::t_34c2a179c5ec9d 11
+  s_6a7a7af2ceeb96::t_4b2d9997b6c4f4 39
+  s_6a7a7af2ceeb96::t_fb322e234cd563 56,61
+  s_6a7a7af2ceeb96::t_50cf7d284aa6b9 26
+  s_6a7a7af2ceeb96::t_5a9e0c5514816a 188-198
+  s_6a7a7af2ceeb96::t_ba878a8a609a0c 338-339
+  s_6a7a7af2ceeb96::t_50ad27274f3a98 348
+  s_6a7a7af2ceeb96::t_5de98e8a49de55 370
+  s_6a7a7af2ceeb96::t_fe75e674a970fd 400-402
+  s_6a7a7af2ceeb96::t_25908bd86941e9 336
+src/github/search.ts
+  s_6a7a7af2ceeb96::t_58773d3efb32a7 196
+  s_6a7a7af2ceeb96::t_11fa2fdf39eb60 114-124,148,150-151
+  s_6a7a7af2ceeb96::t_50d60cfa4ff036 78-94
+  s_6a7a7af2ceeb96::t_b78f4329bac0c3 9
+  s_6a7a7af2ceeb96::t_58e4aa0ca83115 95-113
+  s_6a7a7af2ceeb96::t_5f697155a1a247 4
+  s_6a7a7af2ceeb96::t_66d5c52f47a755 10
+  s_6a7a7af2ceeb96::t_2a731d91cb52be 7
+  s_6a7a7af2ceeb96::t_8dccb9c4b285fd 125-147,149
+  s_6a7a7af2ceeb96::t_07330267b8ad7b 190-195,197-209
+src/settings/appSettings.ts
+  s_6a7a7af2ceeb96::t_9e89611bb949d3 269
+  s_6a7a7af2ceeb96::t_66a49b5c225a05 14
+  s_6a7a7af2ceeb96::t_bc21128ad1d3f0 182-184
+  s_6a7a7af2ceeb96::t_deffebae86c42b 1-2
+  s_6a7a7af2ceeb96::t_b892e6247d3c3f 109
+  s_6a7a7af2ceeb96::t_10985bf42e441d 192-196
+  s_6a7a7af2ceeb96::t_4065ee3316046a 103
+  s_6a7a7af2ceeb96::t_9e1aaf52a90b7d 15
+  s_6a7a7af2ceeb96::t_1de49e0d0ef603 8
+  s_6a7a7af2ceeb96::t_03df9ee02d9b78 130-147,153-157,159-169
+  s_6a7a7af2ceeb96::t_55e833dfe76435 9
+  s_6a7a7af2ceeb96::t_d4319cfc98b8ad 254-260,268
+  s_6a7a7af2ceeb96::t_388382323b6ed0 102
+  s_6a7a7af2ceeb96::t_cda2cfb6b1eaf3 100
+  s_6a7a7af2ceeb96::t_6a051e8c3ebd5b 148-149
+  s_6a7a7af2ceeb96::t_e2acf1060808c6 58-62
+  s_6a7a7af2ceeb96::t_4f76ec1e660951 150-152
+  s_6a7a7af2ceeb96::t_3c93e7cf7a5e1f 18-39,52-55
+  s_6a7a7af2ceeb96::t_bfe92e7c2d43d3 56,158,170-171,237-238
+  s_6a7a7af2ceeb96::t_7413ca6dba0314 220
+  s_6a7a7af2ceeb96::t_f5e5e9074eee35 119-120
+  s_6a7a7af2ceeb96::t_5269d0a8165962 108
+  s_6a7a7af2ceeb96::t_696a1a5205ae89 197-210,212-219,221-236
+  s_6a7a7af2ceeb96::t_13937a33c92b9f 47-48
+  s_6a7a7af2ceeb96::t_871896fc97681e 211
+  s_6a7a7af2ceeb96::t_1431dbfa886181 172-179,185-191
+  s_6a7a7af2ceeb96::t_8ecdf16d522190 67-76,92
+  s_6a7a7af2ceeb96::t_7548f09b5b8e17 124-127
+  s_6a7a7af2ceeb96::t_af8ba644b3840e 49-51
+  s_6a7a7af2ceeb96::t_38b9aad8819396 239-245,266
+  s_6a7a7af2ceeb96::t_99854dbe235198 128,246-253,267
+  s_6a7a7af2ceeb96::t_728949e4b23940 271
+  s_6a7a7af2ceeb96::t_b137310664765f 6
+  s_6a7a7af2ceeb96::t_8a5316e452a012 121-123
+  s_6a7a7af2ceeb96::t_d371dec7c456ae 180-181
+  s_6a7a7af2ceeb96::t_a5629e609e8cb9 77-87,93
+  s_6a7a7af2ceeb96::t_f13894a9fd28e5 91
+  s_6a7a7af2ceeb96::t_b60a6a3c866cab 96
+  s_6a7a7af2ceeb96::t_5064eff1df11a8 57
+  s_6a7a7af2ceeb96::t_5e8344c7e3a218 129
+src/graphql/fragments/repositoryListItem.ts
+  s_6a7a7af2ceeb96::t_98a51184b968de 1-14
+src/components/dashboard/tabs/MilestonesTab.vue
+  s_6a7a7af2ceeb96::t_0f47b31f74d30f 1,3,7-8,11,13-19,75-77,128
+  s_6a7a7af2ceeb96::t_b99152630acdd2 2,4-6,9-10,12,21-74,78-127
+  s_6a7a7af2ceeb96::t_2b3429b31adabf 20
+src/github/snooze.ts
+  s_6a7a7af2ceeb96::t_51c4b750df85a5 1-38
+src/graphql/fragments/projectV2Board.ts
+  s_6a7a7af2ceeb96::t_e41fe9cf5dfc99 1-24
+package.json
+  s_6a7a7af2ceeb96::t_f5776898e1d4bb 14-15
+  s_6a7a7af2ceeb96::t_271993ed25e013 13
+  s_6a7a7af2ceeb96::t_741e8f48541520 39
+  s_6a7a7af2ceeb96::t_22bc89a2e2c70c 51
+  h_ee6cac30a1b83a 3
+  s_6a7a7af2ceeb96::t_024a9efcb06a7d 16
+  s_6a7a7af2ceeb96::t_97bd5712d49efd 54
+  s_6a7a7af2ceeb96::t_80e8659460b1cf 38,49,53
+  s_6a7a7af2ceeb96::t_0b0aa50fe0d54a 17
+src/graphql/mapProject.ts
+  s_6a7a7af2ceeb96::t_518cc45776fedd 1
+  s_6a7a7af2ceeb96::t_3ebd4e0557f6ce 2-41
+src/graphql/queries/repoDerivedBatch.query.ts
+  s_6a7a7af2ceeb96::t_5b3f183731dccf 1-91
+src/components/ui/BaseCheckbox.vue
+  s_6a7a7af2ceeb96::t_6b7c41261b1260 8-9,12-16,19-21,34-37,40,44-51,58
+src/github/discussions.test.ts
+  s_6a7a7af2ceeb96::t_2c01f31f591b57 1-54
+src/github/milestones.ts
+  s_6a7a7af2ceeb96::t_54cef36f84d1f7 1-39
+src/graphql/fragments/releaseListItem.ts
+  s_6a7a7af2ceeb96::t_e3735f8a911813 1-20
+src/tray/menuBuilders.ts
+  s_6a7a7af2ceeb96::t_866aff8040214e 523
+  s_6a7a7af2ceeb96::t_d4e7355a45fb3b 880
+  s_6a7a7af2ceeb96::t_292f998df5535d 73
+  s_6a7a7af2ceeb96::t_4588fb056df855 967,980,993-1010
+  s_6a7a7af2ceeb96::t_f04ef1eec87543 1097-1100
+  s_6a7a7af2ceeb96::t_779399acd6115e 611,625-626,632,635-660
+  s_6a7a7af2ceeb96::t_54735941943f6e 34
+  s_6a7a7af2ceeb96::t_4fe00d63d90dbe 895-898,900-935,945-964
+  s_6a7a7af2ceeb96::t_c5efb076ae1d2f 36-41
+  s_6a7a7af2ceeb96::t_17c14648bbdf08 17,22-25
+  s_6a7a7af2ceeb96::t_a438ade4a471b5 1093-1096
+  s_6a7a7af2ceeb96::t_d4bd72b27042df 1118-1121
+  s_6a7a7af2ceeb96::t_1033783d236ce7 936-944
+  s_6a7a7af2ceeb96::t_74663475f3c1a3 522,524-589
+  s_6a7a7af2ceeb96::t_659690d2c26266 153-255,257-310
+  s_6a7a7af2ceeb96::t_ff5cc68516c269 590-610,612-624,627-631,633-634,661-685
+  s_6a7a7af2ceeb96::t_2506e5851a2c79 899
+src/graphql/queries/repoListPage.ts
+  s_6a7a7af2ceeb96::t_2aa3218d9a2b19 95
+  s_6a7a7af2ceeb96::t_bb8cb063c442d8 2-20,22-94,96-144
+  s_6a7a7af2ceeb96::t_89c93642f9372f 1
+  s_6a7a7af2ceeb96::t_67e24900fe11a9 21
+src/api/github.ts
+  s_6a7a7af2ceeb96::t_16eef6550e1dbe 2-4,18,20-24,26-27
+  s_6a7a7af2ceeb96::t_b0a93301632352 1,5-17,19,25
+src/graphql/queries/viewerSocialGraph.ts
+  s_6a7a7af2ceeb96::t_f1899d6178bea3 1-81
+src/graphql/mapRepository.ts
+  s_6a7a7af2ceeb96::t_1ccadbc61fcd3f 1-43
+src/views/SettingsView.vue
+  s_6a7a7af2ceeb96::t_ab26ada27bebb2 216-222,231-243
+  s_6a7a7af2ceeb96::t_d359a91979ddbb 38-41
+  s_6a7a7af2ceeb96::t_93b1aaa8a67401 330
+  s_6a7a7af2ceeb96::t_8dc1a6bc413859 746,753,811-814
+  s_6a7a7af2ceeb96::t_4faa399364bc6d 617
+  s_6a7a7af2ceeb96::t_89775d1839cddc 737-738,744-745,747-752,790-794,806-809,816-827
+  s_6a7a7af2ceeb96::t_5b0fe18795840d 356-362,371-383
+  s_6a7a7af2ceeb96::t_c9041ee2b7d56e 148,169,179-180
+  s_6a7a7af2ceeb96::t_ca1eae5adfbc95 45-46
+  s_6a7a7af2ceeb96::t_9fb4bdfc23682b 952,957,960,964-965,974,976-977,982-983,988-991
+  s_6a7a7af2ceeb96::t_ed2df609e39917 590
+  s_6a7a7af2ceeb96::t_c09d3817f14032 329,331-338
+  s_6a7a7af2ceeb96::t_a53376a0462374 97-99
+  s_6a7a7af2ceeb96::t_5bf29b6965a15e 1001
+  s_6a7a7af2ceeb96::t_d510e391b1f53b 418,424-425
+  s_6a7a7af2ceeb96::t_f6e305e5926764 170-178
+  s_6a7a7af2ceeb96::t_fe55a205eb3eb1 181-192
+  s_6a7a7af2ceeb96::t_0cff2fb7cc7953 68-70
+  s_6a7a7af2ceeb96::t_90b1dbd907528b 341-344
+  s_6a7a7af2ceeb96::t_9fa0d7f5b1996f 616
+  s_6a7a7af2ceeb96::t_62c0dc9d197f99 623
+  s_6a7a7af2ceeb96::t_25c6fb920f77e2 739-743
+  s_6a7a7af2ceeb96::t_ac507cddfb93dd 470
+  s_6a7a7af2ceeb96::t_5b31c501bfb4f9 841-850
+  s_6a7a7af2ceeb96::t_844d9e39fd4c78 932-949
+  s_6a7a7af2ceeb96::t_8dd3ad4bd2df85 384-415
+  s_6a7a7af2ceeb96::t_0310fef8c114b2 14
+  s_6a7a7af2ceeb96::t_7648e2d0a7e8d2 836-837
+  s_6a7a7af2ceeb96::t_94a01c2d012bee 856-859,861-878,881-886,888-892,894-903,905-909,911-915,917-919,950-951,992
+  s_6a7a7af2ceeb96::t_18f4e2542e5826 25,31
+  s_6a7a7af2ceeb96::t_25817d5bf3df8e 134-136
+  s_6a7a7af2ceeb96::t_eeaa687843d9b7 137-147,149-168
+  s_6a7a7af2ceeb96::t_804feba041a778 352-353
+  s_6a7a7af2ceeb96::t_d08329ea09bb58 244-247
+  s_6a7a7af2ceeb96::t_2115343a0163d6 453,459,465
+  s_6a7a7af2ceeb96::t_16783d82b528b1 683-688
+  s_6a7a7af2ceeb96::t_7dceaf4452c20c 1120,1122
+  s_6a7a7af2ceeb96::t_7eb1be66e12668 622
+  s_6a7a7af2ceeb96::t_af9bd7c8bd6afd 1144
+  s_6a7a7af2ceeb96::t_be1dad8852cdb3 631-636
+  s_6a7a7af2ceeb96::t_2012000a5d7f40 754-789,796-804
+  s_6a7a7af2ceeb96::t_ca7b90f35597f3 363-370
+  s_6a7a7af2ceeb96::t_973917bcde18f4 920-931
+  s_6a7a7af2ceeb96::t_69815836f65e08 23-24,26-30
+  s_6a7a7af2ceeb96::t_9cc47d6033beee 838-840
+  s_6a7a7af2ceeb96::t_c07a7f547be44a 339,422-423,426-436
+  s_6a7a7af2ceeb96::t_42fdd902c00998 677-682
+  s_6a7a7af2ceeb96::t_bdf1a07461ed48 1160,1166-1169,1171-1175
+  s_6a7a7af2ceeb96::t_e6c221d5bc6aaa 1010-1027
+  s_6a7a7af2ceeb96::t_896c07e443a44f 999-1000,1002-1009,1028-1047,1049-1074
+  s_6a7a7af2ceeb96::t_3b6731f1e498fe 32-33
+  s_6a7a7af2ceeb96::t_8291b9ed6adca2 345-348
+  s_6a7a7af2ceeb96::t_6d9e79727e8075 695-700,703,705,708-717,720-723,726-736
+  s_6a7a7af2ceeb96::t_b4f0b0ebf73830 120-133
+  s_6a7a7af2ceeb96::t_1e59bffd5a2063 851-852,854,993-994,996-998,1130-1143,1145-1159,1161-1165,1170,1176-1205
+  s_6a7a7af2ceeb96::t_a97202cd9f0e90 614
+  s_6a7a7af2ceeb96::t_288a45dfe9575e 860,879-880,887,893,904,910,916,961,969,975,980,986
+  s_6a7a7af2ceeb96::t_646929cb084091 953-956,958-959,962-963,966-968,970-973,978-979,981,984-985,987
+  s_6a7a7af2ceeb96::t_5d76285374850f 628-630,637-676,689
+  s_6a7a7af2ceeb96::t_b0d221aeca065b 349-351,354-355
+  s_6a7a7af2ceeb96::t_f8b1ceab46ae27 340
+  s_6a7a7af2ceeb96::t_422c8354681b32 437
+  s_6a7a7af2ceeb96::t_fbb51cf278660b 828-830,833-835
+  s_6a7a7af2ceeb96::t_1b9ea03792ed60 853
+  s_6a7a7af2ceeb96::t_209b77f364925c 855
+  s_6a7a7af2ceeb96::t_a212382b2c984c 995
+  s_6a7a7af2ceeb96::t_08f246dd3a8664 831-832
+src/github/trayBadge.test.ts
+  s_6a7a7af2ceeb96::t_a2439eb5344438 1-83
+src/stores/settingsStore.ts
+  s_6a7a7af2ceeb96::t_bb6b05f5c48905 129
+  s_6a7a7af2ceeb96::t_9fd5e9494c2ab9 27
+  s_6a7a7af2ceeb96::t_ee5d3ed33614b1 99-103
+  s_6a7a7af2ceeb96::t_6f09c708176f6d 104-115
+  s_6a7a7af2ceeb96::t_56569a094f4ffe 30
+  s_6a7a7af2ceeb96::t_b3261ab66fed71 60
+  s_6a7a7af2ceeb96::t_f68fd2e719cfa5 39
+  s_6a7a7af2ceeb96::t_b1f1cc5b707f0a 11-12
+  s_6a7a7af2ceeb96::t_8e1186f7c1bf56 38
+  s_6a7a7af2ceeb96::t_58abe8a9666758 58
+  s_6a7a7af2ceeb96::t_60b88db85dd521 189-194,198-203
+  s_6a7a7af2ceeb96::t_24cf4aab31e208 13
+  s_6a7a7af2ceeb96::t_76bd2f749bdccd 204-209,218-224,226-258
+  s_6a7a7af2ceeb96::t_67e0efaee17a28 259-268,270,283,288,293
+  s_6a7a7af2ceeb96::t_fa197f905eba13 17
+  s_6a7a7af2ceeb96::t_b76971552cf517 127-128
+  s_6a7a7af2ceeb96::t_4c7c603e138a04 130,210-217,225
+  s_6a7a7af2ceeb96::t_f84a1cf58df071 177-178,271-272,325-358
+  s_6a7a7af2ceeb96::t_f589ac16135ded 4,26,43
+  s_6a7a7af2ceeb96::t_50dafd64f34bec 87-90
+  s_6a7a7af2ceeb96::t_a7f35dedf2c5b3 57
+  s_6a7a7af2ceeb96::t_0a8f55584d4687 116-122
+  s_6a7a7af2ceeb96::t_8cc1737f69c7fe 279-281
+  s_6a7a7af2ceeb96::t_03496811d227d3 7,15,19
+  s_6a7a7af2ceeb96::t_ab2d10696ef82a 275-278
+  s_6a7a7af2ceeb96::t_355b2a6818e3c9 9,22-23
+  s_6a7a7af2ceeb96::t_ef4ef385cc8356 10,24
+  s_6a7a7af2ceeb96::t_0597f5889a7aef 28
+  s_6a7a7af2ceeb96::t_8b20c82d7bc061 31-34
+  s_6a7a7af2ceeb96::t_3fdc77c8b5d156 55
+  s_6a7a7af2ceeb96::t_3bdfed12f20129 56
+  s_6a7a7af2ceeb96::t_ceb9b9b4112ce5 153
+  s_6a7a7af2ceeb96::t_30a2d03f363f3c 154
+  s_6a7a7af2ceeb96::t_ba2f23173d34ce 162
+  s_6a7a7af2ceeb96::t_d4f8ad0149b491 155
+  s_6a7a7af2ceeb96::t_9c8219c9784a97 65-70
+  s_6a7a7af2ceeb96::t_9abb41b932a120 142-146
+  s_6a7a7af2ceeb96::t_6a8852a6dc5aeb 274,282,284-287,289-292
+  s_6a7a7af2ceeb96::t_3871f4a97a3476 40
+  s_6a7a7af2ceeb96::t_35baa330aa7590 171-173
+  s_6a7a7af2ceeb96::t_05b4e82e45d60b 73-86
+  s_6a7a7af2ceeb96::t_49eca6d7c538ff 174-176
+  s_6a7a7af2ceeb96::t_f9f2d0689799a9 156-159
+  s_6a7a7af2ceeb96::t_0818416e586bfa 180-184
+  s_6a7a7af2ceeb96::t_36080405bcd55c 185-188
+  s_6a7a7af2ceeb96::t_1c01d90451eb0c 269
+  s_6a7a7af2ceeb96::t_895177a8f81df8 29
+  s_6a7a7af2ceeb96::t_8e36ef9de41f9e 126
+  s_6a7a7af2ceeb96::t_b645d44e5e0811 131
+  s_6a7a7af2ceeb96::t_50a1615038bb35 179
+  s_6a7a7af2ceeb96::t_5b925c517d00d1 273
+graphql/github.schema.graphql
+  s_6a7a7af2ceeb96::t_55784693e22f32 1-64309
+src/graphql/mapRelease.ts
+  s_6a7a7af2ceeb96::t_d2365fd12a4a20 2,4-9,12,21
+  s_6a7a7af2ceeb96::t_1d4145c1e50980 1,3,10-11,13-20,22-23
+src/graphql/mapIssue.test.ts
+  s_6a7a7af2ceeb96::t_798f040c632001 1-15,17-53
+  s_6a7a7af2ceeb96::t_305f67c36e1e38 16
+src/github/itemDiff.ts
+  s_6a7a7af2ceeb96::t_6890ff19d486e7 49-51,78,80-94,97,129
+  s_6a7a7af2ceeb96::t_3b65ad4370c5f1 10-13
+  s_6a7a7af2ceeb96::t_dd2c3b933cb182 150-153
+  s_6a7a7af2ceeb96::t_2a6d00d70e5a01 1
+  s_6a7a7af2ceeb96::t_e74dae8a5ed432 113,121-127
+  s_6a7a7af2ceeb96::t_8e3efc30adabf8 52-77,79
+  s_6a7a7af2ceeb96::t_f5489115403566 5-9
+  s_6a7a7af2ceeb96::t_0662273f40a5ee 95-96
+  s_6a7a7af2ceeb96::t_2b3a45fabf6bb3 128
+  s_6a7a7af2ceeb96::t_29d4bb7cd7de03 130
+src/components/dashboard/index.ts
+  s_6a7a7af2ceeb96::t_0f992d9c4adc1e 13
+  s_6a7a7af2ceeb96::t_16886a651e1d6e 14
+  s_6a7a7af2ceeb96::t_be0079e3dd7c09 7
+  s_6a7a7af2ceeb96::t_4d552ae85d401f 8
+src/components/dashboard/tabs/DiscussionsReleasesTab.vue
+  s_6a7a7af2ceeb96::t_bf2eccbcccedf6 4,6,24,54-57
+  s_6a7a7af2ceeb96::t_41639ceb9d556d 1-3,5,7-23,25-53,58-67
+src/graphql/types.ts
+  s_6a7a7af2ceeb96::t_25c5defdcb5e93 1-12
+tsconfig.graphql.json
+  s_6a7a7af2ceeb96::t_830c6d64bcbd09 2-24
+  s_6a7a7af2ceeb96::t_0c506b5cc1ff6b 1,25-26
+src/stores/refreshStore.ts
+  s_6a7a7af2ceeb96::t_24475778961504 153-161
+src/github/snooze.test.ts
+  s_6a7a7af2ceeb96::t_9bddd0c4d6579b 1-46
+src/github/restFetch.test.ts
+  s_6a7a7af2ceeb96::t_f0c70b570d4792 1-28
+src/composables/useHttpClient.test.ts
+  s_6a7a7af2ceeb96::t_cf022bb7ac94df 1-88
+src/github/savedViews.test.ts
+  s_6a7a7af2ceeb96::t_1b469c1c2ab89e 13
+  s_6a7a7af2ceeb96::t_5d66fe130faa0b 1-12,14-31,34-115
+  s_6a7a7af2ceeb96::t_363f28fb7fd209 32-33
+src/composables/useAppBootstrap.ts
+  s_6a7a7af2ceeb96::t_6a67215e513af1 47
+  s_6a7a7af2ceeb96::t_95aa5dd4d42d56 32
+  s_6a7a7af2ceeb96::t_cac11c95a55f5d 33-34
+  s_6a7a7af2ceeb96::t_0fc7343982dd86 64-70
+  s_6a7a7af2ceeb96::t_fc81435decab6d 7
+  s_6a7a7af2ceeb96::t_c9d72c5d91ce38 28,31
+  s_6a7a7af2ceeb96::t_a9ec1f2748c12d 13
+src/stores/githubStore.ts
+  s_6a7a7af2ceeb96::t_bcca38e837957e 40
+  s_6a7a7af2ceeb96::t_d639ea440cde0d 468
+  s_6a7a7af2ceeb96::t_e8142f22785fd5 269,271-274
+  s_6a7a7af2ceeb96::t_619cde96673c89 82-89
+  s_6a7a7af2ceeb96::t_9cbec74862bb55 583-584
+  s_6a7a7af2ceeb96::t_d1e04d82554d04 739-757
+  s_6a7a7af2ceeb96::t_99ba7f2ffd16e5 4,60,95-101
+  s_6a7a7af2ceeb96::t_f898cf50259e2f 807-808,896-899,901-906,916,947
+  s_6a7a7af2ceeb96::t_a74e7f5ec89dab 857-859
+  s_6a7a7af2ceeb96::t_ba877f5b8c277b 390-392,396-401
+  s_6a7a7af2ceeb96::t_b89fcd3460c1a5 523
+  s_6a7a7af2ceeb96::t_06b689b3ca3cbd 6-11,13
+  s_6a7a7af2ceeb96::t_61b37d79964588 299-312
+  s_6a7a7af2ceeb96::t_85343f751d49da 81,90-92,94
+  s_6a7a7af2ceeb96::t_a8ed53a0fd0cfd 204
+  s_6a7a7af2ceeb96::t_83fc4a0b96cadc 5,12
+  s_6a7a7af2ceeb96::t_fbff192e8430fb 937-941
+  s_6a7a7af2ceeb96::t_8217eef53af11d 234
+  s_6a7a7af2ceeb96::t_7ca96077df979a 964-980
+  s_6a7a7af2ceeb96::t_7f8b00b9a8be25 1008-1009,1027-1029,1070
+  s_6a7a7af2ceeb96::t_03719a895330b4 1044-1047
+  s_6a7a7af2ceeb96::t_ad231fa0c75476 1074
+  s_6a7a7af2ceeb96::t_97a4de5a0b1395 1237,1239
+  s_6a7a7af2ceeb96::t_38d41c92722f01 50
+  s_6a7a7af2ceeb96::t_be6b3886d24309 809,821-824,827-835,840,860
+  s_6a7a7af2ceeb96::t_bcbe90a41d6cbe 233
+  s_6a7a7af2ceeb96::t_ccdb5022a44e19 313-357,376-378
+  s_6a7a7af2ceeb96::t_f08c5bc8c2b8f2 1076
+  s_6a7a7af2ceeb96::t_dad6e4fba5d5fe 73
+  s_6a7a7af2ceeb96::t_d1e524d84fe3ef 795
+  s_6a7a7af2ceeb96::t_3632ab250b4cd2 3
+  s_6a7a7af2ceeb96::t_6efbfdf9f4e294 263-265
+  s_6a7a7af2ceeb96::t_d50e84feca274a 1167-1173,1175,1177-1178,1190-1196,1198,1200-1201,1213-1219,1221,1223-1224
+  s_6a7a7af2ceeb96::t_c2a64e367d03ba 580,613,768,1007,1143
+  s_6a7a7af2ceeb96::t_27dbbf070be876 1024,1036,1039
+  s_6a7a7af2ceeb96::t_a0f71a9e512136 1349,1355-1360,1362
+  s_6a7a7af2ceeb96::t_17d266496b6beb 189
+  s_6a7a7af2ceeb96::t_6f2ce6a723d05f 520
+  s_6a7a7af2ceeb96::t_8d27b3fd3010f8 538,545,547,549,551-563,576-578,581-582,586-589,593-594,612,614-628,642-644,664-666,681-682,685-688,691-695,709-710,713-718,723-731,733-736,762-764
+  s_6a7a7af2ceeb96::t_4f39e07fa21ff6 579
+  s_6a7a7af2ceeb96::t_75dd4533c5588b 629-641,646-647,655-656
+  s_6a7a7af2ceeb96::t_ceefa58114afec 521
+  s_6a7a7af2ceeb96::t_17f802a567d8e0 769-772
+  s_6a7a7af2ceeb96::t_4f3f1aa1d59860 93
+  s_6a7a7af2ceeb96::t_bb7c46b637eee3 19-33
+  s_6a7a7af2ceeb96::t_34ed591a17eff7 104
+  s_6a7a7af2ceeb96::t_270522b5a068cc 155-158
+  s_6a7a7af2ceeb96::t_f4a7937e45f3a5 959
+  s_6a7a7af2ceeb96::t_a95098286f3ad9 193
+  s_6a7a7af2ceeb96::t_7cac3508805c99 69
+  s_6a7a7af2ceeb96::t_bc27ccdc539ac2 80
+  s_6a7a7af2ceeb96::t_7aaf4344d7954a 1063
+  s_6a7a7af2ceeb96::t_dda46025606f10 235
+  s_6a7a7af2ceeb96::t_e8b7be201f14e0 106
+  s_6a7a7af2ceeb96::t_1ed872038982e4 365,371,373
+  s_6a7a7af2ceeb96::t_3524fee70f3867 190
+  s_6a7a7af2ceeb96::t_80146cd399ea8a 1116,1118-1131
+  s_6a7a7af2ceeb96::t_de668bfce2da98 1010-1023,1025-1026,1032-1035,1037-1038,1040-1043,1050-1051,1056-1057,1062,1064-1065
+  s_6a7a7af2ceeb96::t_ad259775fce19e 667-680,683-684,689-690,696-708,711-712
+  s_6a7a7af2ceeb96::t_f56752febe2208 1144-1151
+  s_6a7a7af2ceeb96::t_25a5ba78aaac4c 1295
+  s_6a7a7af2ceeb96::t_aedc4eaddf394e 1308-1322
+  s_6a7a7af2ceeb96::t_5be0881d20bb73 508
+  s_6a7a7af2ceeb96::t_d82994866ace49 810-820,825-826,836-839,841-856,861-895,912-915,917,942-946
+  s_6a7a7af2ceeb96::t_72e1130f626370 236
+  s_6a7a7af2ceeb96::t_19bd8fc34fbefb 367-370,372,374
+  s_6a7a7af2ceeb96::t_e1c99dbd16f2e6 178
+  s_6a7a7af2ceeb96::t_9951c58d1fca4a 659,662
+  s_6a7a7af2ceeb96::t_3e3d25d8637fa0 159-165
+  s_6a7a7af2ceeb96::t_4736f74deaaf5e 519
+  s_6a7a7af2ceeb96::t_e4ef54081a5e96 645,648-654,657-658,660-661,663
+  s_6a7a7af2ceeb96::t_54dfe3928b9074 1293-1294
+  s_6a7a7af2ceeb96::t_e661ebfbc1b975 74-78
+  s_6a7a7af2ceeb96::t_16a652076462a5 41
+  s_6a7a7af2ceeb96::t_28553b357719c7 149-154
+  s_6a7a7af2ceeb96::t_39d29095d43972 192
+  s_6a7a7af2ceeb96::t_54b5bd52cbdb9d 61-63
+  s_6a7a7af2ceeb96::t_54411ff2a3f005 36
+  s_6a7a7af2ceeb96::t_a09f275b26195d 765-767,773-794,796-806
+  s_6a7a7af2ceeb96::t_e0ee502916b0ad 737-738,758,760-761
+  s_6a7a7af2ceeb96::t_a482cbb91a09a0 610-611
+  s_6a7a7af2ceeb96::t_1d2d1bb2911b26 472
+  s_6a7a7af2ceeb96::t_226c364c8b8a21 564-575
+  s_6a7a7af2ceeb96::t_3c36b2160fc13c 45
+  s_6a7a7af2ceeb96::t_9f346cd9524dcf 222
+  s_6a7a7af2ceeb96::t_a94f329b19f99b 79
+  s_6a7a7af2ceeb96::t_0b2c7dc1a791a9 237
+  s_6a7a7af2ceeb96::t_9e9f0efbd0691b 445
+  s_6a7a7af2ceeb96::t_f911f20ef5504b 1385-1395
+  s_6a7a7af2ceeb96::t_618c4db2051f51 590-592,595-609
+  s_6a7a7af2ceeb96::t_44ad1468902446 1078-1091,1098-1099
+  s_6a7a7af2ceeb96::t_148cd07ea1ec88 270
+  s_6a7a7af2ceeb96::t_74efb9272b64dc 522
+  s_6a7a7af2ceeb96::t_e30391703feff6 437-441
+  s_6a7a7af2ceeb96::t_b22342f746bbfc 248-251
+  s_6a7a7af2ceeb96::t_ea80f32551540c 266-268
+  s_6a7a7af2ceeb96::t_0af64a2674e8e3 497
+  s_6a7a7af2ceeb96::t_bb7dd4b2075edd 585
+  s_6a7a7af2ceeb96::t_18730db21ca22b 420-436,442-444,446-467,469-471,473-481
+  s_6a7a7af2ceeb96::t_c4f82b4a85224e 191
+  s_6a7a7af2ceeb96::t_1f035dd06f7c21 539-544,546,548,550
+  s_6a7a7af2ceeb96::t_f963a36159d72d 719-722
+  s_6a7a7af2ceeb96::t_f9641a75d68f18 759
+  s_6a7a7af2ceeb96::t_4e7860a416ef8d 907-911
+  s_6a7a7af2ceeb96::t_62f17174f1c2eb 1117
+  s_6a7a7af2ceeb96::t_e87a49e4e2143b 732
+  s_6a7a7af2ceeb96::t_4f38ef4e8160f7 402,957,1279-1292,1296-1307,1323-1348,1350-1354,1361,1363-1372
+  s_6a7a7af2ceeb96::t_5f97db0d11cf6b 918-936,948-954,960
+  s_6a7a7af2ceeb96::t_9a47e34e68c18f 43
+  s_6a7a7af2ceeb96::t_cd80c332e3489e 985-986
+  s_6a7a7af2ceeb96::t_31c70b4e6cf440 358-364,366,375
+  s_6a7a7af2ceeb96::t_f475f147f84caf 403
+  s_6a7a7af2ceeb96::t_8e148cbdbf031b 958
+  s_6a7a7af2ceeb96::t_79372488c32a38 1077
+src/components/dashboard/tabs/WatchingTab.vue
+  s_6a7a7af2ceeb96::t_6f36681f9237d8 16
+src/github/grouping.ts
+  s_6a7a7af2ceeb96::t_a9718d7f0de990 3,9-17
+  s_6a7a7af2ceeb96::t_1cc53ac934ab36 94-97
+  s_6a7a7af2ceeb96::t_3a3ee8e0368636 37-40
+  s_6a7a7af2ceeb96::t_0b3702571b5746 123
+  s_6a7a7af2ceeb96::t_1b0f353fae31b2 60
+src/views/SignInView.vue
+  s_6a7a7af2ceeb96::t_035c097fdd415c 14
+src/graphql/mapPullRequest.ts
+  s_6a7a7af2ceeb96::t_a3bfadf0473b1b 18-23,29
+  s_6a7a7af2ceeb96::t_6cbec22289c688 1,3,26
+  s_6a7a7af2ceeb96::t_bed1a1a63c33b3 2,4-17,24-25,27-28,30-47,49-76
+  s_6a7a7af2ceeb96::t_3c5620fb43d48b 48
+pnpm-lock.yaml
+  s_6a7a7af2ceeb96::t_016b2d321bab6e 50-55,78-80,84-86,90-95,135-148,330-354,396-404,1251-1256,1260-1269,1612-1614,1738-1747,1849-1869,1919-1929,2592-2603,2606-2612,2943-2944
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "dfd6e8eb9f4abcb07e51dda0c09170e6d845f8e4",
+  "prompts": {},
+  "humans": {
+    "h_ee6cac30a1b83a": {
+      "author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
