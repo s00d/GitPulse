@@ -109,25 +109,6 @@ pnpm tauri build
 
 See [docs/RELEASING.md](docs/RELEASING.md) for CI signing, notarization, and release workflow.
 
-## Releasing (maintainers)
-
-GitHub Actions workflow: **Build and Release Tauri App** (`workflow_dispatch`).
-
-Required repository secrets:
-
-| Secret | Purpose |
-|--------|---------|
-| `TAURI_PRIVATE_KEY` | Minisign private key for updater artifacts |
-| `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` | Optional key password |
-| `APPLE_CERTIFICATE` | Developer ID Application `.p12` (base64) |
-| `APPLE_CERTIFICATE_PASSWORD` | `.p12` password |
-| `APPLE_ID` | Apple ID for notarization |
-| `APPLE_PASSWORD` | App-specific password |
-| `APPLE_TEAM_ID` | Apple Developer Team ID |
-| `GITPULSE_GITHUB_CLIENT_ID` | OAuth Client ID bundled into releases |
-
-Full instructions: [docs/RELEASING.md](docs/RELEASING.md).
-
 ## Support
 
 - **Feedback**: [Discussions](https://github.com/s00d/GitPulse/discussions/1) — ideas and general feedback

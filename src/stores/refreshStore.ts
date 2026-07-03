@@ -47,6 +47,26 @@ const tauriStore = useTauriStore<RefreshStateSchema>("refresh-state.json", {
   defaults,
 });
 
+let mutationQueue: Promise<unknown> = Promise.resolve();
+
+function runExclusive<T>(task: () => Promise<T>): Promise<T> {
+  const result = mutationQueue.then(task, task);
+  mutationQueue = result.then(
+    () => undefined,
+    () => undefined,
+  );
+  return result;
+}
+
+async function ensureInitialized(store: RefreshState) {
+  if (store.initialized) return;
+  await tauriStore.init();
+  store.events = (await tauriStore.get("events")) ?? [];
+  store.itemSnapshot = (await tauriStore.get("itemSnapshot")) ?? null;
+  store.seenCounts = (await tauriStore.get("seenCounts")) ?? null;
+  store.initialized = true;
+}
+
 export const useRefreshStore = defineStore("refresh", {
   state: (): RefreshState => ({
     events: [],
@@ -66,12 +86,9 @@ export const useRefreshStore = defineStore("refresh", {
 
   actions: {
     async init() {
-      if (this.initialized) return;
-      await tauriStore.init();
-      this.events = (await tauriStore.get("events")) ?? [];
-      this.itemSnapshot = (await tauriStore.get("itemSnapshot")) ?? null;
-      this.seenCounts = (await tauriStore.get("seenCounts")) ?? null;
-      this.initialized = true;
+      return runExclusive(async () => {
+        await ensureInitialized(this);
+      });
     },
 
     async persist() {
@@ -88,32 +105,34 @@ export const useRefreshStore = defineStore("refresh", {
       source: RefreshRecordInput,
       _refreshSource: RefreshSource,
     ): Promise<{ events: ActivityEvent[]; deltas: Record<string, number> }> {
-      await this.init();
+      return runExclusive(async () => {
+        await ensureInitialized(this);
 
-      const detectedAt = new Date().toISOString();
-      const nextItemSnapshot = buildItemSnapshot(source);
-      const nextCounts = buildCountSnapshot(source);
+        const detectedAt = new Date().toISOString();
+        const nextItemSnapshot = buildItemSnapshot(source);
+        const nextCounts = buildCountSnapshot(source);
 
-      let incoming: ActivityEvent[] = [];
-      if (this.itemSnapshot === null) {
-        this.itemSnapshot = nextItemSnapshot;
-        this.seenCounts = { ...nextCounts };
-        this.countDeltas = {};
-      } else {
-        incoming = diffItemSnapshots(this.itemSnapshot, nextItemSnapshot, detectedAt);
-        this.itemSnapshot = nextItemSnapshot;
-        this.countDeltas = computeCountDeltas(nextCounts, this.seenCounts);
-      }
+        let incoming: ActivityEvent[] = [];
+        if (this.itemSnapshot === null) {
+          this.itemSnapshot = nextItemSnapshot;
+          this.seenCounts = { ...nextCounts };
+          this.countDeltas = {};
+        } else {
+          incoming = diffItemSnapshots(this.itemSnapshot, nextItemSnapshot, detectedAt);
+          this.itemSnapshot = nextItemSnapshot;
+          this.countDeltas = computeCountDeltas(nextCounts, this.seenCounts);
+        }
 
-      this.currentCounts = nextCounts;
-      this.recomputeSignature();
+        this.currentCounts = nextCounts;
+        this.recomputeSignature();
 
-      if (incoming.length) {
-        this.events = mergeActivityEvents(this.events, incoming, ITEM_EVENTS_STORE_MAX);
-      }
+        if (incoming.length) {
+          this.events = mergeActivityEvents(this.events, incoming, ITEM_EVENTS_STORE_MAX);
+        }
 
-      await this.persist();
-      return { events: incoming, deltas: this.countDeltas };
+        await this.persist();
+        return { events: incoming, deltas: this.countDeltas };
+      });
     },
 
     getCountDelta(key: string): number {
@@ -121,45 +140,55 @@ export const useRefreshStore = defineStore("refresh", {
     },
 
     async dismissEvent(eventId: string) {
-      await this.init();
-      const next = this.events.filter((event) => event.id !== eventId);
-      if (next.length === this.events.length) return;
-      this.events = next;
-      await this.persist();
+      return runExclusive(async () => {
+        await ensureInitialized(this);
+
+        const next = this.events.filter((event) => event.id !== eventId);
+        if (next.length === this.events.length) return;
+        this.events = next;
+        await this.persist();
+      });
     },
 
     async acknowledge(...keys: string[]) {
-      await this.init();
-      if (!this.seenCounts) {
-        this.seenCounts = {};
-      }
+      return runExclusive(async () => {
+        await ensureInitialized(this);
 
-      let changed = false;
-      for (const key of keys) {
-        const value = this.currentCounts[key];
-        if (value === undefined) continue;
-        if (this.seenCounts[key] !== value) {
-          this.seenCounts[key] = value;
-          changed = true;
+        if (!this.seenCounts) {
+          this.seenCounts = {};
         }
-      }
 
-      if (changed) {
-        this.countDeltas = computeCountDeltas(this.currentCounts, this.seenCounts);
-        this.recomputeSignature();
-        await this.persist();
-      }
+        let changed = false;
+        for (const key of keys) {
+          const value = this.currentCounts[key];
+          if (value === undefined) continue;
+          if (this.seenCounts[key] !== value) {
+            this.seenCounts[key] = value;
+            changed = true;
+          }
+        }
+
+        if (changed) {
+          this.countDeltas = computeCountDeltas(this.currentCounts, this.seenCounts);
+          this.recomputeSignature();
+          await this.persist();
+        }
+      });
     },
 
     async clear() {
-      await this.init();
-      this.events = [];
-      this.itemSnapshot = null;
-      this.seenCounts = null;
-      this.currentCounts = {};
-      this.countDeltas = {};
-      this.signature = "";
-      await this.persist();
+      return runExclusive(async () => {
+        await tauriStore.init();
+
+        this.events = [];
+        this.itemSnapshot = null;
+        this.seenCounts = null;
+        this.currentCounts = {};
+        this.countDeltas = {};
+        this.signature = "";
+        this.initialized = true;
+        await this.persist();
+      });
     },
   },
 });
