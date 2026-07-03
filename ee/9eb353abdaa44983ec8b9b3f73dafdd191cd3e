@@ -1,0 +1,19 @@
+.github/workflows/build.yml
+  s_6a7a7af2ceeb96::t_34a140eb8b37e6 7-53,55,148
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.9",
+  "base_commit_sha": "ee9eb353abdaa44983ec8b9b3f73dafdd191cd3e",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
