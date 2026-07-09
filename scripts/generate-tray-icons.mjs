@@ -191,11 +191,12 @@ const GLYPH_DEFS = {
   star: { lucide: "Star", color: "#ca8a04" },
   watch: { lucide: "Eye", color: "#16a34a" },
   notification: { lucide: "Bell", color: "#e11d48" },
-  repo: { lucide: "FolderGit2", color: "#ea580c" },
+  repo: { lucide: "Folder", color: "#1d4ed8", scale: 0.88, stroke: 2.7 },
   settings: { lucide: "Settings", color: "#475569" },
   refresh: { lucide: "RefreshCw", color: "#2563eb" },
   open: { lucide: "ExternalLink", color: "#0f172a" },
   about: { lucide: "Info", color: "#0369a1" },
+  quit: { lucide: "Power", color: "#64748b" },
   signIn: { lucide: "KeyRound", color: "#059669" },
   activity: { lucide: "Activity", color: "#2563eb" },
   external: { lucide: "ExternalLink", color: "#4f46e5" },
@@ -303,12 +304,19 @@ async function drawLucideGlyph(
   ctx.drawImage(image, offsetX, offsetY, glyphSize, glyphSize);
 }
 
+function glyphDrawOpts(def) {
+  return {
+    stroke: def.stroke ?? TILE_GLYPH_STROKE,
+    scale: def.scale ?? TILE_GLYPH_SCALE,
+  };
+}
+
 async function drawGlyph(ctx, size, kind, tileColor) {
   const def = GLYPH_DEFS[kind];
   if (!def) throw new Error(`Missing glyph definition: ${kind}`);
 
   drawRoundedBackground(ctx, size, tileColor ?? def.color);
-  await drawLucideGlyph(ctx, size, def.lucide, { stroke: TILE_GLYPH_STROKE });
+  await drawLucideGlyph(ctx, size, def.lucide, glyphDrawOpts(def));
 }
 
 async function drawActivityChangeIcon(ctx, size, kind, change) {
@@ -340,7 +348,7 @@ async function drawBadge(ctx, size, kind, count) {
   const tileHex = tileColorForCount(baseHex, count);
 
   drawRoundedBackground(ctx, size, tileHex);
-  await drawLucideGlyph(ctx, size, def.lucide, { stroke: TILE_GLYPH_STROKE });
+  await drawLucideGlyph(ctx, size, def.lucide, glyphDrawOpts(def));
   const badge = drawCornerCountBadge(ctx, size, count);
 
   return { count, baseHex, tileHex, style: BADGE_STYLE, ...badge };

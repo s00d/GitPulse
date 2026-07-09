@@ -333,9 +333,10 @@ export async function buildLoadingFooter(ctx: TrayMenuBuildContext): Promise<Tra
       icon: await trayGlyphIcon("settings"),
       action: () => void invoke("show_settings_window"),
     }),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:quit",
       text: ctx.t("menu.quit"),
+      icon: await trayGlyphIcon("quit"),
       action: () => void invoke("quit_app"),
     }),
   ];
@@ -1034,9 +1035,10 @@ async function buildActionItems(ctx: TrayMenuBuildContext): Promise<TrayMenuEntr
       action: () => void openExternal(ABOUT_URL),
     }),
     await sectionSeparator(),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:quit",
       text: ctx.t("menu.quit"),
+      icon: await trayGlyphIcon("quit"),
       action: () => void invoke("quit_app"),
     }),
   ];
@@ -1152,9 +1154,10 @@ export async function buildSignedOutMenu(ctx: TrayMenuBuildContext) {
       action: () => void openExternal(ABOUT_URL),
     }),
     await sectionSeparator(),
-    await MenuItem.new({
+    await IconMenuItem.new({
       id: "action:quit",
       text: ctx.t("menu.quit"),
+      icon: await trayGlyphIcon("quit"),
       action: () => void invoke("quit_app"),
     }),
   );

@@ -11,6 +11,7 @@ const BASE_GLYPHS = [
   "refresh",
   "open",
   "about",
+  "quit",
   "signIn",
   "activity",
   "external",
