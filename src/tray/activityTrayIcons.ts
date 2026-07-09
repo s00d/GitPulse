@@ -7,7 +7,17 @@ import {
 import type { PrCiStatus } from "@/github/types";
 import type { TrayGlyph } from "@/tray/trayIconGenerator";
 
-const ACTIVITY_KIND_GLYPH: Record<ActivityItemKind, "issue" | "pullRequest" | "notification" | "discussion" | "release" | "commit" | "security" | "check"> = {
+const ACTIVITY_KIND_GLYPH: Record<
+  ActivityItemKind,
+  | "issue"
+  | "pullRequest"
+  | "notification"
+  | "discussion"
+  | "release"
+  | "commit"
+  | "security"
+  | "check"
+> = {
   issue: "issue",
   pull_request: "pullRequest",
   notification: "notification",
@@ -18,17 +28,14 @@ const ACTIVITY_KIND_GLYPH: Record<ActivityItemKind, "issue" | "pullRequest" | "n
   check: "check",
 };
 
-function activityCompositeGlyph(
-  kind: ActivityItemKind,
-  change: ActivityChangeKind,
-): TrayGlyph {
+function activityGlyphName(kind: ActivityItemKind, change: ActivityChangeKind): TrayGlyph {
   const base = ACTIVITY_KIND_GLYPH[kind];
   const suffix = change === "added" ? "Added" : "Updated";
   return `${base}${suffix}` as TrayGlyph;
 }
 
 export function activityTrayGlyph(event: ActivityEvent): TrayGlyph {
-  return activityCompositeGlyph(event.kind, event.change);
+  return activityGlyphName(event.kind, event.change);
 }
 
 export function issueTrayGlyph(input: {

@@ -35,6 +35,7 @@ const ICON_CLASS_MAP = {
   "open-in-new": "i-mdi-open-in-new",
   "window-minimize": "i-mdi-window-minimize",
   plus: "i-mdi-plus",
+  minus: "i-mdi-minus",
   "account-outline": "i-mdi-account-outline",
   "source-repository": "i-mdi-source-repository",
   "inbox-outline": "i-mdi-inbox-outline",

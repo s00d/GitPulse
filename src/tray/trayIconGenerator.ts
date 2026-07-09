@@ -38,12 +38,12 @@ const ACTIVITY_KINDS = [
   "check",
 ] as const;
 
-const ACTIVITY_COMPOSITES = ACTIVITY_KINDS.flatMap((kind) => [
+const ACTIVITY_GLYPHS = ACTIVITY_KINDS.flatMap((kind) => [
   `${kind}Added`,
   `${kind}Updated`,
 ] as const);
 
-export type TrayGlyph = (typeof BASE_GLYPHS)[number] | (typeof ACTIVITY_COMPOSITES)[number];
+export type TrayGlyph = (typeof BASE_GLYPHS)[number] | (typeof ACTIVITY_GLYPHS)[number];
 
 const glyphUrls = import.meta.glob<string>("./icons/glyph/*.png", {
   eager: true,

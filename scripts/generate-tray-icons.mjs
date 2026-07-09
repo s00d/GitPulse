@@ -19,17 +19,6 @@ const MIN_BADGE_PX_HEIGHT = Math.round(ICON_SIZE * 0.28);
 /** circle | chip | outline | pill | numeral */
 const BADGE_STYLE = "numeral";
 
-const ACTIVITY_KINDS = [
-  "issue",
-  "pullRequest",
-  "notification",
-  "discussion",
-  "release",
-  "commit",
-  "security",
-  "check",
-];
-
 /** Base tray glyphs — Lucide icon name + mockup background color. */
 const GLYPH_DEFS = {
   issue: { lucide: "CircleDot", color: "#ea580c" },
@@ -58,6 +47,17 @@ const GLYPH_DEFS = {
   issueDraft: { lucide: "GitPullRequestDraft", color: "#94a3b8" },
 };
 
+const ACTIVITY_KINDS = [
+  "issue",
+  "pullRequest",
+  "notification",
+  "discussion",
+  "release",
+  "commit",
+  "security",
+  "check",
+];
+
 const ACTIVITY_KIND_DEF = {
   issue: GLYPH_DEFS.issue,
   pullRequest: GLYPH_DEFS.pullRequest,
@@ -69,15 +69,14 @@ const ACTIVITY_KIND_DEF = {
   check: { lucide: "CircleCheck", color: "#16a34a" },
 };
 
-const CHANGE_BADGE = {
-  added: { lucide: "Plus", color: "#16a34a" },
-  updated: { lucide: "Pencil", color: "#2563eb" },
+const CHANGE_CENTER_GLYPH = {
+  added: "Plus",
+  updated: "Minus",
 };
 
-const GLYPHS = [
-  ...Object.keys(GLYPH_DEFS),
-  ...ACTIVITY_KINDS.flatMap((kind) => [`${kind}Added`, `${kind}Updated`]),
-];
+const ACTIVITY_GLYPHS = ACTIVITY_KINDS.flatMap((kind) => [`${kind}Added`, `${kind}Updated`]);
+
+const GLYPHS = [...Object.keys(GLYPH_DEFS), ...ACTIVITY_GLYPHS];
 
 const iconImageCache = new Map();
 
@@ -136,34 +135,31 @@ async function drawLucideGlyph(ctx, size, lucideName, iconSize = null) {
 }
 
 async function drawGlyph(ctx, size, kind) {
-  const def = GLYPH_DEFS[kind] ?? ACTIVITY_KIND_DEF[kind.replace(/(Added|Updated)$/, "")];
+  const def = GLYPH_DEFS[kind];
   if (!def) throw new Error(`Missing glyph definition: ${kind}`);
 
   drawRoundedBackground(ctx, size, def.color);
   await drawLucideGlyph(ctx, size, def.lucide);
 }
 
-async function drawActivityComposite(ctx, size, kind, change) {
+async function drawActivityChangeIcon(ctx, size, kind, change) {
   const base = ACTIVITY_KIND_DEF[kind];
   if (!base) throw new Error(`Missing activity kind: ${kind}`);
 
   drawRoundedBackground(ctx, size, base.color);
-  await drawLucideGlyph(ctx, size, base.lucide, Math.round(size * 0.38));
+  await drawLucideGlyph(ctx, size, CHANGE_CENTER_GLYPH[change]);
+}
 
-  const badge = CHANGE_BADGE[change];
-  const badgeSize = Math.round(size * 0.34);
-  const x = size - badgeSize + 1;
-  const y = -1;
-  roundRect(ctx, x, y, badgeSize, badgeSize, badgeSize * 0.28);
-  ctx.fillStyle = badge.color;
-  ctx.fill();
-  ctx.strokeStyle = "#ffffff";
-  ctx.lineWidth = 1.25;
-  ctx.stroke();
-
-  const image = await loadLucideIcon(badge.lucide, 24, "#ffffff", 2.5);
-  const pad = Math.round(badgeSize * 0.18);
-  ctx.drawImage(image, x + pad, y + pad, badgeSize - pad * 2, badgeSize - pad * 2);
+function resolveGlyphDraw(kind) {
+  const addedMatch = kind.match(/^(.+)Added$/);
+  if (addedMatch) {
+    return (ctx, size) => drawActivityChangeIcon(ctx, size, addedMatch[1], "added");
+  }
+  const updatedMatch = kind.match(/^(.+)Updated$/);
+  if (updatedMatch) {
+    return (ctx, size) => drawActivityChangeIcon(ctx, size, updatedMatch[1], "updated");
+  }
+  return (ctx, size) => drawGlyph(ctx, size, kind);
 }
 
 function badgeFontSize(label, size) {
@@ -317,30 +313,16 @@ async function render(draw) {
   return { png: canvas.toBuffer("image/png"), meta };
 }
 
-function resolveGlyphDraw(kind) {
-  const addedMatch = kind.match(/^(.+)Added$/);
-  if (addedMatch) {
-    const baseKind = addedMatch[1];
-    return (ctx, size) => drawActivityComposite(ctx, size, baseKind, "added");
-  }
-  const updatedMatch = kind.match(/^(.+)Updated$/);
-  if (updatedMatch) {
-    const baseKind = updatedMatch[1];
-    return (ctx, size) => drawActivityComposite(ctx, size, baseKind, "updated");
-  }
-  return (ctx, size) => drawGlyph(ctx, size, kind);
-}
-
 await mkdir(path.join(outDir, "glyph"), { recursive: true });
 await mkdir(path.join(outDir, "badge"), { recursive: true });
-
-const badgeKinds = [...Object.keys(GLYPH_DEFS)];
 
 for (const kind of GLYPHS) {
   const draw = resolveGlyphDraw(kind);
   const { png } = await render(draw);
   await writeFile(path.join(outDir, "glyph", `${kind}.png`), png);
 }
+
+const badgeKinds = Object.keys(GLYPH_DEFS);
 
 const badgeCounts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const qaSamples = [];

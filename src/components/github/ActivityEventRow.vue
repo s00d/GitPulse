@@ -20,7 +20,7 @@ const ui = computed(() =>
       badge:
         "mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full",
       badgeAdded: "bg-emerald-100 text-emerald-800 dark:bg-emerald-950 dark:text-emerald-200",
-      badgeUpdated: "bg-sky-100 text-sky-800 dark:bg-sky-950 dark:text-sky-200",
+      badgeUpdated: "bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-200",
       main: "min-w-0 flex-1",
       title: "truncate text-sm font-medium text-slate-900 dark:text-slate-100",
       meta: "mt-0.5 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400",
@@ -39,7 +39,7 @@ const changeLabel = computed(() =>
 );
 
 const changeIcon = computed<BaseIconName>(() =>
-  props.event.change === "added" ? "plus" : "pencil-outline",
+  props.event.change === "added" ? "plus" : "minus",
 );
 
 const kindLabel = computed(() => {
