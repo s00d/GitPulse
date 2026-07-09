@@ -13,7 +13,29 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const outDir = path.join(root, "src", "tray", "icons");
 
-const ICON_SIZE = 44;
+/**
+ * Tray menu icon bitmap size (Retina @2x).
+ *
+ * Tauri uses `muda` for menu icons. On macOS every item icon is forced to 18pt
+ * height (`muda` → `to_nsimage(Some(18.))`). On Retina that is 36 physical px —
+ * same idea as web `width: 18px` + `srcset` / 2× asset at 36px.
+ *
+ * Linux (GTK) scales to 16×16; Windows uses the bitmap as-is (~16px). A 36px
+ * source is sharp on macOS and still downscales cleanly elsewhere.
+ *
+ * @see https://developer.apple.com/design/human-interface-guidelines/menus
+ */
+const MENU_ICON_PT = 18;
+const MENU_ICON_RETINA_SCALE = 2;
+const ICON_SIZE = MENU_ICON_PT * MENU_ICON_RETINA_SCALE;
+
+const TILE_CORNER_RADIUS_RATIO = 0.2;
+/** Lucide viewBox has stroke inset — scale glyph to fill the tile. */
+const TILE_GLYPH_SCALE = 0.92;
+const TILE_GLYPH_STROKE = 2.35;
+/** Plain +/- on transparent canvas (recent changes) — bold strokes for 18pt menu. */
+const PLAIN_GLYPH_SCALE = 0.9;
+const PLAIN_GLYPH_STROKE = 4;
 const BADGE_FONT = (px) => `bold ${px}px Arial, Helvetica, sans-serif`;
 const MIN_BADGE_PX_HEIGHT = Math.round(ICON_SIZE * 0.28);
 /** circle | chip | outline | pill | numeral */
@@ -119,18 +141,21 @@ function roundRect(ctx, x, y, w, h, r) {
 }
 
 function drawRoundedBackground(ctx, size, color) {
-  const pad = size * 0.18;
-  roundRect(ctx, pad, pad, size - pad * 2, size - pad * 2, size * 0.22);
+  const radius = size * TILE_CORNER_RADIUS_RATIO;
+  roundRect(ctx, 0, 0, size, size, radius);
   ctx.fillStyle = color;
   ctx.fill();
 }
 
-async function drawLucideGlyph(ctx, size, lucideName, iconSize = null) {
-  const pad = size * 0.18;
-  const inner = size - pad * 2;
-  const glyphSize = iconSize ?? Math.round(inner * 0.62);
+async function drawLucideGlyph(
+  ctx,
+  size,
+  lucideName,
+  { color = "#ffffff", scale = TILE_GLYPH_SCALE, stroke = 2 } = {},
+) {
+  const glyphSize = Math.round(size * scale);
   const offset = (size - glyphSize) / 2;
-  const image = await loadLucideIcon(lucideName, 24, "#ffffff", 2);
+  const image = await loadLucideIcon(lucideName, 24, color, stroke);
   ctx.drawImage(image, offset, offset, glyphSize, glyphSize);
 }
 
@@ -139,15 +164,18 @@ async function drawGlyph(ctx, size, kind) {
   if (!def) throw new Error(`Missing glyph definition: ${kind}`);
 
   drawRoundedBackground(ctx, size, def.color);
-  await drawLucideGlyph(ctx, size, def.lucide);
+  await drawLucideGlyph(ctx, size, def.lucide, { stroke: TILE_GLYPH_STROKE });
 }
 
 async function drawActivityChangeIcon(ctx, size, kind, change) {
   const base = ACTIVITY_KIND_DEF[kind];
   if (!base) throw new Error(`Missing activity kind: ${kind}`);
 
-  drawRoundedBackground(ctx, size, base.color);
-  await drawLucideGlyph(ctx, size, CHANGE_CENTER_GLYPH[change]);
+  await drawLucideGlyph(ctx, size, CHANGE_CENTER_GLYPH[change], {
+    color: base.color,
+    scale: PLAIN_GLYPH_SCALE,
+    stroke: PLAIN_GLYPH_STROKE,
+  });
 }
 
 function resolveGlyphDraw(kind) {
