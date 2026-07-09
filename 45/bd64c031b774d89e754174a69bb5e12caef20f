@@ -1,0 +1,65 @@
+src/tray/menuBuilders.ts
+  s_6a7a7af2ceeb96::t_3bdba7e158b28d 848
+  s_6a7a7af2ceeb96::t_d9562dacd28123 831
+  s_6a7a7af2ceeb96::t_0cc4c434ca23a9 12
+  s_6a7a7af2ceeb96::t_dd09bdb261b76b 255-262
+  s_6a7a7af2ceeb96::t_be0cbd3b7a0559 971-972
+  s_6a7a7af2ceeb96::t_9102a4e0a1f593 946
+  s_6a7a7af2ceeb96::t_0ae88ec80b6f3c 19
+  s_6a7a7af2ceeb96::t_105c4b904cd98f 389
+  s_6a7a7af2ceeb96::t_76f3cb793448a7 439
+  s_6a7a7af2ceeb96::t_cabe1322b58c60 689
+scripts/generate-tray-icons.mjs
+  s_6a7a7af2ceeb96::t_61a846c1d0792c 259-287,293
+  s_6a7a7af2ceeb96::t_dd77c4212ea3c7 170
+  s_6a7a7af2ceeb96::t_8760df962225d9 18-20
+  s_6a7a7af2ceeb96::t_2162be8a0fa8e7 7,22,26-30,33-69,72-74,77-110,122,127,129-166,296-297,308,312,316,320-333,337-338,340-341,348,351,386,407,414
+  s_6a7a7af2ceeb96::t_2801df84e0a6f2 372
+src/github/itemDiff.ts
+  s_6a7a7af2ceeb96::t_06a105cd4c6f02 4
+  s_6a7a7af2ceeb96::t_5a5af7b4287e97 5
+src/github/changeNotifications.test.ts
+  s_6a7a7af2ceeb96::t_9993f5ecde2857 135-136,139,149
+  s_6a7a7af2ceeb96::t_c982620c1b545d 161
+src/github/changeNotifications.ts
+  s_6a7a7af2ceeb96::t_003229fda4dcf8 29
+  s_6a7a7af2ceeb96::t_fbde200b35e9f8 1
+package.json
+  s_6a7a7af2ceeb96::t_845084392bc9eb 60
+  s_6a7a7af2ceeb96::t_947f85e3ada636 3
+src/github/activityFormat.test.ts
+  s_6a7a7af2ceeb96::t_c903c2cd9d8696 1-51
+src/tray/trayIconGenerator.ts
+  s_6a7a7af2ceeb96::t_74983cdb8a4c62 3-46,60,81
+src/github/activityFormat.ts
+  s_6a7a7af2ceeb96::t_719ba2596c32b9 1-67
+src/stores/githubStore.ts
+  s_6a7a7af2ceeb96::t_73a70faf5e85d3 65-68
+  s_6a7a7af2ceeb96::t_36ad7121e86212 1128-1131
+  s_6a7a7af2ceeb96::t_19469c1d7eb11f 64
+src/github/menuFormat.ts
+  s_6a7a7af2ceeb96::t_67c4814c736df0 1,14-15,61-62,71,76
+  s_6a7a7af2ceeb96::t_723a37d000b741 75,77-79
+src/tray/activityTrayIcons.ts
+  s_6a7a7af2ceeb96::t_d478345976d4b0 45-53
+  s_6a7a7af2ceeb96::t_7a809598224e86 2-6
+  s_6a7a7af2ceeb96::t_87c12501ba5bff 1,7-44
+pnpm-lock.yaml
+  s_6a7a7af2ceeb96::t_e88b04cb35dda4 111-113,1376-1378,2688-2689
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "45bd64c031b774d89e754174a69bb5e12caef20f",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
