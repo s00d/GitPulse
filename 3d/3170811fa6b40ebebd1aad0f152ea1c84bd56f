@@ -1,0 +1,25 @@
+package.json
+  s_6a7a7af2ceeb96::t_ecbb4be557d2be 3
+scripts/generate-tray-icons.mjs
+  s_6a7a7af2ceeb96::t_673ace4b7eb580 32-33
+  s_6a7a7af2ceeb96::t_ddf1ec873c4881 34-38
+  s_6a7a7af2ceeb96::t_f3c7007273175e 16-31
+  s_6a7a7af2ceeb96::t_d97819b6c794b8 144-145,150-156,158,174-178
+  s_6a7a7af2ceeb96::t_86a3a3e0f2dd9d 167
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "3d3170811fa6b40ebebd1aad0f152ea1c84bd56f",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
