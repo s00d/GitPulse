@@ -62,8 +62,12 @@ import {
   resolveNotificationsClearedAt,
 } from "@/github/notificationsInbox";
 import {
+  ACTIVITY_KIND_LABEL_KEYS,
+  activityChangeLabelKey,
+  formatActivityLine,
+} from "@/github/activityFormat";
+import {
   filterNotifiableEvents,
-  formatSingleEventBody,
   NOTIFICATION_APP_TITLE,
 } from "@/github/changeNotifications";
 import { isNotificationScheduleAllowed } from "@/github/notificationSchedule";
@@ -1121,7 +1125,10 @@ export const useGitHubStore = defineStore("github", {
                 filtered.length === 1
                   ? {
                       title: NOTIFICATION_APP_TITLE,
-                      body: formatSingleEventBody(filtered[0]!),
+                      body: formatActivityLine(filtered[0]!, {
+                        changeLabel: i18n.global.t(activityChangeLabelKey(filtered[0]!.change)),
+                        kindLabel: i18n.global.t(ACTIVITY_KIND_LABEL_KEYS[filtered[0]!.kind]),
+                      }),
                     }
                   : {
                       title: NOTIFICATION_APP_TITLE,

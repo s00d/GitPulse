@@ -132,11 +132,11 @@ describe("filterNotifiableEvents", () => {
 });
 
 describe("formatSingleEventBody", () => {
-  it("formats added issue with number", () => {
-    expect(formatSingleEventBody(makeEvent())).toBe("+ owner/repo #1 Fix login");
+  it("formats added issue with repo and kind words", () => {
+    expect(formatSingleEventBody(makeEvent())).toBe("New Issue · owner/repo");
   });
 
-  it("formats updated pull request without number", () => {
+  it("formats updated pull request", () => {
     expect(
       formatSingleEventBody(
         makeEvent({
@@ -146,7 +146,7 @@ describe("formatSingleEventBody", () => {
           title: "Refactor auth",
         }),
       ),
-    ).toBe("~ owner/repo Refactor auth");
+    ).toBe("Updated PR · owner/repo");
   });
 });
 
@@ -158,7 +158,7 @@ describe("buildNotificationPayload", () => {
   it("builds single-event payload", () => {
     expect(buildNotificationPayload([makeEvent()])).toEqual({
       title: NOTIFICATION_APP_TITLE,
-      body: "+ owner/repo #1 Fix login",
+      body: "New Issue · owner/repo",
     });
   });
 

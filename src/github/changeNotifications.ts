@@ -1,3 +1,4 @@
+import { formatActivityLine } from "@/github/activityFormat";
 import type { ActivityEvent } from "@/github/itemDiff";
 import type { NotificationSettings } from "@/settings/appSettings";
 
@@ -25,9 +26,7 @@ export function filterNotifiableEvents(
 }
 
 export function formatSingleEventBody(event: ActivityEvent): string {
-  const prefix = event.change === "added" ? "+" : "~";
-  const number = event.number ? `#${event.number} ` : "";
-  return `${prefix} ${event.repo} ${number}${event.title}`;
+  return formatActivityLine(event);
 }
 
 export function formatBatchEventBody(count: number): string {

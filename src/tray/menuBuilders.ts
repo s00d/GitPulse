@@ -9,15 +9,14 @@ import {
 } from "@tauri-apps/api/menu";
 import { openUrl } from "@tauri-apps/plugin-opener";
 import type { useI18n } from "vue-i18n";
-import { formatActivityTrayLabel } from "@/github/itemDiff";
+import { formatActivityTrayText, activityTrayGlyph, issueTrayGlyph } from "@/tray/activityTrayIcons";
 import { formatLastRefreshedTime } from "@/github/formatLastRefreshed";
 import {
   formatIssueTrayLabel,
   formatNotificationTrayLabel,
   formatProjectItemTrayLabel,
-  labelWithCountAndDelta,
   starredRepoTrayLabel,
-  submenuWithCountAndDelta,
+  submenuWithCount,
 } from "@/github/menuFormat";
 import {
   MAX_PROJECT_COLUMNS_TRAY,
@@ -53,7 +52,6 @@ import type {
 } from "@/github/types";
 import { isPullRequest } from "@/github/types";
 import {
-  issueItemIcon,
   trayBadgeIcon,
   trayGlyphIcon,
   type TrayGlyph,
@@ -254,8 +252,14 @@ async function buildTrayActionItems(
 }
 
 async function issueItem(ctx: TrayMenuBuildContext, issue: GitHubIssue, keys: string[]) {
-  const label = formatIssueTrayLabel(issue, undefined, ctx.store.prCiById[issue.id]);
-  const icon = await issueItemIcon(isPullRequest(issue));
+  const label = formatIssueTrayLabel(issue);
+  const icon = await trayGlyphIcon(
+    issueTrayGlyph({
+      isPr: isPullRequest(issue),
+      draft: issue.draft,
+      ciStatus: ctx.store.prCiById[issue.id],
+    }),
+  );
 
   if (!ctx.itemActions.trayItemSubmenus) {
     return IconMenuItem.new({
@@ -382,11 +386,7 @@ async function buildIssueRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Sub
   return Promise.all(
     ctx.issueGroups.map(async (group) => {
       const repoKey = issueRepoKey(group.repo);
-      const label = submenuWithCountAndDelta(
-        group.repo,
-        group.totalCount,
-        ctx.refreshState.getCountDelta(repoKey),
-      );
+      const label = submenuWithCount(group.repo, group.totalCount);
       const ackKeys = [repoKey];
 
       if (!group.items.length && group.overflowUrl) {
@@ -436,11 +436,7 @@ async function buildPrRepoMenus(ctx: TrayMenuBuildContext): Promise<Array<Submen
   return Promise.all(
     ctx.prGroups.map(async (group) => {
       const repoKey = prRepoKey(group.repo);
-      const label = submenuWithCountAndDelta(
-        group.repo,
-        group.totalCount,
-        ctx.refreshState.getCountDelta(repoKey),
-      );
+      const label = submenuWithCount(group.repo, group.totalCount);
       const ackKeys = [repoKey, PRS_TOTAL_KEY];
 
       const visibleCategories = group.categories.filter(
@@ -690,10 +686,7 @@ async function buildPrSubmenu(ctx: TrayMenuBuildContext): Promise<Submenu> {
     ),
   ).size;
   const repoMenus = await buildPrRepoMenus(ctx);
-  const prLabel = labelWithCountAndDelta(
-    ctx.t("menu.pullRequests", { count: prCount }),
-    ctx.refreshState.getCountDelta(PRS_TOTAL_KEY),
-  );
+  const prLabel = ctx.t("menu.pullRequests", { count: prCount });
 
   return glyphSubmenu({
     id: "submenu:pull-requests",
@@ -835,10 +828,7 @@ async function buildWatchingSubmenu(ctx: TrayMenuBuildContext) {
     await overflowItem(ctx, ackKeys, watchingUrl(), ctx.t("menu.viewAllWatching")),
   );
 
-  const label = labelWithCountAndDelta(
-    ctx.t("menu.watchingCount", { count }),
-    ctx.refreshState.getCountDelta(WATCHING_TOTAL_KEY),
-  );
+  const label = ctx.t("menu.watchingCount", { count });
 
   return glyphSubmenu({
     id: "submenu:watching",
@@ -855,10 +845,7 @@ async function buildNotificationsSubmenu(ctx: TrayMenuBuildContext) {
     .filter((n) => n.unread)
     .slice(0, 15);
   const ackKeys = [NOTIFICATIONS_TOTAL_KEY];
-  const notifLabel = labelWithCountAndDelta(
-    ctx.t("menu.notifications", { count: unread }),
-    ctx.refreshState.getCountDelta(NOTIFICATIONS_TOTAL_KEY),
-  );
+  const notifLabel = ctx.t("menu.notifications", { count: unread });
 
   if (!visible.length) {
     return glyphSubmenu({
@@ -956,7 +943,7 @@ async function buildDiscussionsReleasesSubmenu(ctx: TrayMenuBuildContext): Promi
   return glyphSubmenu({
     id: "submenu:discussions-releases",
     text: ctx.t("menu.discussionsReleases", { count }),
-    glyph: "repo",
+    glyph: "discussion",
     count: count || undefined,
     items,
   });
@@ -981,8 +968,8 @@ async function buildRecentHistorySection(ctx: TrayMenuBuildContext): Promise<Tra
     recent.map(async (event) =>
       IconMenuItem.new({
         id: `history:${event.id}`,
-        text: formatActivityTrayLabel(event),
-        icon: await trayGlyphIcon("activity"),
+        text: formatActivityTrayText(event, ctx.t),
+        icon: await trayGlyphIcon(activityTrayGlyph(event)),
         action: async () => {
           await ctx.refreshState.dismissEvent(event.id);
           void openExternal(event.url);

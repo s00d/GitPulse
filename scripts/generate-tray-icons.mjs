@@ -4,6 +4,7 @@
  * Run: pnpm icons:tray
  */
 import { createCanvas, loadImage } from "canvas";
+import { icons } from "lucide";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -14,75 +15,98 @@ const outDir = path.join(root, "src", "tray", "icons");
 
 const ICON_SIZE = 44;
 const BADGE_FONT = (px) => `bold ${px}px Arial, Helvetica, sans-serif`;
-const MIN_BADGE_PX_HEIGHT = Math.round(ICON_SIZE * 0.34);
-/** circle | chip | outline */
-const BADGE_STYLE = "outline";
+const MIN_BADGE_PX_HEIGHT = Math.round(ICON_SIZE * 0.28);
+/** circle | chip | outline | pill | numeral */
+const BADGE_STYLE = "numeral";
 
-const GLYPHS = [
+const ACTIVITY_KINDS = [
   "issue",
   "pullRequest",
-  "star",
-  "watch",
   "notification",
-  "repo",
-  "settings",
-  "refresh",
-  "open",
-  "about",
-  "signIn",
-  "activity",
-  "external",
-  "hint",
-  "prReview",
-  "myPr",
-  "prWait",
-  "milestone",
-  "project",
+  "discussion",
+  "release",
+  "commit",
+  "security",
+  "check",
 ];
 
-const GLYPH_COLORS = {
-  issue: "#d97706",
-  pullRequest: "#7c3aed",
-  star: "#ca8a04",
-  watch: "#0891b2",
-  notification: "#4f46e5",
-  repo: "#64748b",
-  settings: "#475569",
-  refresh: "#2563eb",
-  open: "#0f172a",
-  about: "#0369a1",
-  signIn: "#059669",
-  activity: "#6366f1",
-  external: "#4f46e5",
-  hint: "#ea580c",
-  prReview: "#ca8a04",
-  myPr: "#7c3aed",
-  prWait: "#94a3b8",
-  milestone: "#0d9488",
-  project: "#2563eb",
+/** Base tray glyphs — Lucide icon name + mockup background color. */
+const GLYPH_DEFS = {
+  issue: { lucide: "CircleDot", color: "#ea580c" },
+  pullRequest: { lucide: "GitPullRequest", color: "#7c3aed" },
+  star: { lucide: "Star", color: "#ca8a04" },
+  watch: { lucide: "Eye", color: "#16a34a" },
+  notification: { lucide: "Bell", color: "#e11d48" },
+  repo: { lucide: "FolderGit2", color: "#ea580c" },
+  settings: { lucide: "Settings", color: "#475569" },
+  refresh: { lucide: "RefreshCw", color: "#2563eb" },
+  open: { lucide: "ExternalLink", color: "#0f172a" },
+  about: { lucide: "Info", color: "#0369a1" },
+  signIn: { lucide: "KeyRound", color: "#059669" },
+  activity: { lucide: "Activity", color: "#2563eb" },
+  external: { lucide: "ExternalLink", color: "#4f46e5" },
+  hint: { lucide: "CircleAlert", color: "#ea580c" },
+  prReview: { lucide: "Users", color: "#ca8a04" },
+  myPr: { lucide: "User", color: "#7c3aed" },
+  prWait: { lucide: "Clock", color: "#94a3b8" },
+  milestone: { lucide: "Flag", color: "#7c3aed" },
+  project: { lucide: "Columns3", color: "#0d9488" },
+  discussion: { lucide: "MessageSquare", color: "#ea580c" },
+  pullRequestCiSuccess: { lucide: "CircleCheck", color: "#16a34a" },
+  pullRequestCiFailure: { lucide: "CircleX", color: "#dc2626" },
+  pullRequestCiPending: { lucide: "LoaderCircle", color: "#64748b" },
+  issueDraft: { lucide: "GitPullRequestDraft", color: "#94a3b8" },
 };
 
-const GLYPH_LETTERS = {
-  issue: "●",
-  pullRequest: "⇄",
-  star: "★",
-  watch: "◎",
-  notification: "◉",
-  repo: "▣",
-  settings: "⚙",
-  refresh: "↻",
-  open: "⧉",
-  about: "i",
-  signIn: "@",
-  activity: "≡",
-  external: "↗",
-  hint: "!",
-  prReview: "◎",
-  myPr: "M",
-  prWait: "…",
-  milestone: "◆",
-  project: "▦",
+const ACTIVITY_KIND_DEF = {
+  issue: GLYPH_DEFS.issue,
+  pullRequest: GLYPH_DEFS.pullRequest,
+  notification: GLYPH_DEFS.notification,
+  discussion: GLYPH_DEFS.discussion,
+  release: { lucide: "Tag", color: "#2563eb" },
+  commit: { lucide: "GitCommitHorizontal", color: "#0d9488" },
+  security: { lucide: "ShieldAlert", color: "#dc2626" },
+  check: { lucide: "CircleCheck", color: "#16a34a" },
 };
+
+const CHANGE_BADGE = {
+  added: { lucide: "Plus", color: "#16a34a" },
+  updated: { lucide: "Pencil", color: "#2563eb" },
+};
+
+const GLYPHS = [
+  ...Object.keys(GLYPH_DEFS),
+  ...ACTIVITY_KINDS.flatMap((kind) => [`${kind}Added`, `${kind}Updated`]),
+];
+
+const iconImageCache = new Map();
+
+function iconToSvg(lucideName, size = 24, color = "#ffffff", stroke = 2) {
+  const nodes = icons[lucideName];
+  if (!nodes) throw new Error(`Unknown lucide icon: ${lucideName}`);
+
+  const body = nodes
+    .map(([tag, attrs]) => {
+      const attrStr = Object.entries(attrs)
+        .map(([k, v]) => `${k}="${v}"`)
+        .join(" ");
+      return `<${tag} ${attrStr}/>`;
+    })
+    .join("");
+
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round">${body}</svg>`;
+}
+
+async function loadLucideIcon(lucideName, size, color, stroke = 2) {
+  const key = `${lucideName}:${size}:${color}:${stroke}`;
+  if (iconImageCache.has(key)) return iconImageCache.get(key);
+
+  const svg = iconToSvg(lucideName, size, color, stroke);
+  const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svg).toString("base64")}`;
+  const image = await loadImage(dataUrl);
+  iconImageCache.set(key, image);
+  return image;
+}
 
 function roundRect(ctx, x, y, w, h, r) {
   const radius = Math.min(r, w / 2, h / 2);
@@ -95,23 +119,55 @@ function roundRect(ctx, x, y, w, h, r) {
   ctx.closePath();
 }
 
-function drawGlyph(ctx, size, kind) {
-  const color = GLYPH_COLORS[kind];
+function drawRoundedBackground(ctx, size, color) {
   const pad = size * 0.18;
-
   roundRect(ctx, pad, pad, size - pad * 2, size - pad * 2, size * 0.22);
   ctx.fillStyle = color;
   ctx.fill();
+}
 
-  ctx.fillStyle = "#ffffff";
-  ctx.textAlign = "center";
-  ctx.textBaseline = "middle";
-  ctx.font = BADGE_FONT(Math.round(size * 0.34));
-  ctx.fillText(GLYPH_LETTERS[kind], size / 2, size / 2 + 0.5);
+async function drawLucideGlyph(ctx, size, lucideName, iconSize = null) {
+  const pad = size * 0.18;
+  const inner = size - pad * 2;
+  const glyphSize = iconSize ?? Math.round(inner * 0.62);
+  const offset = (size - glyphSize) / 2;
+  const image = await loadLucideIcon(lucideName, 24, "#ffffff", 2);
+  ctx.drawImage(image, offset, offset, glyphSize, glyphSize);
+}
+
+async function drawGlyph(ctx, size, kind) {
+  const def = GLYPH_DEFS[kind] ?? ACTIVITY_KIND_DEF[kind.replace(/(Added|Updated)$/, "")];
+  if (!def) throw new Error(`Missing glyph definition: ${kind}`);
+
+  drawRoundedBackground(ctx, size, def.color);
+  await drawLucideGlyph(ctx, size, def.lucide);
+}
+
+async function drawActivityComposite(ctx, size, kind, change) {
+  const base = ACTIVITY_KIND_DEF[kind];
+  if (!base) throw new Error(`Missing activity kind: ${kind}`);
+
+  drawRoundedBackground(ctx, size, base.color);
+  await drawLucideGlyph(ctx, size, base.lucide, Math.round(size * 0.38));
+
+  const badge = CHANGE_BADGE[change];
+  const badgeSize = Math.round(size * 0.34);
+  const x = size - badgeSize + 1;
+  const y = -1;
+  roundRect(ctx, x, y, badgeSize, badgeSize, badgeSize * 0.28);
+  ctx.fillStyle = badge.color;
+  ctx.fill();
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 1.25;
+  ctx.stroke();
+
+  const image = await loadLucideIcon(badge.lucide, 24, "#ffffff", 2.5);
+  const pad = Math.round(badgeSize * 0.18);
+  ctx.drawImage(image, x + pad, y + pad, badgeSize - pad * 2, badgeSize - pad * 2);
 }
 
 function badgeFontSize(label, size) {
-  return Math.round(size * (label.length > 1 ? 0.4 : 0.5));
+  return Math.round(size * (label.length > 1 ? 0.36 : 0.42));
 }
 
 function badgeBox(ctx, label, fontSize, size) {
@@ -200,15 +256,45 @@ function drawBadgeLegacyPill(ctx, size, label, fontSize) {
   return { badgeW: w, badgeH: h };
 }
 
+/** Outlined numerals in the corner — no solid chip covering the glyph. */
+function drawBadgeNumeral(ctx, size, label, fontSize) {
+  const insetX = Math.round(size * 0.1);
+  const insetY = Math.round(size * 0.08);
+  const strokeWidth = Math.max(2.5, Math.round(fontSize * 0.22));
+
+  ctx.font = BADGE_FONT(fontSize);
+  ctx.textAlign = "right";
+  ctx.textBaseline = "top";
+  ctx.lineJoin = "round";
+  ctx.miterLimit = 2;
+  ctx.lineWidth = strokeWidth;
+
+  const x = size - insetX;
+  const y = insetY;
+
+  ctx.strokeStyle = "#ffffff";
+  ctx.strokeText(label, x, y);
+
+  ctx.fillStyle = "#e11d48";
+  ctx.fillText(label, x, y);
+
+  const textW = ctx.measureText(label).width;
+  const badgeH = Math.ceil(fontSize * 1.05 + strokeWidth);
+  const badgeW = Math.ceil(textW + strokeWidth);
+
+  return { badgeW, badgeH };
+}
+
 const BADGE_STYLES = {
   circle: drawBadgeCircle,
   chip: drawBadgeChip,
   outline: drawBadgeOutline,
   pill: drawBadgeLegacyPill,
+  numeral: drawBadgeNumeral,
 };
 
-function drawBadgeWithStyle(ctx, size, kind, count, style) {
-  drawGlyph(ctx, size, kind);
+async function drawBadgeWithStyle(ctx, size, kind, count, style) {
+  await drawGlyph(ctx, size, kind);
   if (count <= 0) return null;
 
   const label = count > 9 ? "9+" : String(count);
@@ -219,36 +305,50 @@ function drawBadgeWithStyle(ctx, size, kind, count, style) {
   return { label, fontSize, style, badgeW, badgeH };
 }
 
-function drawBadge(ctx, size, kind, count) {
+async function drawBadge(ctx, size, kind, count) {
   return drawBadgeWithStyle(ctx, size, kind, count, BADGE_STYLE);
 }
 
-function render(draw) {
+async function render(draw) {
   const canvas = createCanvas(ICON_SIZE, ICON_SIZE);
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, ICON_SIZE, ICON_SIZE);
-  const meta = draw(ctx, ICON_SIZE);
+  const meta = await draw(ctx, ICON_SIZE);
   return { png: canvas.toBuffer("image/png"), meta };
+}
+
+function resolveGlyphDraw(kind) {
+  const addedMatch = kind.match(/^(.+)Added$/);
+  if (addedMatch) {
+    const baseKind = addedMatch[1];
+    return (ctx, size) => drawActivityComposite(ctx, size, baseKind, "added");
+  }
+  const updatedMatch = kind.match(/^(.+)Updated$/);
+  if (updatedMatch) {
+    const baseKind = updatedMatch[1];
+    return (ctx, size) => drawActivityComposite(ctx, size, baseKind, "updated");
+  }
+  return (ctx, size) => drawGlyph(ctx, size, kind);
 }
 
 await mkdir(path.join(outDir, "glyph"), { recursive: true });
 await mkdir(path.join(outDir, "badge"), { recursive: true });
 
+const badgeKinds = [...Object.keys(GLYPH_DEFS)];
+
 for (const kind of GLYPHS) {
-  const { png } = render((ctx, size) => {
-    drawGlyph(ctx, size, kind);
-    return null;
-  });
+  const draw = resolveGlyphDraw(kind);
+  const { png } = await render(draw);
   await writeFile(path.join(outDir, "glyph", `${kind}.png`), png);
 }
 
 const badgeCounts = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 const qaSamples = [];
 
-for (const kind of GLYPHS) {
+for (const kind of badgeKinds) {
   for (const count of badgeCounts) {
     const suffix = count > 9 ? "9plus" : String(count);
-    const { png, meta } = render((ctx, size) => drawBadge(ctx, size, kind, count));
+    const { png, meta } = await render((ctx, size) => drawBadge(ctx, size, kind, count));
     await writeFile(path.join(outDir, "badge", `${kind}-${suffix}.png`), png);
 
     if (kind === "issue" && [1, 5, 10].includes(count) && meta) {
@@ -269,7 +369,7 @@ for (const sample of qaSamples) {
 }
 
 const zoom = 6;
-const variantStyles = ["circle", "chip", "outline", "pill"];
+const variantStyles = ["numeral", "outline", "circle", "chip"];
 const variantCounts = [1, 5, 10];
 const variantPreview = createCanvas(
   ICON_SIZE * zoom * variantStyles.length,
@@ -283,7 +383,7 @@ for (let row = 0; row < variantCounts.length; row++) {
   for (let col = 0; col < variantStyles.length; col++) {
     const count = variantCounts[row];
     const style = variantStyles[col];
-    const { png } = render((ctx, size) => drawBadgeWithStyle(ctx, size, "issue", count, style));
+    const { png } = await render((ctx, size) => drawBadgeWithStyle(ctx, size, "issue", count, style));
     const img = await loadImage(png);
     vpctx.drawImage(
       img,
@@ -304,14 +404,14 @@ pctx.fillRect(0, 0, preview.width, preview.height);
 
 for (let i = 0; i < qaSamples.length; i++) {
   const count = qaSamples[i].count;
-  const { png } = render((ctx, size) => drawBadge(ctx, size, "issue", count));
+  const { png } = await render((ctx, size) => drawBadge(ctx, size, "issue", count));
   const img = await loadImage(png);
   pctx.drawImage(img, i * ICON_SIZE * zoom, 0, ICON_SIZE * zoom, ICON_SIZE * zoom);
 }
 
 await writeFile(path.join(outDir, "_preview-badge.png"), preview.toBuffer("image/png"));
 
-console.log(`Wrote ${GLYPHS.length} glyphs and ${GLYPHS.length * badgeCounts.length} badges to ${outDir}`);
+console.log(`Wrote ${GLYPHS.length} glyphs and ${badgeKinds.length * badgeCounts.length} badges to ${outDir}`);
 console.log(`Style: ${BADGE_STYLE}`);
 console.log(`Preview: ${path.join(outDir, "_preview-badge.png")}`);
 console.log(`Variants: ${path.join(outDir, "_preview-variants.png")}`);

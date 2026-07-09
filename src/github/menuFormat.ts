@@ -1,4 +1,4 @@
-import type { GitHubIssue, PrCiStatus, ProjectItem, StarredRepo, WatchedRepo } from "./types";
+import type { GitHubIssue, ProjectItem, StarredRepo, WatchedRepo } from "./types";
 
 export const MENU_TEXT_MAX = 58;
 
@@ -11,18 +11,8 @@ export function submenuWithCount(label: string, count: number): string {
   return `${label} (${count})`;
 }
 
-export function countDeltaSuffix(delta?: number): string {
-  if (!delta || delta <= 0) return "";
-  return ` ↑${delta}`;
-}
-
-export function submenuWithCountAndDelta(label: string, count: number, delta?: number): string {
-  return `${submenuWithCount(label, count)}${countDeltaSuffix(delta)}`;
-}
-
-export function labelWithCountAndDelta(label: string, delta?: number): string {
-  if (!delta || delta <= 0) return label;
-  return `${label}${countDeltaSuffix(delta)}`;
+export function labelWithCount(label: string, count: number): string {
+  return submenuWithCount(label, count);
 }
 
 export function categoryWithCount(label: string, count: number): string {
@@ -60,29 +50,16 @@ export function formatTrayMenuRow(main: string, updatedAt?: string, max = MENU_T
   return `${left}\t${date}`;
 }
 
-export function formatPrCiSuffix(status?: PrCiStatus): string {
-  if (!status || status.state === "none") return "";
-  if (status.state === "success") return " ✓";
-  if (status.state === "failure") return " ✗";
-  return " · CI…";
-}
-
 export function formatIssueMainLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
   const parts: string[] = [`#${issue.number}`];
-  if (issue.draft) parts.push("[draft]");
   const labels = issue.labels.slice(0, 2).map((l) => l.name);
   if (labels.length) parts.push(`${labels.join(",")}:`);
   parts.push(issue.title);
   return truncate(parts.join(" "), max);
 }
 
-export function formatIssueTrayLabel(
-  issue: GitHubIssue,
-  max = MENU_TEXT_MAX,
-  ciStatus?: PrCiStatus,
-): string {
-  const main = `${formatIssueMainLabel(issue, max)}${formatPrCiSuffix(ciStatus)}`;
-  return formatTrayMenuRow(main, issue.updated_at, max);
+export function formatIssueTrayLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
+  return formatTrayMenuRow(formatIssueMainLabel(issue, max), issue.updated_at, max);
 }
 
 export function formatProjectItemTrayLabel(item: ProjectItem, max = MENU_TEXT_MAX): string {
@@ -91,15 +68,15 @@ export function formatProjectItemTrayLabel(item: ProjectItem, max = MENU_TEXT_MA
 }
 
 export function starredRepoLabel(repo: StarredRepo | WatchedRepo): string {
-  return withDateSuffix(`${repo.full_name} ★ ${compactCount(repo.stargazers_count)}`, repo.updated_at);
+  return withDateSuffix(repo.full_name, repo.updated_at);
 }
 
 export function starredRepoTrayLabel(repo: StarredRepo | WatchedRepo, max = MENU_TEXT_MAX): string {
-  return formatTrayMenuRow(
-    `${repo.full_name} ★ ${compactCount(repo.stargazers_count)}`,
-    repo.updated_at,
-    max,
-  );
+  const left = truncate(repo.full_name, max);
+  const count = compactCount(repo.stargazers_count);
+  const date = formatTrayMenuDate(repo.updated_at);
+  if (date) return `${left}\t${count} · ${date}`;
+  return `${left}\t${count}`;
 }
 
 export function formatItemLabel(issue: GitHubIssue, max = MENU_TEXT_MAX): string {
