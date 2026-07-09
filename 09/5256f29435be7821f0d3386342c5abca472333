@@ -1,0 +1,28 @@
+src/tray/menuBuilders.ts
+  s_6a7a7af2ceeb96::t_88a19051ee75ec 336,339,1038,1041,1157,1160
+package.json
+  s_6a7a7af2ceeb96::t_a6e34a1c4873f0 3
+scripts/generate-tray-icons.mjs
+  s_6a7a7af2ceeb96::t_2640583343ffeb 307-313,319
+  s_6a7a7af2ceeb96::t_a56ff1ac8eec3d 194
+  s_6a7a7af2ceeb96::t_db6a71ca320a80 199
+  s_6a7a7af2ceeb96::t_29c9b6a1c8cdc5 351
+src/tray/trayIconGenerator.ts
+  s_6a7a7af2ceeb96::t_ad5b843a7491ec 14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "095256f29435be7821f0d3386342c5abca472333",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
