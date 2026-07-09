@@ -1,0 +1,51 @@
+scripts/generate-tray-icons.mjs
+  s_6a7a7af2ceeb96::t_3953f9f071e251 137-140,156,158-159,171-172,174,178-179,182-183,185,395
+  s_6a7a7af2ceeb96::t_e5abc0b77b4bbd 387
+  s_6a7a7af2ceeb96::t_a7fbe6617bcc85 392-393
+  s_6a7a7af2ceeb96::t_62b0d1845943c4 402
+  s_6a7a7af2ceeb96::t_d9342906c47144 343-344,346
+  s_6a7a7af2ceeb96::t_6ac9fb9e2ed93d 114,118,125
+  s_6a7a7af2ceeb96::t_ff44671d0bdd8b 42
+  s_6a7a7af2ceeb96::t_8e6bad56b323b7 297,299-301,303
+  s_6a7a7af2ceeb96::t_26713642a6a23f 337
+  s_6a7a7af2ceeb96::t_bdeeae05c65ebc 112,115-116,120,123,126-127
+  s_6a7a7af2ceeb96::t_273f97a5b2ac95 143-144,146,149
+  s_6a7a7af2ceeb96::t_ef0108eb2430b5 338-339,342
+  s_6a7a7af2ceeb96::t_16cdeb9b98ae0b 340
+  s_6a7a7af2ceeb96::t_4a9e6a24a7847f 373,394
+  s_6a7a7af2ceeb96::t_94d3ff0e58e7d3 428-431
+  s_6a7a7af2ceeb96::t_6da7eef4156d77 413-414
+  s_6a7a7af2ceeb96::t_a78c5b740e91df 47-111,129-130,135-136
+  s_6a7a7af2ceeb96::t_492e88a3e79f47 403-412,416-424,426,436
+  s_6a7a7af2ceeb96::t_4da092437e3f72 454
+  s_6a7a7af2ceeb96::t_7680d3fe5c24c7 40-41,43-44
+  s_6a7a7af2ceeb96::t_c8bea4a81d117b 370,374-380
+  s_6a7a7af2ceeb96::t_9631e5d58316ab 398-399
+  s_6a7a7af2ceeb96::t_df794db06bbbb9 306,310
+  s_6a7a7af2ceeb96::t_e35bbf09191ed4 456
+  s_6a7a7af2ceeb96::t_404ae266e1dbb4 141-142,145,147-148,150-155,157,160-169,173,175,180,184
+  s_6a7a7af2ceeb96::t_22070411ec67ce 39,113,117,119,121-122,124,128,131-134
+  s_6a7a7af2ceeb96::t_7481a1f31a848b 46
+  s_6a7a7af2ceeb96::t_a1de6fc7f9a548 170,176-177,181
+  s_6a7a7af2ceeb96::t_912ce3cb9116bb 45
+  s_6a7a7af2ceeb96::t_689c9dc0ee52e4 396
+  s_6a7a7af2ceeb96::t_ac86b78a9f4f7c 438
+package.json
+  s_6a7a7af2ceeb96::t_9c63ee4e3f437f 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "8ca76361a6d423e811c50b95fcbf26e512caa597",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
