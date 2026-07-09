@@ -1,0 +1,30 @@
+src/composables/useAppBootstrap.ts
+  s_ade3fb2a5bf90e::t_e05a871273915e 18
+src/plugins/piniaTauriStore.ts
+  s_ade3fb2a5bf90e::t_dd231965e6b409 57
+  s_ade3fb2a5bf90e::t_08162d0728fd1e 29
+  s_ade3fb2a5bf90e::t_f5df5e5478708f 20-24,30-37
+  s_ade3fb2a5bf90e::t_5fe3a4341c24ff 65-68
+  s_ade3fb2a5bf90e::t_0223521a012360 38-39
+src/plugins/piniaTauriStore.test.ts
+  s_ade3fb2a5bf90e::t_b40e5ea38ced7d 1,3,5-21
+  s_ade3fb2a5bf90e::t_ffca14c843da5b 2,4
+src/stores/githubStore.ts
+  s_ade3fb2a5bf90e::t_c735dd3014ec31 424-430
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.10",
+  "base_commit_sha": "6249a79a945da39691721bc0c2cc23f3aecf22e8",
+  "prompts": {},
+  "sessions": {
+    "s_ade3fb2a5bf90e": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8d066540-dcac-4ce5-a9c5-865a42127964",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
