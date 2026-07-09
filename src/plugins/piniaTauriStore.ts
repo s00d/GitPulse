@@ -17,8 +17,24 @@ const defaultOptions: Required<PersistedStoreOptions> = {
   autoSave: 200,
 };
 
+/** Session-only fields that must not survive app restarts. */
+const EPHEMERAL_STORE_KEYS: Record<string, readonly string[]> = {
+  github: ["isLoading", "isBootstrapped"],
+};
+
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === "object" && value !== null;
+}
+
+export function omitEphemeralKeys(storeId: string, state: Record<string, unknown>): Record<string, unknown> {
+  const omit = EPHEMERAL_STORE_KEYS[storeId];
+  if (!omit?.length) return state;
+
+  const next = { ...state };
+  for (const key of omit) {
+    delete next[key];
+  }
+  return next;
 }
 
 export function createTauriPiniaPersistPlugin(options: PersistedStoreOptions = {}) {
@@ -38,7 +54,7 @@ export function createTauriPiniaPersistPlugin(options: PersistedStoreOptions = {
 
       if (isRecord(savedState)) {
         store.$patch((state) => {
-          Object.assign(state, savedState);
+          Object.assign(state, omitEphemeralKeys(store.$id, savedState));
         });
       }
     })();
@@ -46,7 +62,10 @@ export function createTauriPiniaPersistPlugin(options: PersistedStoreOptions = {
     store.$subscribe(
       async (_mutation, state) => {
         await withMeta.__tauriPersistHydrated;
-        await tauriStore.set(storageKey, state);
+        await tauriStore.set(
+          storageKey,
+          isRecord(state) ? omitEphemeralKeys(store.$id, state) : state,
+        );
       },
       { detached: true },
     );

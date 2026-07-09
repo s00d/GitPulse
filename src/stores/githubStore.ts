@@ -421,6 +421,13 @@ export const useGitHubStore = defineStore("github", {
       this.isBootstrapped = value;
     },
 
+    async resetBootstrapState() {
+      const meta = this as typeof this & { __tauriPersistHydrated?: Promise<void> };
+      await meta.__tauriPersistHydrated;
+      this.isLoading = false;
+      this.isBootstrapped = false;
+    },
+
     isRefreshDue(): boolean {
       return isRefreshDue(this.lastRefreshed, this.refreshInterval);
     },

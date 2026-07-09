@@ -14,9 +14,8 @@ export function useAppBootstrap() {
   const refreshStore = useRefreshStore();
 
   onMounted(() => {
-    githubStore.setBootstrapped(false);
-
     void (async () => {
+      await githubStore.resetBootstrapState();
       await Promise.all([
         listen("app://ready", () => {
           void trayMenu.rebuild();
@@ -78,11 +77,6 @@ export function useAppBootstrap() {
         if (githubStore.hasToken) {
           await githubStore.hydrateFromCache();
           githubStore.reconfigurePolling();
-          if (githubStore.isRefreshDue()) {
-            void githubStore.refresh({ source: "bootstrap" }).catch(() => {
-              // error stored in githubStore
-            });
-          }
         }
       } catch (err) {
         console.error("[GitPulse] background init failed:", err);
