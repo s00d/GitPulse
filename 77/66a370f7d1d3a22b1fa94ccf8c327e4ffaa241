@@ -1,0 +1,21 @@
+src-tauri/src/lib.rs
+  s_6a7a7af2ceeb96::t_fa5ab5984558aa 149-150,156
+package.json
+  s_6a7a7af2ceeb96::t_4a411da1825ce1 3
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.6.13",
+  "base_commit_sha": "7766a370f7d1d3a22b1fa94ccf8c327e4ffaa241",
+  "prompts": {},
+  "sessions": {
+    "s_6a7a7af2ceeb96": {
+      "agent_id": {
+        "tool": "cursor",
+        "id": "8a89c589-5ec9-4c26-8fc1-902471266684",
+        "model": "default"
+      },
+      "human_author": "Pavel Kuzmin <Virus191288@gmail.com>"
+    }
+  }
+}
