@@ -138,7 +138,6 @@ fn configure_main_window(app: &tauri::App) -> tauri::Result<()> {
 fn setup_tray(app: &tauri::App) -> tauri::Result<()> {
     use tauri::menu::{Menu, MenuItem};
     use tauri::tray::TrayIconBuilder;
-    use tauri_plugin_opener::OpenerExt;
 
     let Some(icon) = app.default_window_icon() else {
         return Ok(());
@@ -147,24 +146,15 @@ fn setup_tray(app: &tauri::App) -> tauri::Result<()> {
     let loading = MenuItem::with_id(app, "loading", "Loading…", false, None::<&str>)?;
     let menu = Menu::with_items(app, &[&loading])?;
 
+    // Menu item clicks are handled by JS `action` callbacks in menuBuilders.
+    // Keep quit here as a safety net if the frontend action does not run.
     let _ = TrayIconBuilder::with_id("main-tray")
         .icon(icon.clone())
         .menu(&menu)
         .show_menu_on_left_click(true)
         .on_menu_event(|app_handle, event| {
-            let id = event.id.as_ref();
-            if id == "action:quit" {
+            if event.id.as_ref() == "action:quit" {
                 app_handle.exit(0);
-            } else if id == "action:open" {
-                let _ = show_main_window(app_handle.clone());
-            } else if id == "action:settings" {
-                let _ = show_settings_window(app_handle.clone());
-            } else if id == "action:refresh" {
-                let _ = app_handle.emit("tray://action", "refresh");
-            } else if id == "action:about" {
-                let _ = app_handle.opener().open_url("https://github.com/s00d/GitPulse", None::<&str>);
-            } else if let Some(url) = id.strip_prefix("open:") {
-                let _ = app_handle.emit("tray://open", url.to_string());
             }
         })
         .build(app)?;

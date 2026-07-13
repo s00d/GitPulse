@@ -1,7 +1,5 @@
 import { invoke } from "@tauri-apps/api/core";
-import { listen } from "@tauri-apps/api/event";
 import { TrayIcon } from "@tauri-apps/api/tray";
-import { openUrl } from "@tauri-apps/plugin-opener";
 import { storeToRefs } from "pinia";
 import { useI18n } from "vue-i18n";
 import { useGitHubStore } from "@/stores/githubStore";
@@ -104,16 +102,6 @@ export function useTrayMenu() {
   }
 
   async function init() {
-    await listen<string>("tray://open", (event) => {
-      void openUrl(event.payload).catch(() => {
-        // ignore opener failures outside Tauri
-      });
-    });
-    await listen("tray://action", async (event) => {
-      if (event.payload === "refresh") {
-        await store.refresh({ source: "manual" });
-      }
-    });
     await rebuild();
   }
 
